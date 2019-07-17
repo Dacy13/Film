@@ -1,0 +1,22 @@
+.parallax {
+  /* The image used */
+    background-image: url("../images/projektor.jpg");
+
+  /* Set a specific height */
+    min-height: 500px; 
+
+  /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	
+/*	background-attachment: scroll;*/
+}
+
+.content{
+	
+	height:1000px;
+	background-color: bisque;
+	font-size:36px;
+}

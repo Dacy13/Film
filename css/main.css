@@ -1,0 +1,117 @@
+body,html{	
+	
+/*	background-image: url("./images/projektor.jpg");*/
+/*	background-color: darkslategray;*/
+/*	background-repeat: no-repeat;*/
+/*	background-position: center;*/
+/*	background-size: cover;*/
+/*	width: 100%;*/
+/*	height: 100%;*/
+	margin: 0px;
+	padding: 0px;
+}
+
+.parallax {
+  /* The image used */
+    background-image: url("../images/projektor.jpg");
+
+  /* Set a specific height */
+    min-height: 300px; 
+
+  /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	
+/*	background-attachment: scroll;*/
+}
+
+/* Turn off parallax scrolling for all tablets and phones. Increase/decrease the pixels if needed */
+@media only screen and (max-device-width: 1366px) {
+  .parallax {
+	  
+    background-attachment: scroll;
+  }
+}
+
+#slika{
+	
+    padding: 300px;
+    width: 1550px;
+/*	margin: 100px;*/
+/*	background-color: darkgrey;*/
+    height: 70px;	
+}
+
+#content{
+    background-image: url("../images/naslovna.jpg");
+    min-height: 350px;
+    height: 850px;
+    /*height: auto;*/
+    background-color: #c8dad3;
+}
+
+.result{
+/*    height: 700px;*/
+    
+}
+#home{
+	
+    background-color: #f8f8f8;
+    height: 100%;
+}
+
+#jumbo{
+	
+    margin: 0;
+    background-color: #89a3b2;
+}
+
+a:hover{
+	
+    color: #b2d3be !important;
+}
+
+#usersearch{
+	
+/*	padding: 30px;*/
+/*	width: 800px;*/
+/*	margin: 100px;*/
+/*	background-color: darkgrey;*/
+	height: 70px;	
+}
+
+#collapse1{
+    background-color: #c8dad3;
+}
+.card-header{
+    background-color: aqua;
+}
+#collapseTwo{
+    background-color: black;
+/*	color: white;*/
+}
+#heading2{
+    background-color: gray;
+}
+#admin{
+/*	background-color: cadetblue;*/
+    height: 700px;
+    width: 100%;
+}
+#apanel{
+    width: 100%;
+    background-color: azure;
+    height: 100%;
+}
+
+.card-body{
+    background-color: #252525;
+}
+.row{
+    width: 100%;
+}
+#traka{
+    background-image: url("../images/traka2.jpg");
+}
