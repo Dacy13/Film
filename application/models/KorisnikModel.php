@@ -29,7 +29,6 @@ class KorisnikModel extends CI_Model{
         $this->db->from('festivali');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
         $this->db->order_by('festivali.StartDate', 'ASC');  
-      //  $this->db->where('festivali.IdFest', $idFest);
         $this->db->limit('5');
         
         $query = $this->db->get();
@@ -38,6 +37,23 @@ class KorisnikModel extends CI_Model{
         
         
     }
+    // datum kada pocinje festival
+    
+    public function pocetak() {
+        
+    $query = $this->db->get_where('festivali', 'StartDate');
+        
+        return $query->result_array();
+      
+    }
+    
+    //datum kada se zavrsava festival
+    
+    public function kraj() {
+        $query = $this->db->get_where('festivali', 'EndDate');
+        return $query->result_array();
+    }
+    
     
     // pretraga festivala i filmova
     
@@ -58,9 +74,6 @@ class KorisnikModel extends CI_Model{
         return $query->result_array();
     
    
-   }
-     
-             
-             
+   }     
         
 }

@@ -10,35 +10,76 @@ class KorisnikKontroler extends CI_Controller {
 //        if(!$this->session->has_userdata('user'))  
 //      
 //            redirect('/Login'); 
-        
+      
+      $this->load->model('KorisnikModel');
     }
     
     public function index() {
         
 //        if($this->session->user != null ){
-//            redirect('/KorisnickiKontroler');
+//            redirect('/KorisnikKontroler');
 //        }
+    
+        $start = $this->KorisnikModel->pocetak();
+        $kraj = $this->KorisnikModel->kraj();
         
+        //sa $sad i $time povlacimo danasnji datum, pa u if-u uporedjujemo sa pocetkom/krajem festivala
+        
+        $sad = date("Y-m-d");
+        $time = date('Y-m-d', strtotime($sad));
+        
+        if( ( $time >= $start || $time<= $start) && $time<$kraj){
+             $festivali = $this->KorisnikModel->prikaziFestivale();
+        }
+
         $data['middle'] = 'middle/korisnik';
+        $data['middleData'] = ['festivali' => $festivali];
         $this->load->view('basicTemplate', $data);
     }
     
-    
-    //funkcija za prikazivanje 5 najskorijih festivala
-    
-    public function festivali(){
-        
-        $this->load->model('KorisnikModel');
-        
-        $fest = $this->KorisnikModel->prikaziFestivale();
-        
-        $festOd = $fest['StartDate'];
-        $festDo = $fest['EndDate'];
-        
-        
-        $data['middle'] = 'middle/korisnik';
-        $data['middleData'] = ['festivali' => $fest];
-        $this->load->view('basicTemplate', $data);
-        
-    }
+
+public function proba(){
+   
+    if(isset($_GET['trazi'])) {
+            $imeFest = $this->input->get('imeFest');
+            $engNaziv = $this->input->get('engNaziv');
+            $srbNaziv = $this->input->get('srbNaziv');
+            $pocetak = $this->input->get('od');
+            $zavrsetak = $this->input->get('do');
+
+            $festivali = $this->KorisnikModel->pretragaFestivala();
+
+            $festival = $festivali." where NameFest like '%$imeFest%'";
+                 
+         
+             $start = $this->KorisnikModel->pocetak();
+             $kraj = $this->KorisnikModel->kraj();
+            
+             
+//        da izlista sve festivale koji nisu zavrseni i da moze da se pretrazuje sa vise parametara istovremeno
+//            
+//                 if( (($pocetak >= $start) || ($pocetak <= $start)) && ($pocetak <= kraj)) {
+//                        if(!empty($pocetak)) {
+//                            $festival = $festival . " and StartDate >= $pocetak";
+//                        }
+//
+//                        if(!empty($kraj)) {
+//                            $festival = $festival . " and EndDate <= $kraj";
+//                        }
+//
+//                        if(!empty($engNaziv)) {
+//                             $festival = $festival. " and OriginalTitle = $engNaziv";
+//                        }
+//
+//                        if(!empty($srbNaziv)) {
+//                            $festival = $festival . " and SerbianTitle = $srbNaziv";
+//                        }
+//        
+                $data['middle'] = ['middle/korisnik'];
+                $data['middleData'] = ['festival' => $festival];
+                $this->load->view('basicTemplate', $data);
+                 }
 }
+
+}
+
