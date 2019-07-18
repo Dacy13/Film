@@ -22,38 +22,19 @@ class KorisnikModel extends CI_Model{
         //SELECT NameFest, StartDate, EndDate, Description, Cityname FROM `festivali` 
         //join gradovi where festivali.IdGrad=gradovi.IdGrad 
         //ORDER BY `festivali`.`StartDate` ASC LIMIT 5
-        
-        
-           
+                   
         $this->db->select('IdFest, NameFest, StartDate, EndDate, Description, CityName,');
         $this->db->from('festivali');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+        $this->db->where("StartDate >= NOW() and EndDate > NOW()" );
         $this->db->order_by('festivali.StartDate', 'ASC');  
         $this->db->limit('5');
         
         $query = $this->db->get();
         
         return $query->result_array();
-        
-        
-    }
-    // datum kada pocinje festival
-    
-    public function pocetak() {
-        
-    $query = $this->db->get_where('festivali', 'StartDate');
-        
-        return $query->result_array();
-      
-    }
-    
-    //datum kada se zavrsava festival
-    
-    public function kraj() {
-        $query = $this->db->get_where('festivali', 'EndDate');
-        return $query->result_array();
-    }
-    
+           
+    }  
     
     // pretraga festivala i filmova
     
@@ -75,5 +56,7 @@ class KorisnikModel extends CI_Model{
     
    
    }     
+   
+   
         
 }
