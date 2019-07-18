@@ -21,7 +21,7 @@
                     </div>                   
                     <button type="submit" class="btn btn-outline-light">Login</button>
                 </form>
-                <a href="<?php echo site_url("/KorisnikKontroler")?>">Korisnik</a>
+       
             </div>
                        
             <!--<h3 class="d-flex justify-content-center">Rezultat</h3>
