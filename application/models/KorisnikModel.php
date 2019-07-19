@@ -4,6 +4,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class KorisnikModel extends CI_Model{
     
   
+    
+    function update($id,$data){
+        $this->db->where('Username', $id);
+        $this->db->update('korisnici', $data);
+}
+      public function updateKor($id, $podaci) {
+        
+        $d = ['Name'=>$ime,'Surname'=>$prezime,'Mobile'=>$broj,'Email'=>$mejl];
+        $this->db->where('Username', $id);
+        $this->db->update('korisnici',$d);
+        
+        
+    }
+    
     public function korisnici($id) {
         
         $this->db->select();

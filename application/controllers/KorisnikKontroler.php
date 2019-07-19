@@ -88,9 +88,39 @@ public function pretraga(){
         $id = $this->session->korisnik['Username'];
        $podaci = $this->KorisnikModel->korisnici($id);
      
-     
+       $this->izmena();
         $data['middle'] = 'middle/mojNalog';
         $data['middleData'] = ['podaci' => $podaci];
         $this->load->view('basicTemplate', $data);
     }
+    
+  public function izmena(){
+      
+  if($this->input->post('izmeni') != NULL){
+          $id = $this->session->korisnik['Username'];
+          $ime = $this->post['ime'];
+          $prezime = $this->post['prezime'];
+          $broj = $this->post['broj'];
+          $mejl = $this->post['mejl'];
+          $password = $this->post['password'];
+          $novip= $this->post['novip'];
+          $potvrda= $this->post['potvrda'];
+          
+        $data = array(
+                    'Name' => $ime,
+                    'Surname' => $prezime,
+                    'Mobile' => $broj,
+                    'Email' => $mejl);
+        
+        $this->KorisnikModel->updateKor($id,$data);
+//        $this->nalog();
+        }
+        $this->KorisnikModel->update($id,$data);
+        $this->nalog();
+      }
+      
 }
+      
+      
+      
+  
