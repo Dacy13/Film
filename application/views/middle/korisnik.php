@@ -39,82 +39,124 @@
 
 
 
-<!--   forma za pretragu festivala i filmova-->
+   <!--forma za pretragu festivala i filmova-->
 
-<!--    <div class="row justify-content-center">
-        <form name='pretraga' method='GET' action='value="<?php //$imeFest ?? ""  ?>"'>
+    <div class="row justify-content-center">
+        <form name='pretraga' method='GET' action='value="<?php  ?>"'>
         Naziv festivala:  
-        <input type="text" name="imeFest" value="<?php //$engNaziv ?? "" ?>">
+        <input type="text" name="imeFest" value="<?php ?>">
         Pocetak festivala: 
-        <input type="date" name="od" value="<?php// $pocetak ?? "" ?>">
+        <input type="date" name="od" value="<?php ?>">
         Kraj festivala: 
-        <input type="date" name="do" value="<?php //$zavrsetak ?? "" ?>">
+        <input type="date" name="do" value="<?php  ?>">
          Original naziv filma: 
-        <input type="text" name="engNaziv" value="<?php //$engNaziv ?? "" ?>">
+        <input type="text" name="engNaziv"  value="<?php  ?>">
         Srpski naziv filma: 
-        <input type="text" name="srbNaziv" value="<?php //$srbNaziv ?? "" ?>">
+        <input type="text" name="srbNaziv" value="<?php  ?>">
         <input type='submit' name='trazi' value='Search'>
         </form>
     </div>
-<div>
+
+       <form action="<?php echo $_SERVER['PHP_SELF'];?> " method="post"> 
+        <div class="input-group"> 
+        <input type="text" name="search"  placeholder="Pretraga">
+        </div>
+        <div class="input-group">
+        <input type="submit" value="search" name="save"/>
+        </div>
+    </form>
+   
+    <div>
+        <table class="table">
+                 <thead class="thead-dark">
+                    <tr>
+                        <td>Festival</td>
+                        <td>Pocinje</td>
+                        <td>Zavrsava</td>
+                        <td>Grad</td>
+                        <td>Srpski naziv</td>
+                        <td>Engleski naziv</td>
+                        <td>Datum projekcije</td>
+                        <td>Vreme projekcije</td>
+                        <td>Detalji na linku</td>
+                    </tr>
+                 </thead>
+                 <tbody>
+                 <?php foreach($search as $search_show):?>
+                    <tr>
+                        <td><?php echo $search_show->NameFest?></td>
+                        <td><?php echo $search_show->StartDate?></td>
+                         <td><?php echo$search_show->EndDate?></td>
+                        <td><?php echo $search_show->CityName?></td>
+                        <td><?php echo $search_show->SerbianTitle?></td>
+                        <td><?php echo $search_show->OriginalTitle?></td>
+                        <td><?php echo $search_show->Date?></td>
+                        <td><?php echo $search_show->Time?></td>
+                        <td><?php echo "<a href='fest_info.php?id='>INFO</a>" ?></td>
+                    </tr>
+
+                 <?php endforeach ?>
+                 </tbody>
+        </table>
+    </div> 
+   
+   
+   <!--search forma bez ajaxa-->
+
+
+    <table>
+      <tr>
+          <td>Grad</td>
+          <td>Eng</td>
+          <td>Srb</td>
+          <td>Festival</td>
+          <td>Datum</td>
+          <td>Vreme</td>
+          <td>Link</td>
+      </tr>
+<?php foreach($search as $search_show):?>
+      <tr>
+          <td><?php echo $search_show->CityName?></td>
+          <td><?php echo $search_show->SerbianTitle?></td>
+          <td><?php echo $search_show->OriginalTitle?></td>
+          <td><?php echo $search_show->NameFest?></td>
+          <td><?php echo $search_show->Date?></td>
+          <td><?php echo $search_show->Time?></td>
+          <td><?php echo "<a href='fest_info.php?id='>INFO</a>" ?></td>
+      </tr>
+<?php endforeach ?>
+
+ </table>
+   
+   
+   <!--funkcija za ajax koji delimicno radi kako treba-->
+<script>
+function showHint(str) {
+    if (str.length == 0) { 
+        document.getElementById("result").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("result").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "KorisnikKontroler/ajax?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+</script>
+
     <?php  
-    // var_dump($svi);
-//            foreach ($svi as $row){
+//            foreach ($filmovi as $row){
 //                //$id=$row[0]; 
 //                echo $row['NameFest']." "
 //                   ." <a href='fest_info.php?id='>INFO</a> "
 //                   ."<br>";
-//            }
+//                echo $row['CityName']." ";
+//                echo $row['SerbianTitle']." ";
+//                echo $row['OriginalTitle']." ";
+//                
+          //  }
         ?>
-</div>-->
-
-    <div class="container">
-       <br />
-       <br />
-       <br />
-       <h2 align="center">Pretraga festivala i filmova</h2><br />
-       <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">Pretraga</span>
-                <input type="text" name="search_text" id="search_text" placeholder="Pretraga po detaljima" class="form-control" />
-            </div>
-       </div>
-       <br />
-       <div id="result"></div>
-    </div>
-    <div style="clear:both"></div>
-      <br />
-      <br />
-      <br />
-      <br />
-
-<script>
-$(document).ready(function(){
-
- load_data();
-
- function load_data(query){
-    $.ajax({
-       url:"<?php echo base_url(); ?>ajaxkontroler/fetch",
-       method:"POST",
-       data:{query:query},
-       success:function(data){
-          $('#result').html(data);
-       }
-    })
- }
-
-    $('#search_text').keyup(function(){
-        var search = $(this).val();
-        if(search != ''){
-          load_data(search);
-        }
-        else {
-         load_data();
-        }
-       });
-      });
-</script>
-
-
- 
