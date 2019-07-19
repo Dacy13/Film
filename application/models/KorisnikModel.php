@@ -47,11 +47,12 @@ class KorisnikModel extends CI_Model{
    // projekcije.IdFest=festivali.IdFest and festivali.IdGrad=gradovi.IdGrad
     
     
-        $this->db->select('OriginalTitle, SerbianTitle, Date, Time, NameFest, CityName');
+        $this->db->select('OriginalTitle, SerbianTitle, Date, Time, NameFest, StartDate, EndDate, CityName');
         $this->db->from('filmovi');
         $this->db->join('projekcije', 'filmovi.IdFilm=projekcije.IdFilm');
         $this->db->join('festivali', 'projekcije.IdFest=festivali.IdFest');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+         
         $query = $this->db->get();
         
         return $query->result_array();

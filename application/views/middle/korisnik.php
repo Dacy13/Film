@@ -38,11 +38,10 @@
        </table>
 
 
-
    <!--forma za pretragu festivala i filmova-->
 
-    <div class="row justify-content-center">
-        <form name='pretraga' method='GET' action='value="<?php  ?>"'>
+<!--    <div class="row justify-content-center">
+        <form name='pretraga' method='GET' action='value="<?php echo $_SERVER['PHP_SELF'];?>"'>
         Naziv festivala:  
         <input type="text" name="imeFest" value="<?php ?>">
         Pocetak festivala: 
@@ -55,17 +54,15 @@
         <input type="text" name="srbNaziv" value="<?php  ?>">
         <input type='submit' name='trazi' value='Search'>
         </form>
-    </div>
-
+    </div>-->
+<div class="row justify-content-center">
        <form action="<?php echo $_SERVER['PHP_SELF'];?> " method="post"> 
         <div class="input-group"> 
         <input type="text" name="search"  placeholder="Pretraga">
-        </div>
-        <div class="input-group">
-        <input type="submit" value="search" name="save"/>
+        <input type="submit" value="Search" name="save"/>
         </div>
     </form>
-   
+</div>
     <div>
         <table class="table">
                  <thead class="thead-dark">
@@ -91,8 +88,12 @@
                         <td><?php echo $search_show->SerbianTitle?></td>
                         <td><?php echo $search_show->OriginalTitle?></td>
                         <td><?php echo $search_show->Date?></td>
-                        <td><?php echo $search_show->Time?></td>
-                        <td><?php echo "<a href='fest_info.php?id='>INFO</a>" ?></td>
+                        <td><?php $sat = $search_show->Time;
+                                  $sati = date("H:i", strtotime($sat));
+                                  echo $sati ?></td>
+                        <?php $id = $search_show->IdFest?>
+                        <td><?php echo "<a href='FestKontroler'?id=$id>INFO</a> "?></td>
+                            
                     </tr>
 
                  <?php endforeach ?>
@@ -103,7 +104,7 @@
    
    <!--search forma bez ajaxa-->
 
-
+<!--
     <table>
       <tr>
           <td>Grad</td>
@@ -114,19 +115,19 @@
           <td>Vreme</td>
           <td>Link</td>
       </tr>
-<?php foreach($search as $search_show):?>
+<?php // foreach($search as $search_show):?>
       <tr>
-          <td><?php echo $search_show->CityName?></td>
-          <td><?php echo $search_show->SerbianTitle?></td>
-          <td><?php echo $search_show->OriginalTitle?></td>
-          <td><?php echo $search_show->NameFest?></td>
-          <td><?php echo $search_show->Date?></td>
-          <td><?php echo $search_show->Time?></td>
-          <td><?php echo "<a href='fest_info.php?id='>INFO</a>" ?></td>
+          <td><?php //echo $search_show->CityName?></td>
+          <td><?php// echo $search_show->SerbianTitle?></td>
+          <td><?php //echo $search_show->OriginalTitle?></td>
+          <td><?php //echo $search_show->NameFest?></td>
+          <td><?php //echo $search_show->Date?></td>
+          <td><?php //echo $search_show->Time?></td>
+          <td><?php // echo "<a href='fest_info.php?id='>INFO</a>" ?></td>
       </tr>
-<?php endforeach ?>
+//<?//php endforeach ?>
 
- </table>
+ </table>-->
    
    
    <!--funkcija za ajax koji delimicno radi kako treba-->

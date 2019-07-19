@@ -22,9 +22,9 @@ class KorisnikKontroler extends CI_Controller {
         $svi= $this->search();
         
         $festivali = $this->KorisnikModel->prikaziFestivale();
-        
+       $ime = $this->pretraga();
         $data['middle'] = 'middle/korisnik';
-        $data['middleData'] = ['festivali' => $festivali, 'filmovi'=>$this->KorisnikModel->pretragaFestivala(),
+        $data['middleData'] = ['festivali' => $festivali, 'filmovi'=>$ime,
              'search'=>$svi];
         $this->load->view('basicTemplate', $data);
     }
@@ -43,29 +43,24 @@ class KorisnikKontroler extends CI_Controller {
 public function pretraga(){
    
     if(isset($_GET['trazi'])) {
-            $imeFest = $this->input->get('imeFest');
-            $engNaziv = $this->input->get('engNaziv');
-            $srbNaziv = $this->input->get('srbNaziv');
-            $pocetak = $this->input->get('od');
-            $zavrsetak = $this->input->get('do');
+            $imeFest = $this->input->post('imeFest');
+            $engNaziv = $this->input->post('engNaziv');
+            $srbNaziv = $this->input->post('srbNaziv');
+            $pocetak = $this->input->post('od');
+            $zavrsetak = $this->input->post('do');
 
             
             $poc = date('Y-m-d', strtotime($pocetak));
             $zav = date('Y-m-d', strtotime($zavrsetak));
             
             
-            $svi = $this->KorisnikModel->pretragaFestivala();
+            $svi= $this->KorisnikModel->pretragaFestivala();
 
             $festival = $svi." where NameFest like '%$imeFest%'";
-                 
-         
-             $start = $this->KorisnikModel->pocetak();
-             $kraj = $this->KorisnikModel->kraj();
-            
-            
+                           
        // da izlista sve festivale koji nisu zavrseni i da moze da se pretrazuje sa vise parametara istovremeno
             
-                 if( (($poc >= $start) || ($poc <= $start)) && ($poc <= $kraj)) {
+                // if( (($poc >= $start) || ($poc <= $start)) && ($poc <= $kraj)) {
                         if(!empty($pocetak)) {
                             $festival = $svi . " and StartDate >= $pocetak";
                         }
@@ -82,10 +77,10 @@ public function pretraga(){
                             $festival = $svi . " and SerbianTitle = $srbNaziv";
                         }
         
-                 }
-               
+                // }
+               return $festival;   
     }
-     return $festival;  
+    
 }
 
 }
