@@ -80,7 +80,17 @@ public function pretraga(){
                 // }
                return $festival;   
     }
-    
+ 
 }
 
+
+ public function nalog(){
+        $id = $this->session->korisnik['Username'];
+       $podaci = $this->KorisnikModel->korisnici($id);
+     
+     
+        $data['middle'] = 'middle/mojNalog';
+        $data['middleData'] = ['podaci' => $podaci];
+        $this->load->view('basicTemplate', $data);
+    }
 }

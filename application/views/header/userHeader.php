@@ -28,15 +28,16 @@
 
 <!--   top 	login regg nav-->	
 	<nav class="navbar-top d-flex sticky-top text-light m-0 " style="background-color: #3a9679;">
+                    
 		<div class="container d-flex">
 	<!--	top left-->
-<!--                       <span class="navbar-text text-dark">
-                            <?php // echo $this->session->userdata('korisnici')['Name'].' '.
-//                                       $this->session->userdata('korisnici')['Surname']; ?>
-                        </span>-->
+                    <div class="navbar-brand text-dark">
+                            <?php echo $this->session->korisnik['Name'].' ' ?>
+                            <?php echo $name = $this->session->korisnik['Surname']?>
+                    </div>
 			<ul class="nav mr-auto text-dark ">
-				<li class="nav-item"><a class="nav-link text-dark" href="homepage2.php">Home</a> </li>
-                                <li class="nav-item"><a class="nav-link text-dark" href="<?php //echo site_url( "KorisnikKontroler/mojNalog" ) ?>">Moj nalog</a> </li>
+                                <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url("KorisnikKontroler")?>">Home</a> </li>
+                                <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/nalog" ) ?>">Moj nalog</a> </li>
                                 <li class="nav-item"><a class="nav-link text-dark" href="#">Rezervacija karata</a> </li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">Vesti</a> </li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">Dogadjaji</a> 
@@ -52,10 +53,10 @@
 	</nav>
 
 
-<!--	donji navbar	--><!--style="background-color: #014441;  -->
+	<!--donji navbar	style="background-color: #014441;-->  
         <nav class="navbar navbar-dark sticky-top p-3" id="traka"> 
 		<div class="container d-flex justify-content-center">
-                    <h3 class="text-dark">Projekat</h3>
+                    <h3 class="text-light">Projekat</h3>
 		</div>
 	</nav>
 <!--	<div class="parallax"></div>-->

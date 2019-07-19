@@ -4,7 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class KorisnikModel extends CI_Model{
     
   
-
+    public function korisnici($id) {
+        
+        $this->db->select();
+        $this->db->from('korisnici');
+         $this->db->where('Username', $id);
+        return $this->db->get()->result();
+    }
 
      public function dohvatiKorisnika($username, $password) {
      
