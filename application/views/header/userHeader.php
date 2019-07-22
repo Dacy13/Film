@@ -38,9 +38,10 @@
 			<ul class="nav mr-auto text-dark ">
                                 <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url("KorisnikKontroler")?>">Home</a> </li>
                                 <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/nalog" ) ?>">Moj nalog</a> </li>
-                                <li class="nav-item"><a class="nav-link text-dark" href="#">Rezervacija karata</a> </li>
-				<li class="nav-item"><a class="nav-link text-dark" href="#">Vesti</a> </li>
-				<li class="nav-item"><a class="nav-link text-dark" href="#">Dogadjaji</a> 
+                                <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/istorija")?>">Istorija kupovina</a> </li>
+                                <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/rezervacija") ?>">Rezervacija karata</a> </li>
+				
+				 
 				</li>
 			</ul>
 	<!--	top right-->

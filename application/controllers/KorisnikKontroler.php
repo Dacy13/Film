@@ -87,8 +87,7 @@ public function pretraga(){
  public function nalog(){
         $id = $this->session->korisnik['Username'];
        $podaci = $this->KorisnikModel->korisnici($id);
-     
-       $this->izmena();
+   
         $data['middle'] = 'middle/mojNalog';
         $data['middleData'] = ['podaci' => $podaci];
         $this->load->view('basicTemplate', $data);
@@ -96,28 +95,44 @@ public function pretraga(){
     
   public function izmena(){
       
-  if($this->input->post('izmeni') != NULL){
+  if(!empty(($this->input->post('izmeni')))){
+      
           $id = $this->session->korisnik['Username'];
-          $ime = $this->post['ime'];
-          $prezime = $this->post['prezime'];
-          $broj = $this->post['broj'];
-          $mejl = $this->post['mejl'];
-          $password = $this->post['password'];
-          $novip= $this->post['novip'];
-          $potvrda= $this->post['potvrda'];
+          $sifra = $this->session->korisnik['Password'];
           
-        $data = array(
-                    'Name' => $ime,
-                    'Surname' => $prezime,
-                    'Mobile' => $broj,
-                    'Email' => $mejl);
+          
+          $ime = $this->input->post('ime');
+          $prezime = $this->input->post('prezime');
+          $broj = $this->input->post('broj');
+          $mejl = $this->input->post('mejl');
         
-        $this->KorisnikModel->updateKor($id,$data);
-//        $this->nalog();
+//        $pass = $this->input->post('password');
+//        $novip= $this->input->post('novip');
+//        $potvrda= $this->input->post('potvrda');
+//          
+        
+//        if((!strcmp($pass, $sifra))&& (!strcmp($novip, $potvrda))){
+//             $this->KorisnikModel->updatePas($id, $novip);
+//				
+//        if($sifra == $pass){
+//            if($novip == $potvrda){
+//        $this->KorisnikModel->updatePas($id, $novip);}}
+        
+//        if ($password == $sifra){
+//            $novip= $this->input->post('novip');
+////            $potvrda= $this->input->post('potvrda');
+////            if ($novip === $potvrda) {
+////                $nova = $this->input->post('potvrda');
+////            }
+            
+        $this->KorisnikModel->update($id, $ime, $prezime, $broj, $mejl);
         }
-        $this->KorisnikModel->update($id,$data);
-        $this->nalog();
-      }
+      
+         
+      
+         $this->nalog();
+        }
+    
       
 }
       

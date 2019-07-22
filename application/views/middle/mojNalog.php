@@ -1,5 +1,5 @@
 
-    <form name="promeniPodatke" method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
+<form name="promeniPodatke" method="POST" action="<?php echo site_url('KorisnikKontroler/izmena');?>">
         <?php foreach($podaci as $p) { ?>   
         <div class="form-group row">
             <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
@@ -58,7 +58,7 @@
         </div>
         <div class="form-row">
             <div class="col-sm-10">
-                <button type="submit" name="izmeni" class="btn btn-primary">Izmeni</button>
+                <input type="submit" name="izmeni" class="btn btn-primary" value="Izmeni">
             </div>
         </div>
         <?php } 

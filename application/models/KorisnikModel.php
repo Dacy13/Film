@@ -5,18 +5,26 @@ class KorisnikModel extends CI_Model{
     
   
     
-    function update($id,$data){
+ public function update($id, $ime, $prezime, $broj, $mejl){
+        
+        $pod = array(
+                    'Name' => $ime,
+                    'Surname' => $prezime,
+                    'Mobile' => $broj,
+                    'Email' => $mejl);
+                    //'Password' => $novip);
+        
         $this->db->where('Username', $id);
-        $this->db->update('korisnici', $data);
+        $this->db->update('korisnici', $pod);
 }
-      public function updateKor($id, $podaci) {
-        
-        $d = ['Name'=>$ime,'Surname'=>$prezime,'Mobile'=>$broj,'Email'=>$mejl];
-        $this->db->where('Username', $id);
-        $this->db->update('korisnici',$d);
-        
-        
-    }
+   public function updatePas($id, $novip){
+      
+      $pas = array('Password' => $novip);
+      
+      $this->db->where('Username', $id);
+      $this->db->update('korisnici', $pas);
+  }
+   
     
     public function korisnici($id) {
         
@@ -58,7 +66,7 @@ class KorisnikModel extends CI_Model{
            
     }  
     
-    // pretraga festivala i filmova
+    // pretraga festivala i filmova koja nije u upotrebi, odnosi se na pretraga() u kontroleru
     
     public function pretragaFestivala(){
     
