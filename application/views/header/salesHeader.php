@@ -25,13 +25,13 @@
 <body>
 
 <div class="container-fluid p-0">
-    
-<!--donji navbar	style="background-color: #014441;-->  
+    <!--donji navbar	style="background-color: #014441;-->  
         <nav class="navbar navbar-dark sticky-top p-3" id="traka"> 
 		<div class="container d-flex justify-content-center">
                     <h3 class="text-light">Projekat</h3>
 		</div>
 	</nav>
+
 <!--   top 	login regg nav-->	
 	<nav class="navbar-top d-flex sticky-top text-light m-0 " style="background-color: #f9aa00;">
                     
@@ -39,20 +39,13 @@
 	<!--	top left-->
                     <div class="navbar-brand text-dark">
                             <?php echo $this->session->korisnik->Name.' ' ?>
-                            <?php echo $name = $this->session->korisnik->Surname?>
+                            <?php echo $name = $this->session->korisnik->Surname ?>
                     </div>
-			<ul class="nav mr-auto text-dark ">
-                                <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url("KorisnikKontroler")?>">Home</a> </li>
-                                <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/nalog" ) ?>">Moj nalog</a> </li>
-                                <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/istorija")?>">Istorija kupovina</a> </li>
-                                <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/rezervacija") ?>">Rezervacija karata</a> </li>
-				
-				 
-				</li>
-			</ul>
+			
 	<!--	top right-->
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/logout" ) ?>">Log out</a> </li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="#">Moj nalog</a> </li>
+				<li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "ProdavacKontroler/logout" ) ?>">Log out</a> </li>
 
 			</ul>
 

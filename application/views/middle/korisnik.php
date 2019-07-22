@@ -40,8 +40,8 @@
 
    <!--forma za pretragu festivala i filmova-->
 
-<!--    <div class="row justify-content-center">
-        <form name='pretraga' method='GET' action='value="<?php echo $_SERVER['PHP_SELF'];?>"'>
+    <div class="row justify-content-center">
+        <form name='pretraga' method='POST' action='value="<?php echo site_url('KorisnikKontroler/pretraga');?>"'>
         Naziv festivala:  
         <input type="text" name="imeFest" value="<?php ?>">
         Pocetak festivala: 
@@ -54,7 +54,10 @@
         <input type="text" name="srbNaziv" value="<?php  ?>">
         <input type='submit' name='trazi' value='Search'>
         </form>
-    </div>-->
+    </div>
+   <div><?php var_dump($filmovi); ?></div>
+   <br>
+   <br>
 <div class="row justify-content-center">
        <form action="<?php echo $_SERVER['PHP_SELF'];?> " method="post"> 
         <div class="input-group"> 

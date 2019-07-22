@@ -2,41 +2,45 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class KorisnikModel extends CI_Model{
+
+// model za login Ivana/Gaga/Tamara
     
-  
+ public function login($username, $password){
+     
+    $query = $this->db->get_where('korisnici', array( 
+                                  'username' => $username, 
+                                  'password' => $password));
     
- public function update($id, $ime, $prezime, $broj, $mejl, $novip){
-        
-        $pod = array(
-                    'Name' => $ime,
-                    'Surname' => $prezime,
-                    'Mobile' => $broj,
-                    'Email' => $mejl,
-                    'Password' => $novip);
-        
-        $this->db->where('Username', $id);
-        $this->db->update('korisnici', $pod);
-}
-   
-    public function korisnici($id) {
-        
-        $this->db->select();
-        $this->db->from('korisnici');
-         $this->db->where('Username', $id);
-        return $this->db->get()->result();
+        if($this->db->count_all_results()>0)
+            return true;
+        else 
+            return false;         
     }
 
-     public function dohvatiKorisnika($username, $password) {
-     
-       $query = $this->db->get_where('korisnici', array( 
-                                     'username'=>$username, 
-                                     'password'=>$password));
-                    
-        return $query->result_array();
+// dohvatanje pojedinacnog korisnika iz baze Ivana/Gaga/Tamara
+    
+ public function dohvatiUsera($username){
         
-        }
-   
-    //    prikazi 5 festivala
+        $this->db->where('username', $username);
+        $query=$this->db->get('korisnici');
+        return $query->row();
+    }
+    
+       // IVANIN MODEL ZA LOGIN za pretragu festivala na pocetnoj strani
+  public function dohvatiSveFestivale($imeFestivala, $datumOd, $datumDo) {
+     
+        $this->db->select('*');
+        $this->db->from('festivali');
+       
+        $this->db->like('NameFest',$imeFestivala);
+        $this->db->or_like('StartDate',$datumOd);
+        $this->db->or_like('EndDate',$datumDo);
+    
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    //   DACA prikazi 5 festivala
     
     public function prikaziFestivale(){
         
@@ -58,9 +62,9 @@ class KorisnikModel extends CI_Model{
            
     }  
     
-    // pretraga festivala i filmova koja nije u upotrebi, odnosi se na pretraga() u kontroleru
+    // Daca pretraga festivala i filmova koja nije u upotrebi, odnosi se na pretraga() u kontroleru
     
-    public function pretragaFestivala(){
+    public function pretragaFestivala($imeFest,$poc,$zav,$engNaziv,$srbNaziv){
     
    // SELECT OriginalTitle, SerbianTitle, Date, Time, NameFest, CityName FROM `filmovi` 
    // join projekcije join festivali join gradovi where filmovi.IdFilm=projekcije.IdFilm and 
@@ -72,15 +76,17 @@ class KorisnikModel extends CI_Model{
         $this->db->join('projekcije', 'filmovi.IdFilm=projekcije.IdFilm');
         $this->db->join('festivali', 'projekcije.IdFest=festivali.IdFest');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
-         
-        $query = $this->db->get();
-        
-        return $query->result_array();
-    
-   
+//        $this->db->where('NameFest', $imeFest);
+//       $this->db->where('StartDate' >= $poc);
+//        $this->db->where('EndDate' <= $zav);
+//        $this->db->where('OriginalTitle', $engNaziv);
+//        $this->db->where('SerbianTitle', $srbNaziv);
+          
+        return $this->db->get()->result();
+
    }     
    
-   //za pretragu detalja festivala i filmova
+   // DACA za pretragu detalja festivala i filmova
    
    public function search($search){
         
@@ -101,5 +107,28 @@ class KorisnikModel extends CI_Model{
         $query = $this->db->get();
         return $query->result();
 }
-          
+   
+// Daca za ispis podataka o korisniku na stranici mojNalog
+public function korisnici($id) {
+        
+        $this->db->select();
+        $this->db->from('korisnici');
+         $this->db->where('Username', $id);
+        return $this->db->get()->result();
+    }
+    
+ // Daca za update podataka o korisniku na stranici mojNalog
+ public function update($id, $ime, $prezime, $broj, $mejl, $novip){
+        
+        $pod = array(
+                    'Name' => $ime,
+                    'Surname' => $prezime,
+                    'Mobile' => $broj,
+                    'Email' => $mejl,
+                    'Password' => $novip);
+        
+        $this->db->where('Username', $id);
+        $this->db->update('korisnici', $pod);
+}
+
 }
