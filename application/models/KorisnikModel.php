@@ -5,27 +5,19 @@ class KorisnikModel extends CI_Model{
     
   
     
- public function update($id, $ime, $prezime, $broj, $mejl){
+ public function update($id, $ime, $prezime, $broj, $mejl, $novip){
         
         $pod = array(
                     'Name' => $ime,
                     'Surname' => $prezime,
                     'Mobile' => $broj,
-                    'Email' => $mejl);
-                    //'Password' => $novip);
+                    'Email' => $mejl,
+                    'Password' => $novip);
         
         $this->db->where('Username', $id);
         $this->db->update('korisnici', $pod);
 }
-   public function updatePas($id, $novip){
-      
-      $pas = array('Password' => $novip);
-      
-      $this->db->where('Username', $id);
-      $this->db->update('korisnici', $pas);
-  }
    
-    
     public function korisnici($id) {
         
         $this->db->select();

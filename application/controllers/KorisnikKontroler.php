@@ -22,7 +22,7 @@ class KorisnikKontroler extends CI_Controller {
         $svi= $this->search();
         
         $festivali = $this->KorisnikModel->prikaziFestivale();
-       $ime = $this->pretraga();
+        $ime = $this->pretraga();
         $data['middle'] = 'middle/korisnik';
         $data['middleData'] = ['festivali' => $festivali, 'filmovi'=>$ime,
              'search'=>$svi];
@@ -83,15 +83,18 @@ public function pretraga(){
  
 }
 
+// podaci za view mojNalog
 
  public function nalog(){
         $id = $this->session->korisnik['Username'];
-       $podaci = $this->KorisnikModel->korisnici($id);
+        $podaci = $this->KorisnikModel->korisnici($id);
    
         $data['middle'] = 'middle/mojNalog';
         $data['middleData'] = ['podaci' => $podaci];
         $this->load->view('basicTemplate', $data);
     }
+    
+   // update podataka o korisniku 
     
   public function izmena(){
       
@@ -106,32 +109,22 @@ public function pretraga(){
           $broj = $this->input->post('broj');
           $mejl = $this->input->post('mejl');
         
-//        $pass = $this->input->post('password');
-//        $novip= $this->input->post('novip');
-//        $potvrda= $this->input->post('potvrda');
-//          
-        
-//        if((!strcmp($pass, $sifra))&& (!strcmp($novip, $potvrda))){
-//             $this->KorisnikModel->updatePas($id, $novip);
-//				
-//        if($sifra == $pass){
-//            if($novip == $potvrda){
-//        $this->KorisnikModel->updatePas($id, $novip);}}
-        
-//        if ($password == $sifra){
-//            $novip= $this->input->post('novip');
-////            $potvrda= $this->input->post('potvrda');
-////            if ($novip === $potvrda) {
-////                $nova = $this->input->post('potvrda');
-////            }
+          $pass = $this->input->post('password');
+          $novip= $this->input->post('novip');
+          $potvrda= $this->input->post('potvrda');
+     				
+            if($sifra == $pass){
+                if($novip == $potvrda){
+
+                   $novip= $this->input->post('novip');
+                }
+            }
             
-        $this->KorisnikModel->update($id, $ime, $prezime, $broj, $mejl);
+        $this->KorisnikModel->update($id, $ime, $prezime, $broj, $mejl, $novip);
         }
-      
-         
       
          $this->nalog();
-        }
+}
     
       
 }

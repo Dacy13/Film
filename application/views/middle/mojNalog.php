@@ -41,7 +41,7 @@
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Trenutna lozinka</label>
                 <div class="col-sm-10">
-                    <input type="password" class="col-sm-2 col-form-label" name="password" >
+                    <input type="password" class="col-sm-2 col-form-label" name="password" value="<?php echo $p->Password ?? ""; ?>" >
                 </div>
         </div>
         <div class="form-group row">
