@@ -125,6 +125,28 @@ public function pretraga(){
       
          $this->nalog();
 }
+
+ //  prikazivanje podataka na stranici istorija
+      
+      public function istorija() {
+          
+        $data['middle'] = 'middle/istorija';
+        
+        $this->load->view('basicTemplate', $data);
+          
+          
+      }
+     
+      // prikazivanje podataka na stranici rezervacija 
+      
+      public function rezervacija() {
+          
+        $data['middle'] = 'middle/rezervacija';
+        
+        $this->load->view('basicTemplate', $data);
+          
+      }
+      
     
       
 }
