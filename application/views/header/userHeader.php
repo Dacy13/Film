@@ -25,9 +25,15 @@
 <body>
 
 <div class="container-fluid p-0">
-
+    
+<!--donji navbar	style="background-color: #014441;-->  
+        <nav class="navbar navbar-dark sticky-top p-3" id="traka"> 
+		<div class="container d-flex justify-content-center">
+                    <h3 class="text-light">Projekat</h3>
+		</div>
+	</nav>
 <!--   top 	login regg nav-->	
-	<nav class="navbar-top d-flex sticky-top text-light m-0 " style="background-color: #3a9679;">
+	<nav class="navbar-top d-flex sticky-top text-light m-0 " style="background-color: #f9aa00;">
                     
 		<div class="container d-flex">
 	<!--	top left-->
@@ -46,7 +52,7 @@
 			</ul>
 	<!--	top right-->
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "Login/logout" ) ?>">Log out</a> </li>
+				<li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/logout" ) ?>">Log out</a> </li>
 
 			</ul>
 
@@ -54,10 +60,5 @@
 	</nav>
 
 
-	<!--donji navbar	style="background-color: #014441;-->  
-        <nav class="navbar navbar-dark sticky-top p-3" id="traka"> 
-		<div class="container d-flex justify-content-center">
-                    <h3 class="text-light">Projekat</h3>
-		</div>
-	</nav>
+	
 <!--	<div class="parallax"></div>-->
