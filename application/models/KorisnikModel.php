@@ -2,45 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class KorisnikModel extends CI_Model{
-
-// model za login Ivana/Gaga/Tamara
-    
- public function login($username, $password){
-     
-    $query = $this->db->get_where('korisnici', array( 
-                                  'username' => $username, 
-                                  'password' => $password));
-    
-        if($this->db->count_all_results()>0)
-            return true;
-        else 
-            return false;         
-    }
-
-// dohvatanje pojedinacnog korisnika iz baze Ivana/Gaga/Tamara
-    
- public function dohvatiUsera($username){
-        
-        $this->db->where('username', $username);
-        $query=$this->db->get('korisnici');
-        return $query->row();
-    }
-    
-       // IVANIN MODEL ZA LOGIN za pretragu festivala na pocetnoj strani
-  public function dohvatiSveFestivale($imeFestivala, $datumOd, $datumDo) {
-     
-        $this->db->select('*');
-        $this->db->from('festivali');
-       
-        $this->db->like('NameFest',$imeFestivala);
-        $this->db->or_like('StartDate',$datumOd);
-        $this->db->or_like('EndDate',$datumDo);
-    
-        $query = $this->db->get();
-        return $query->result();
-    }
-    
-    //   DACA prikazi 5 festivala
+   
+    // 5 najskorijih festivala
     
     public function prikaziFestivale(){
         
@@ -62,7 +25,7 @@ class KorisnikModel extends CI_Model{
            
     }  
     
-    // Daca pretraga festivala i filmova koja nije u upotrebi, odnosi se na pretraga() u kontroleru
+    // pretraga festivala i filmova koja nije u upotrebi, odnosi se na pretraga() u kontroleru
     
     public function pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv){
     
@@ -95,7 +58,8 @@ class KorisnikModel extends CI_Model{
    }     
    
 
-// Daca za ispis podataka o korisniku na stranici mojNalog
+// ispis podataka o korisniku na stranici mojNalog
+   
 public function korisnici($id) {
         
         $this->db->select();
@@ -104,7 +68,8 @@ public function korisnici($id) {
         return $this->db->get()->result();
     }
     
- // Daca za update podataka o korisniku na stranici mojNalog
+ // update podataka o korisniku na stranici mojNalog
+    
  public function update($id, $ime, $prezime, $broj, $mejl, $novip){
         
         $pod = array(
@@ -118,7 +83,7 @@ public function korisnici($id) {
         $this->db->update('korisnici', $pod);
 }
 
-   // DACA za pretragu detalja festivala i filmova
+   // pretraga festivala i filmova sa jednim poljem
    
 //   public function search($search){
 //        
