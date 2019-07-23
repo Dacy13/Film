@@ -62,9 +62,9 @@ class KorisnikModel extends CI_Model{
    
 public function korisnici($id) {
         
-        $this->db->select();
+        $this->db->select('*');
         $this->db->from('korisnici');
-         $this->db->where('Username', $id);
+        $this->db->where('Username', $id);
         return $this->db->get()->result();
     }
     
@@ -82,6 +82,23 @@ public function korisnici($id) {
         $this->db->where('Username', $id);
         $this->db->update('korisnici', $pod);
 }
+
+public function dohvatiKupljene(){
+    
+    $this->db->select('*');
+    $this->db->from('rezervacije');
+    
+   
+    
+    
+    
+    return $this->db->get()->result();
+    
+    
+}
+
+
+
 
    // pretraga festivala i filmova sa jednim poljem
    

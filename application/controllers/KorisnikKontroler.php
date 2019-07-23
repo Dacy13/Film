@@ -119,9 +119,11 @@ public function pretraga(){
  //  prikazivanje podataka na stranici istorija
       
       public function istorija() {
-          
-        $data['middle'] = 'middle/istorija';
         
+        $rez = $this->KorisnikModel->dohvatiKupljene();
+        
+        $data['middle'] = 'middle/istorija';
+        $data['middleData'] = ['rez' => $rez];
         $this->load->view('basicTemplate', $data);
           
           
