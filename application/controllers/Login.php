@@ -20,7 +20,7 @@ class Login extends CI_Controller{
             }
         }
         
-         $this->load->model('KorisnikModel');
+         $this->load->model('LoginModel');
     }
     
     public function index(){
@@ -37,7 +37,7 @@ class Login extends CI_Controller{
       $username=$this->input->post('username');
       $password=$this->input->post('password');
       
-      $postoji=$this->KorisnikModel->login($username, $password);
+      $postoji=$this->LoginModel->login($username, $password);
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!HASH ukljuci prilikom spajanja sa registracijom  
 //      if (isset($postoji))
@@ -49,7 +49,7 @@ class Login extends CI_Controller{
 
             if($postoji){    
 
-                $this->session->set_userdata('korisnik',$this->KorisnikModel->dohvatiUsera($username));
+                $this->session->set_userdata('korisnik',$this->LoginModel->dohvatiUsera($username));
 
                 $tip=$this->session->userdata('korisnik')->Type;
 
@@ -84,7 +84,7 @@ class Login extends CI_Controller{
      $datumDo1=$this->input->post('datumDo');
      $datumDo = date("Y-m-d", strtotime($datumDo1));
      
-    $festivali=$this->KorisnikModel->dohvatiSveFestivale($imeFestivala, $datumOd, $datumDo);
+    $festivali=$this->LoginModel->dohvatiSveFestivale($imeFestivala, $datumOd, $datumDo);
     return $festivali;
      
 

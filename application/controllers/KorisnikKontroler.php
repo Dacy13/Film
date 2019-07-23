@@ -23,29 +23,28 @@ class KorisnikKontroler extends CI_Controller {
         //onda u metodi pisemo return promenljiva
         //a u indexu pozivamo tu metodu, i u $data['middleData'] prosledjujemo 
         
-        $svi = $this->search();
+//        $svi = $this->search();
         $ime = $this->pretraga();
         
         $festivali = $this->KorisnikModel->prikaziFestivale();
         
         $data['middle'] = 'middle/korisnik';
-        $data['middleData'] = ['festivali' => $festivali, 'filmovi'=>$ime,
-             'search'=>$svi];
+        $data['middleData'] = ['festivali' => $festivali, 'filmovi'=>$ime];
         $this->load->view('basicTemplate', $data);
     }
     
   
-    // funkcija za pretragu festivala i filmova
+    // funkcija za pretragu festivala i filmova sa jednim poljem
     
-   public function search(){
-    
-    $search = $this->input->post('search');
-    $svi = $this->KorisnikModel->search($search);
-    
-    return $svi;
-}
+//   public function search(){
+//    
+//    $search = $this->input->post('search');
+//    $svi = $this->KorisnikModel->search($search);
+//    
+//    return $svi;
+//}
 
-
+// funkcija za pretragu festivala i filmova sa vise polja
 public function pretraga(){
    
            $imeFest = $this->input->post('imeFest'); 

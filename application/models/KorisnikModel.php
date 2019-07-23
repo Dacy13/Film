@@ -94,28 +94,7 @@ class KorisnikModel extends CI_Model{
 
    }     
    
-   // DACA za pretragu detalja festivala i filmova
-   
-   public function search($search){
-        
-          $this->db->select('*');
-        $this->db->from('filmovi');
-        $this->db->join('projekcije', 'filmovi.IdFilm=projekcije.IdFilm');
-        $this->db->join('festivali', 'projekcije.IdFest=festivali.IdFest');
-        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
-        $this->db->like('NameFest',$search);
-        $this->db->or_like('CityName',$search);
-        $this->db->or_like('StartDate',$search);
-        $this->db->or_like('EndDate',$search);
-        $this->db->or_like('OriginalTitle',$search);
-        $this->db->or_like('SerbianTitle',$search);
-        $this->db->or_like('Date',$search);
-        $this->db->or_like('Time',$search);
-      
-        $query = $this->db->get();
-        return $query->result();
-}
-   
+
 // Daca za ispis podataka o korisniku na stranici mojNalog
 public function korisnici($id) {
         
@@ -138,5 +117,28 @@ public function korisnici($id) {
         $this->db->where('Username', $id);
         $this->db->update('korisnici', $pod);
 }
+
+   // DACA za pretragu detalja festivala i filmova
+   
+//   public function search($search){
+//        
+//          $this->db->select('*');
+//        $this->db->from('filmovi');
+//        $this->db->join('projekcije', 'filmovi.IdFilm=projekcije.IdFilm');
+//        $this->db->join('festivali', 'projekcije.IdFest=festivali.IdFest');
+//        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+//        $this->db->like('NameFest',$search);
+//        $this->db->or_like('CityName',$search);
+//        $this->db->or_like('StartDate',$search);
+//        $this->db->or_like('EndDate',$search);
+//        $this->db->or_like('OriginalTitle',$search);
+//        $this->db->or_like('SerbianTitle',$search);
+//        $this->db->or_like('Date',$search);
+//        $this->db->or_like('Time',$search);
+//      
+//        $query = $this->db->get();
+//        return $query->result();
+//}
+   
 
 }
