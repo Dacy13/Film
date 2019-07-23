@@ -41,7 +41,7 @@
    <!--forma za pretragu festivala i filmova-->
 
     <div class="row justify-content-center">
-        <form name='pretraga' method='POST' action='value="<?php echo site_url('KorisnikKontroler/pretraga');?>"'>
+        <form name='pretraga' method='POST' action="<?php echo site_url('KorisnikKontroler/index');?>">
         Naziv festivala:  
         <input type="text" name="imeFest" value="<?php ?>">
         Pocetak festivala: 
@@ -55,11 +55,67 @@
         <input type='submit' name='trazi' value='Search'>
         </form>
     </div>
-   <div><?php var_dump($filmovi); ?></div>
+   <div><?php
+          if(!empty($filmovi)){?>
+       <table class="table">
+           <thead class="thead-dark">
+                    <tr>
+                        <td>Festival</td>
+                        <td>Pocinje</td>
+                        <td>Zavrsava</td>
+                        <td>Grad</td>
+                        <td>Detalji na linku</td>
+                         <?php if(!empty($this->input->post('srbNaziv')) 
+                                || !empty($this->input->post('engNaziv'))) { ?>
+                        <td>Srpski naziv</td>
+                        <td>Engleski naziv</td>
+                        <td>Datum projekcije</td>
+                        <td>Vreme projekcije</td>
+                        <td>Detalji na linku</td>
+                         
+                        <?php } ?>
+                    </tr>
+                 </thead>
+                 <tbody>
+                   
+                 <?php foreach($filmovi as $f){?>
+                    <tr>
+                        <td><?php echo $f->NameFest?></td>
+                        <td><?php echo $f->StartDate?></td>
+                        <td><?php echo $f->EndDate?></td>
+                        <td><?php echo $f->CityName?></td>
+                        <?php  $id = $f->IdFest ?>
+                        <td><?php echo "<a href='FestKontroler'?id=$id>INFO</a> ";?></td>
+                        <?php if(!empty($this->input->post('srbNaziv')) 
+                                || !empty($this->input->post('engNaziv'))) { ?>
+                        <td><?php echo $f->SerbianTitle?></td>
+                        <td><?php echo $f->OriginalTitle?></td>
+                        <td><?php echo $f->Date?></td>
+                        <td><?php $sat = $f->Time;
+                                  $sati = date("H:i", strtotime($sat));
+                                  echo $sati ?></td>
+                        <?php  $id = $f->IdFest ?>
+                        <td><?php echo "<a href='FestKontroler'?id=$id>INFO</a> ";?></td>
+                              <?php } ?>
+                    </tr>
+
+                 <?php } ?>         
+                 </tbody>   
+       </table>
+   <?php } 
+   else {
+       
+        echo 'Nema rezultata za zadatu pretragu';
+   } 
+       ?>
+   </div>
    <br>
    <br>
-<div class="row justify-content-center">
-       <form action="<?php echo $_SERVER['PHP_SELF'];?> " method="post"> 
+   
+   <!--search forma sa jednim poljem-->
+   
+<!--<div class="row justify-content-center">
+       <form action="<?php //echo $_SERVER['PHP_SELF'];?> " method="post"> 
         <div class="input-group"> 
         <input type="text" name="search"  placeholder="Pretraga">
         <input type="submit" value="Search" name="save"/>
@@ -82,59 +138,33 @@
                     </tr>
                  </thead>
                  <tbody>
-                 <?php foreach($search as $search_show):?>
+                 <?php //foreach($search as $search_show):?>
                     <tr>
-                        <td><?php echo $search_show->NameFest?></td>
-                        <td><?php echo $search_show->StartDate?></td>
-                         <td><?php echo$search_show->EndDate?></td>
-                        <td><?php echo $search_show->CityName?></td>
-                        <td><?php echo $search_show->SerbianTitle?></td>
-                        <td><?php echo $search_show->OriginalTitle?></td>
-                        <td><?php echo $search_show->Date?></td>
-                        <td><?php $sat = $search_show->Time;
-                                  $sati = date("H:i", strtotime($sat));
-                                  echo $sati ?></td>
-                        <?php $id = $search_show->IdFest?>
-                        <td><?php echo "<a href='FestKontroler'?id=$id>INFO</a> "?></td>
+                        <td><?php //echo $search_show->NameFest?></td>
+                        <td><?php //echo $search_show->StartDate?></td>
+                         <td><?php //echo$search_show->EndDate?></td>
+                        <td><?php// echo $search_show->CityName?></td>
+                        <td><?php //echo $search_show->SerbianTitle?></td>
+                        <td><?php //echo $search_show->OriginalTitle?></td>
+                        <td><?php //echo $search_show->Date?></td>
+                        <td><?php //$sat = $search_show->Time;
+                                 // $sati = date("H:i", strtotime($sat));
+                                 // echo $sati ?></td>
+                        <?php //$id = $search_show->IdFest?>
+                        <td><?php //echo "<a href='FestKontroler'?id=$id>INFO</a> "?></td>
                             
                     </tr>
 
-                 <?php endforeach ?>
+                 <?php //endforeach ?>
                  </tbody>
         </table>
     </div> 
-   
-   
-   <!--search forma bez ajaxa-->
+   -->
+  
 
-<!--
-    <table>
-      <tr>
-          <td>Grad</td>
-          <td>Eng</td>
-          <td>Srb</td>
-          <td>Festival</td>
-          <td>Datum</td>
-          <td>Vreme</td>
-          <td>Link</td>
-      </tr>
-<?php // foreach($search as $search_show):?>
-      <tr>
-          <td><?php //echo $search_show->CityName?></td>
-          <td><?php// echo $search_show->SerbianTitle?></td>
-          <td><?php //echo $search_show->OriginalTitle?></td>
-          <td><?php //echo $search_show->NameFest?></td>
-          <td><?php //echo $search_show->Date?></td>
-          <td><?php //echo $search_show->Time?></td>
-          <td><?php // echo "<a href='fest_info.php?id='>INFO</a>" ?></td>
-      </tr>
-//<?//php endforeach ?>
-
- </table>-->
-   
-   
    <!--funkcija za ajax koji delimicno radi kako treba-->
-<script>
+   
+<!--<script>
 function showHint(str) {
     if (str.length == 0) { 
         document.getElementById("result").innerHTML = "";
@@ -150,17 +180,4 @@ function showHint(str) {
         xmlhttp.send();
     }
 }
-</script>
-
-    <?php  
-//            foreach ($filmovi as $row){
-//                //$id=$row[0]; 
-//                echo $row['NameFest']." "
-//                   ." <a href='fest_info.php?id='>INFO</a> "
-//                   ."<br>";
-//                echo $row['CityName']." ";
-//                echo $row['SerbianTitle']." ";
-//                echo $row['OriginalTitle']." ";
-//                
-          //  }
-        ?>
+</script>-->

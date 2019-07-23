@@ -105,70 +105,72 @@
 	</div>
 
 <!--       registracija model    -->
-        <!-- Modal -->
-        <div class="modal fade" id="ReggModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content bg-dark text-light">
-              <div class="modal-header bg-dark text-light">
-                <h5 class="modal-title bg-dark text-light" id="exampleModalCenterTitle">Registracija</h5>
-                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body bg-dark text-light">
-        <!--forma registracije-->
-                <form name="registracija" method="POST" action="<?php echo site_url('RegistracijaKontroler/register')?>">
-                    <div class="form-group">
-                        <label for="korisnicko">Korisnicko Ime</label>
-                      <input type="text" class="form-control text-light border-warning" style="background-color: #000000;" name="korIme" id="korisnicko" aria-describedby="userHelp" >
-                      <small id="emailHelp" class="form-text text-muted">min 5 - max 11 </small>
-                      <small id="errorMsg" class="form-text text-muted"><?php echo validation_errors(); ?> </small>
+         <!--    Registracija model popup   -->
+            <!-- Modal -->
+            <div class="modal fade" id="ReggModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content bg-dark text-light">
+                        <div class="modal-header bg-dark text-light border-warning">
+                            <h5 class="modal-title bg-dark text-light" id="exampleModalCenterTitle">Registracija</h5>
+                            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                        <div class="modal-body bg-dark text-light">                          
+                            <!--forma registracije-->
+                            <form name="registracija" method="POST" action="<?php echo site_url('RegistracijaKontroler/register') ?>">
+                                <div class="form-group">
+                                    <label for="korisnicko">Korisnicko Ime</label>
+                                    <input type="text" class="form-control text-light border-warning" style="background-color: #000000;" name="korIme" 
+                                           id="korisnicko" aria-describedby="userHelp" value="<?php echo set_value('username');?>">
+                                    <small id="emailHelp" class="form-text text-muted">min 5 - max 11 karaktera bez spec.karaktera </small>
+                                    <small id="errorMsg" class="form-text text-muted"><?php echo form_error('korIme'); ?> </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lozinka">Lozinka</label>
+                                    <input type="password" class="form-control border-warning text-light" style="background-color: #000000;" name="password" id="lozinka" >
+                                    <small id="emailHelp" class="form-text text-muted">Pocetno veliko slovo,Min 2 Velika,3 mala slova i 1 broj. Duzine 8-12 karaktera</small>
+                                    <small id="errorMsg" class="form-text text-muted"><?php echo form_error('password'); ?> </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lozinkaProveera">Ponovi Lozinku</label>
+                                    <input type="password" class="form-control border-warning text-light" style="background-color: #000000;" name="passwordConfirmation" id="proveriLozinku">
+                                    <small id="errorMsg" class="form-text text-muted"><?php echo form_error(); ?> </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ime">Ime</label>
+                                    <input type="text" class="form-control border-warning text-light" style="background-color: #000000;" name="ime" id="ime" aria-describedby="userHelp" value="<?php echo set_value('ime');?>">
+                                    <small id="emailHelp" class="form-text text-muted">Duzine 5-15 slova</small>
+                                    <small id="errorMsg" class="form-text text-muted"><?php echo form_error('ime'); ?> </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prezime">Prezime</label>
+                                    <input type="text" class="form-control border-warning text-light" style="background-color: #000000;" name="prezime" id="prezime" aria-describedby="userHelp" value="<?php echo set_value('prezime');?>">
+                                    <small id="emailHelp" class="form-text text-muted">Duzine 5-15 slova</small>
+                                    <small id="errorMsg" class="form-text text-muted"><?php echo form_error('prezime'); ?> </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rodjendan">Datum rodjenja</label>
+                                    <input type="date" class="form-control text-light border-warning" style="background-color: #000000;" name="rodjendan" id="rodjendan" aria-describedby="userHelp">
+                                    <small id="errorMsg" class="form-text text-muted"><?php echo form_error(); ?> </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobilni">Mobilni telefom</label>
+                                    <input type="text" class="form-control border-warning text-light" style="background-color: #000000;" name="mobilni" id="mobilni" aria-describedby="userHelp" value="<?php echo set_value('mobilni');?>">
+                                    <small id="errorMsg" class="form-text text-muted"><?php echo form_error('mobilni'); ?> </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control border-warning text-light" style="background-color: #000000;" name="email" id="email" aria-describedby="userHelp" value="<?php echo set_value('email');?>">
+                                    <small id="errorMsg" class="form-text text-muted"><?php echo form_error('email'); ?> </small>
+                                </div>
+                                <button type="submit" class="btn btn-secondary text-dark" style="background-color: #f9aa00;">Submit</button>
+                            </form>
+                        </div>  
+                        
                     </div>
-                    <div class="form-group">
-                      <label for="lozinka">Lozinka</label>
-                      <input type="password" class="form-control border-warning text-light" style="background-color: #000000;" name="password" id="lozinka">
-                      <small id="emailHelp" class="form-text text-muted">Min 2 Velika slova,3 mala i 1 broj Duzine 8-12</small>
-                      <small id="errorMsg" class="form-text text-muted"><?php echo validation_errors(); ?> </small>
-                    </div>
-                    <div class="form-group">
-                      <label for="lozinkaProveera">Ponovi Lozinku</label>
-                      <input type="password" class="form-control border-warning text-light" style="background-color: #000000;" name="passwordConfirmation" id="proveriLozinku">
-                      <small id="errorMsg" class="form-text text-muted"><?php echo validation_errors(); ?> </small>
-                    </div>
-                    <div class="form-group">
-                      <label for="ime">Ime</label>
-                      <input type="text" class="form-control border-warning text-light" style="background-color: #000000;" name="ime" id="ime" aria-describedby="userHelp">
-                      <small id="emailHelp" class="form-text text-muted">Duzine 5-15 slova</small>
-                      <small id="errorMsg" class="form-text text-muted"><?php echo validation_errors(); ?> </small>
-                    </div>
-                    <div class="form-group">
-                      <label for="prezime">Prezime</label>
-                      <input type="text" class="form-control border-warning text-light" style="background-color: #000000;" name="prezime" id="prezime" aria-describedby="userHelp">
-                      <small id="emailHelp" class="form-text text-muted">Duzine 5-15 slova</small>
-                      <small id="errorMsg" class="form-text text-muted"><?php echo validation_errors(); ?> </small>
-                    </div>
-                    <div class="form-group">
-                      <label for="rodjendan">Datum rodjenja</label>
-                      <input type="date" class="form-control text-light border-warning" style="background-color: #000000;" name="rodjendan" id="rodjendan" aria-describedby="userHelp">
-                      <small id="errorMsg" class="form-text text-muted"><?php echo validation_errors(); ?> </small>
-                    </div>
-                    <div class="form-group">
-                      <label for="mobilni">Mobilni telefom</label>
-                      <input type="text" class="form-control border-warning text-light" style="background-color: #000000;" name="mobilni" id="mobilni" aria-describedby="userHelp" >
-                      <small id="errorMsg" class="form-text text-muted"><?php echo validation_errors(); ?> </small>
-                    </div>
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control border-warning text-light" style="background-color: #000000;" name="email" id="email" aria-describedby="userHelp" >
-                      <small id="errorMsg" class="form-text text-muted"><?php echo validation_errors(); ?> </small>
-                    </div>
-                   <button type="submit" class="btn btn-secondary text-dark" style="background-color: #f9aa00;">Submit</button>
-                </form>
-              </div>           
+                </div>
             </div>
-          </div>
-        </div>
-
-
 
 <!--	<div class="parallax"></div>-->

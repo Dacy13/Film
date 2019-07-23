@@ -48,44 +48,31 @@ class KorisnikKontroler extends CI_Controller {
 
 public function pretraga(){
    
-            $imeFest = $this->input->post('imeFest');
-            
+           $imeFest = $this->input->post('imeFest'); 
             
             $pocetak = $this->input->post('od');
-            $poc = date('Y-m-d', strtotime($pocetak));
-            
+            if(!empty($pocetak)){
+            $pocetak = date('Y-m-d', strtotime($pocetak));
+            }
             $zavrsetak = $this->input->post('do');
-            $zav = date('Y-m-d', strtotime($zavrsetak));
-            
+            if(!empty($zavrsetak)){
+            $zavrsetak = date('Y-m-d', strtotime($zavrsetak));
+            }
             $engNaziv = $this->input->post('engNaziv');
+             if(!empty($engNaziv)){
+            $engNaziv = $this->input->post('engNaziv');
+             }
+             $srbNaziv = $this->input->post('srbNaziv');
+             if(!empty($srbNaziv)){
             $srbNaziv = $this->input->post('srbNaziv');
-            
-            $festival= $this->KorisnikModel->pretragaFestivala($imeFest,$poc,$zav,$engNaziv,$srbNaziv);
-            return $festival;   
-            $this->index();
-//            $festival = $svi." where NameFest like '%$imeFest%'";
-//                           
-//       // da izlista sve festivale koji nisu zavrseni i da moze da se pretrazuje sa vise parametara istovremeno
-//            
-//                // if( (($poc >= $start) || ($poc <= $start)) && ($poc <= $kraj)) {
-//                        if(!empty($pocetak)) {
-//                            $festival = $svi . " and StartDate >= $pocetak";
-//                        }
-//
-//                        if(!empty($kraj)) {
-//                            $festival = $svi . " and EndDate <= $kraj";
-//                        }
-//
-//                        if(!empty($engNaziv)) {
-//                             $festival = $svi. " and OriginalTitle = $engNaziv";
-//                        }
-//
-//                        if(!empty($srbNaziv)) {
-//                            $festival = $svi . " and SerbianTitle = $srbNaziv";
-//                        }
-//        
-                // }
-              
+             }
+            if(!empty($imeFest) || !empty($pocetak) || !empty($zavrsetak) || !empty($engNaziv) || !empty($srbNaziv)){
+                $festival = $this->KorisnikModel->pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
+            }
+            else {
+                $festival=null;
+            }
+            return $festival; 
 }
 
 // podaci za view mojNalog

@@ -64,24 +64,32 @@ class KorisnikModel extends CI_Model{
     
     // Daca pretraga festivala i filmova koja nije u upotrebi, odnosi se na pretraga() u kontroleru
     
-    public function pretragaFestivala($imeFest,$poc,$zav,$engNaziv,$srbNaziv){
+    public function pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv){
     
    // SELECT OriginalTitle, SerbianTitle, Date, Time, NameFest, CityName FROM `filmovi` 
    // join projekcije join festivali join gradovi where filmovi.IdFilm=projekcije.IdFilm and 
    // projekcije.IdFest=festivali.IdFest and festivali.IdGrad=gradovi.IdGrad
     
-    
-        $this->db->select('OriginalTitle, SerbianTitle, Date, Time, NameFest, StartDate, EndDate, CityName');
+        $this->db->select('*');
         $this->db->from('filmovi');
-        $this->db->join('projekcije', 'filmovi.IdFilm=projekcije.IdFilm');
-        $this->db->join('festivali', 'projekcije.IdFest=festivali.IdFest');
+        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
-//        $this->db->where('NameFest', $imeFest);
-//       $this->db->where('StartDate' >= $poc);
-//        $this->db->where('EndDate' <= $zav);
-//        $this->db->where('OriginalTitle', $engNaziv);
-//        $this->db->where('SerbianTitle', $srbNaziv);
-          
+        if(!empty($imeFest)){
+        $this->db->like('NameFest', $imeFest);
+        }
+        if(!empty($pocetak)){
+        $this->db->where('StartDate >', $pocetak);
+        }
+        if(!empty($zavrsetak)){
+        $this->db->where('EndDate <', $zavrsetak);
+        }
+        if(!empty($engNaziv)){
+        $this->db->or_like('OriginalTitle', $engNaziv);
+        }
+        if(!empty($srbNaziv)){
+        $this->db->or_like('SerbianTitle', $srbNaziv);
+        }
         return $this->db->get()->result();
 
    }     
