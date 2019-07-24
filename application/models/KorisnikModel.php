@@ -83,19 +83,41 @@ public function korisnici($id) {
         $this->db->update('korisnici', $pod);
 }
 
-public function dohvatiKupljene(){
+public function dohvatiKarte(){
     
     $this->db->select('*');
     $this->db->from('rezervacije');
     
-   
-    
-    
-    
     return $this->db->get()->result();
     
-    
 }
+
+public function dohvatiKupljene(){
+    
+    $this->db->select('StatusRez');
+    $this->db->from('rezervacije');
+    $this->db->where('StatusRez = "k"');
+    
+    return $this->db->get()->result();
+}
+public function dohvatiOtkazane(){
+    
+    $this->db->select('StatusRez');
+    $this->db->from('rezervacije');
+    $this->db->where('StatusRez = "o"');
+    
+    return $this->db->get()->result();
+}
+
+public function dohvatiRezervisane(){
+    
+    $this->db->select('StatusRez');
+    $this->db->from('rezervacije');
+    $this->db->where('StatusRez = "r"');
+    
+    return $this->db->get()->result();
+}
+
 
 
 

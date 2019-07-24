@@ -14,15 +14,15 @@
  if ( $this->session->has_userdata('korisnik')) {
         $tip=$this->session->userdata('korisnik')->Type;
         if ($tip == 'prodavac') {
-             $this->load->view("header/salesHeader", $header_podaci ?? []);
+             $this->load->view("header/prodavacHeader", $header_podaci ?? []);
         }
         else {
-            $this->load->view("header/userHeader", $header_podaci ?? []);
+            $this->load->view("header/korisnikHeader", $header_podaci ?? []);
         }     
     }
     else {
-        $this->load->view("header/guestHeader", $header_podaci ?? []);
+        $this->load->view("header/gostHeader", $header_podaci ?? []);
     }
-    $this->load->view ( $middle, $middleData ?? [] );
+    $this->load->view ( $middle, $middle_podaci ?? [] );
     $this->load->view ( "footer/basicfooter");
     

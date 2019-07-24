@@ -11,7 +11,7 @@ class KorisnikKontroler extends CI_Controller {
             redirect('Login');
         }
         $tip = $this->session->userdata('korisnik')->Type;
-        if ($tip=='prodavac') {
+        if ($tip == 'prodavac') {
              redirect ('ProdavacKontroler');
         }
         $this->load->model('KorisnikModel');
@@ -29,7 +29,7 @@ class KorisnikKontroler extends CI_Controller {
         $festivali = $this->KorisnikModel->prikaziFestivale();
         
         $data['middle'] = 'middle/korisnik';
-        $data['middleData'] = ['festivali' => $festivali, 'filmovi'=>$ime];
+        $data['middle_podaci'] = ['festivali' => $festivali, 'filmovi'=>$ime];
         $this->load->view('basicTemplate', $data);
     }
     
@@ -81,7 +81,7 @@ public function pretraga(){
         $podaci = $this->KorisnikModel->korisnici($id);
    
         $data['middle'] = 'middle/mojNalog';
-        $data['middleData'] = ['podaci' => $podaci];
+        $data['middle_podaci'] = ['podaci' => $podaci];
         $this->load->view('basicTemplate', $data);
     }
     
@@ -120,22 +120,16 @@ public function pretraga(){
       
       public function istorija() {
         
-        $rez = $this->KorisnikModel->dohvatiKupljene();
+        $rez = $this->KorisnikModel->dohvatiKarte();
+        
+        $k = $this->KorisnikModel->dohvatiKupljene();
+        $o = $this->KorisnikModel->dohvatiOtkazane();
+        $r = $this->KorisnikModel->dohvatiRezervisane();
         
         $data['middle'] = 'middle/istorija';
-        $data['middleData'] = ['rez' => $rez];
+        $data['middle_podaci'] = ['rez' => $rez,'k'=>$k, 'o'=>$o, 'r'=>$r];
         $this->load->view('basicTemplate', $data);
           
-          
-      }
-     
-    // prikazivanje podataka na stranici rezervacija 
-      
-      public function rezervacija() {
-          
-        $data['middle'] = 'middle/rezervacija';
-        
-        $this->load->view('basicTemplate', $data);
           
       }
       
