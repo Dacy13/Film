@@ -84,21 +84,22 @@
                         <td><?php echo $f->StartDate?></td>
                         <td><?php echo $f->EndDate?></td>
                         <td><?php echo $f->CityName?></td>
-                        <?php  $id = $f->IdFest ?>
+                            <?php  $id = $f->IdFest ?>
                         <td><?php echo "<a href='FestKontroler'?id=$id>INFO</a> ";?></td>
-                        <?php if(!empty($this->input->post('srbNaziv')) 
-                                || !empty($this->input->post('engNaziv'))) { ?>
+                        
+                            <?php if(!empty($this->input->post('srbNaziv')) 
+                                  || !empty($this->input->post('engNaziv'))) { ?>
+                        
                         <td><?php echo $f->SerbianTitle?></td>
                         <td><?php echo $f->OriginalTitle?></td>
                         <td><?php echo $f->Date?></td>
                         <td><?php $sat = $f->Time;
                                   $sati = date("H:i", strtotime($sat));
                                   echo $sati ?></td>
-                        <?php  $id = $f->IdFest ?>
+                            <?php  $id = $f->IdFest ?>
                         <td><?php echo "<a href='FestKontroler'?id=$id>INFO</a> ";?></td>
-                              <?php } ?>
+                            <?php } ?>
                     </tr>
-
                  <?php } ?>         
                  </tbody>   
        </table>

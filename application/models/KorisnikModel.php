@@ -98,7 +98,7 @@ public function dohvatiKupljene(){
     $this->db->from('rezervacije');
     $this->db->where('StatusRez = "k"');
     
-    return $this->db->get()->result();
+    return $this->db->get()->row();
 }
 public function dohvatiOtkazane(){
     
@@ -106,7 +106,7 @@ public function dohvatiOtkazane(){
     $this->db->from('rezervacije');
     $this->db->where('StatusRez = "o"');
     
-    return $this->db->get()->result();
+    return $this->db->get()->row();
 }
 
 public function dohvatiRezervisane(){
@@ -115,7 +115,7 @@ public function dohvatiRezervisane(){
     $this->db->from('rezervacije');
     $this->db->where('StatusRez = "r"');
     
-    return $this->db->get()->result();
+    return $this->db->get()->row();
 }
 
 

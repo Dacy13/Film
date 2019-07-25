@@ -1,8 +1,6 @@
 <?php
 //var_dump($rez)."<br> ";
-var_dump($k);
-var_dump($r);
-var_dump($o);
+
 ?>
 
 <table class="table">
@@ -21,15 +19,22 @@ var_dump($o);
             <tr>
                <td>
                    <?php 
-                        $sat = $karta->DateOfRez;
-                        $sati = date("Y-m-d", strtotime($sat));
-                        echo $sati;
+                        $dan = $karta->DateOfRez;
+                        $dani = date("Y-m-d", strtotime($dan));
+                        echo $dani;
                         ?>
                </td>
                    <?php $tip = $karta->StatusRez;
-                         if($tip = $k){ ?>
-              <td style="color: red"><?php echo $karta->StatusRez; ?> </td>
-                         <?php }?>
+                         if(strcmp($tip, implode("",(array)$k))){ 
+                             echo "<td style='color: red'>".$karta->StatusRez."</td>"; 
+                          }
+                         elseif(strcmp($tip, implode("",(array)$o))){ 
+                             echo "<td style='color: blue'>".$karta->StatusRez."</td>";
+                          }
+                         elseif(strcmp($tip, implode("",(array)$r))){
+                             echo "<td style='color: green'>".$karta->StatusRez."</td>";
+                          }
+                       ?>
               <td><?php echo $karta->Tickets; ?> </td>
             </tr>
             <?php 
