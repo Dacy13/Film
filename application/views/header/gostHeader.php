@@ -39,7 +39,7 @@
 		<div class="container d-flex">
 	<!--	top left-->
 			<ul class="nav mr-auto text-dark ">
-				<li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url('Login/login');?>">Home</a> </li>
+				<li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url('LoginKontroler/login');?>">Home</a> </li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">Vesti</a> </li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">Dogadjaji</a> 
 				</li>
@@ -80,7 +80,7 @@
                     <div class="modal-body">
 		  
 	<!--	forma login-a-->
-			<form name='login' method='POST' action='<?php echo site_url('Login/login')?>'>
+			<form name='login' method='POST' action='<?php echo site_url('LoginKontroler/login')?>'>
 			  <div class="form-group">
                              
 <label for="exampleInputEmail1"> <?php if(!empty($poruka)) echo $poruka; // moze i echo $poruka??";"; ?> </label>

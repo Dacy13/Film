@@ -8,7 +8,7 @@ class KorisnikKontroler extends CI_Controller {
         parent::__construct();
         
         if(!$this->session->has_userdata('korisnik')){
-            redirect('Login');
+            redirect('LoginKontroler');
         }
         $tip = $this->session->userdata('korisnik')->Type;
         if ($tip == 'prodavac') {
@@ -137,7 +137,7 @@ public function pretraga(){
       
     public function logout(){
         $this->session->sess_destroy();
-        redirect('Login');
+        redirect('LoginKontroler');
     }
 }
 

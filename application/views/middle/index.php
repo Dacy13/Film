@@ -44,7 +44,9 @@
     </tr>
     </thead>
 <tbody>
-      <?php foreach($festivali as $f):?>
+      <?php 
+      var_dump($festivali);
+      foreach($festivali as $f):?>
       <tr>
           <td><?php echo $f->NameFest?></td>
           <td><?php echo $f->StartDate?></td>

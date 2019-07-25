@@ -1,5 +1,7 @@
 <?php
 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class LoginModel extends CI_Model {
     
  public function login($username, $password){
@@ -23,17 +25,4 @@ class LoginModel extends CI_Model {
         return $query->row();
     }
     
-       // IVANIN MODEL ZA LOGIN za pretragu festivala na pocetnoj strani
-  public function dohvatiSveFestivale($imeFestivala, $datumOd, $datumDo) {
-     
-        $this->db->select('*');
-        $this->db->from('festivali');
-       
-        $this->db->like('NameFest',$imeFestivala);
-        $this->db->or_like('StartDate',$datumOd);
-        $this->db->or_like('EndDate',$datumDo);
-    
-        $query = $this->db->get();
-        return $query->result();
-    }
 }

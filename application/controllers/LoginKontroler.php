@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller{
+class LoginKontroler extends CI_Controller{
         
     public function __construct() {
         
@@ -24,10 +24,8 @@ class Login extends CI_Controller{
     }
     
     public function index(){
-         $festivali=$this->dohvatiSveFestivale();
-         
+      
          $data['middle']='middle/index';
-         $data["middleData"]=['festivali'=>$festivali];
          $this->load->view('basicTemplate', $data);
                
     }
@@ -73,21 +71,6 @@ class Login extends CI_Controller{
             }
     }
 
-   //IVANINA FUNKCIJA ZA PRETRAGU FESTIVALA
-    public function dohvatiSveFestivale(){
-  
-    $imeFestivala=$this->input->post('imeFestivala');
-     
-     $datumOd1=$this->input->post('datumOd');
-     $datumOd = date("Y-m-d", strtotime($datumOd1));
-
-     $datumDo1=$this->input->post('datumDo');
-     $datumDo = date("Y-m-d", strtotime($datumDo1));
-     
-    $festivali=$this->LoginModel->dohvatiSveFestivale($imeFestivala, $datumOd, $datumDo);
-    return $festivali;
-     
-
 }
   
-}
+
