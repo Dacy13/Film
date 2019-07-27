@@ -1,6 +1,6 @@
 <?php
-//var_dump($id);
-//echo "<input type='submit' name='otkazi' Value='Otkazi' onclick='izbrisiRez()'>";
+
+echo "<input type='submit' name='otkazi' Value='Otkazi' onclick='izbrisiRez()'>";
 ?>
 
 <table class="table">
@@ -30,13 +30,13 @@
                          }
                          elseif ($karta->StatusRez == 'O'){
                              echo "<td style='color: red'>".$karta->StatusRez."</td>";
-                             //echo "<a href=".site_url('KorisnikKontroler/otkaziRez/'.$id);">Izbrisi</a>";
+                             //echo "<td><a href=".site_url('KorisnikKontroler/otkaziRez/'.$id);">Izbrisi</a></td>";
                             // echo "<a href='site_url("'KorisnikKontroler/otkaziRez/'".$id);'>Delete</a></td>"
                             // echo "<input type='submit' name='otkazi' Value='Otkazi' onclick='izbrisiRez()'>";
                          }
                          else {
-                             echo "<td>".$karta->StatusRez."</td>";
-                            // "<input type='hidden' id='idRez' name='red_za_brisanje>' value=$id; >";
+                             echo "<td>".$karta->StatusRez."</td>".
+                            "<input type='hidden' id='idRez' name='red_za_brisanje>' value=$id->IdProjekcija>";
                          }
                        ?>
               <td><?php echo $karta->Tickets; ?> </td>
@@ -47,7 +47,7 @@
           </tbody>
        </table>
 
-<!--<script>
+<script>
     function izbrisiRez(){
         var request = new XMLHttpRequest();
         var id = document.getElementById('idRez').value;
@@ -63,4 +63,4 @@
     }
 
     
-</script>-->
+</script>
