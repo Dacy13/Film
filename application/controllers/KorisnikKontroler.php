@@ -126,13 +126,28 @@ public function pretraga(){
         $o = $this->KorisnikModel->dohvatiOtkazane();
         $r = $this->KorisnikModel->dohvatiRezervisane();
         
+        $id = $this->KorisnikModel->dohvatiIdRezervacije();
+        
         $data['middle'] = 'middle/istorija';
-        $data['middle_podaci'] = ['rez' => $rez,'k'=>$k, 'o'=>$o, 'r'=>$r];
+        $data['middle_podaci'] = ['rez' => $rez,'k'=>$k, 'o'=>$o, 'r'=>$r, 'id'=>$id];
         $this->load->view('basicTemplate', $data);
           
           
       }
       
+//      otkazivanje rezervacije
+      
+      public function otkaziRez(){
+          
+        $id = $this->KorisnikModel->dohvatiIdRezervacije();
+         
+        $idProj = $this->KorisnikModel->dohvatiIdProjekcije();
+    
+        if($id == $idProj){
+            $this->KorisnikModel->izbrisiRezervaciju($id);
+        }
+        $this->istorija();
+    }
       // logout
       
     public function logout(){

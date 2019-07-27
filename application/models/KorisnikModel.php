@@ -118,6 +118,26 @@ public function dohvatiRezervisane(){
     return $this->db->get()->row();
 }
 
+public function dohvatiIdRezervacije(){
+    
+    $this->db->select('IdProjekcija');
+    $this->db->from('rezervacije');
+    $this->db->where('StatusRez = "r"');
+    return $this->db->get()->row();
+}
+
+public function dohvatiIdProjekcije(){
+    
+    $this->db->select('rezervacije.IdProjekcija');
+    $this->db->from('rezervacije');
+    $this->db->join('projekcije','rezervacije.IdProjekcija = projekcije.IdProjekcija');
+    
+    return $this->db->get()->result();
+}
+public function izbrisiRezervaciju($id){
+    $this->db->where('IdProjekcija', $id);
+    $this->db->delete('rezervacije');
+}
 
 
 
