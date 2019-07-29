@@ -94,49 +94,53 @@ public function dohvatiKarte(){
 
 public function dohvatiKupljene(){
     
-    $this->db->select('StatusRez');
+    $this->db->select('*');
     $this->db->from('rezervacije');
     $this->db->where('StatusRez = "k"');
     
-    return $this->db->get()->row();
+    return $this->db->get()->result_array();
 }
 public function dohvatiOtkazane(){
     
-    $this->db->select('StatusRez');
+    $this->db->select('*');
     $this->db->from('rezervacije');
     $this->db->where('StatusRez = "o"');
     
-    return $this->db->get()->row();
+    return $this->db->get()->result_array();
 }
 
 public function dohvatiRezervisane(){
     
-    $this->db->select('StatusRez');
+    $this->db->select('*');
     $this->db->from('rezervacije');
     $this->db->where('StatusRez = "r"');
     
-    return $this->db->get()->row();
+    return $this->db->get()->result_array();
 }
 
-public function dohvatiIdRezervacije(){
-    
-    $this->db->select('IdProjekcija');
-    $this->db->from('rezervacije');
-    $this->db->where('StatusRez = "r"');
-    return $this->db->get()->row();
-}
+//public function dohvatiIdRezervacije(){
+//    
+//    $this->db->select('IdProjekcija');
+//    $this->db->from('rezervacije');
+//    $this->db->where('StatusRez = "r"');
+//    return $this->db->get()->row();
+//}
+//
+//public function dohvatiIdProjekcije(){
+//    
+//    $this->db->select('rezervacije.IdProjekcija');
+//    $this->db->from('rezervacije');
+//    $this->db->join('projekcije','rezervacije.IdProjekcija = projekcije.IdProjekcija');
+//    
+//    return $this->db->get()->result();
+//}
+// treba napraviti i da kada se otkaze rezervacija oslobode se karte
 
-public function dohvatiIdProjekcije(){
+public function promeniRezervaciju($idRez, $status){
     
-    $this->db->select('rezervacije.IdProjekcija');
-    $this->db->from('rezervacije');
-    $this->db->join('projekcije','rezervacije.IdProjekcija = projekcije.IdProjekcija');
-    
-    return $this->db->get()->result();
-}
-public function izbrisiRezervaciju($id){
-    $this->db->where('IdProjekcija', $id);
-    $this->db->delete('rezervacije');
+    $pod = array('StatusRez' => $status);
+    $this->db->where('IdRez', $idRez);
+    $this->db->update('rezervacije', $pod);
 }
 
 
