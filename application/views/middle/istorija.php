@@ -1,5 +1,5 @@
 <?php
-var_dump($id);
+
 
 
 ?>
@@ -126,29 +126,25 @@ var_dump($id);
                    <td><?php echo $karta['Tickets']; ?> </td>
                </td>
                    <?php echo "<td>".$karta['StatusRez']."</td>";  ?>
+          <form method="post" name="tajna" action="<?php site_url('KorisnikKontroler/otkaziRez');?>">
                <input type='hidden' id='idRez' name='red' value="<?php echo $karta['IdRez']?>">
-              <?php var_dump($karta['IdRez']);?>
-               <?php
-                //echo "<td><a href=".site_url('KorisnikKontroler/otkaziRez/'.$id);">Izbrisi</a></td>";
-                            // echo "<a href='site_url("'KorisnikKontroler/otkaziRez/'".$id);'>Delete</a></td>"
-                             echo "<td><input type='submit' name='otkazi' Value='Otkazi' onclick='izbrisiRez()'></td>"; ?>
-      
+               <td><input type='submit' name='otkazi' Value='Otkazi' onclick='izbrisiRez()'></td>
+          </form>
+             
              <?php }?>
           </tbody>
 </table>
                    
-<script>
-    function izbrisiRez(){
-        var request = new XMLHttpRequest();
-        var id = document.getElementById('idRez').value;
-            request.onreadystatechange = function() {
-             if (this.readyState == 4 && this.status == 200) {
-                  document.write(this.responseText);
-      }
-    request.open("POST", "<?php echo site_url('KorisnikKontroler/otkaziRez'.$id); ?>", true);
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.send("id="+idRez);
-      
-    }
-    
+ <script>
+  function izbrisiRez(idRez){
+            
+            xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function(){
+                if(this.readyState==4&&this.status==200){
+                    document.getElementById("idRez").innerHTML=this.responseText;
+                }
+            }
+            xmlhttp.open("POST", "<?php echo site_url('KorisnikKontroler/otkaziRez')?>?idRez=" + idRez, true);
+            xmlhttp.send();   
+            }
 </script>

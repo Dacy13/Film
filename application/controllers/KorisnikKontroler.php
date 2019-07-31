@@ -126,10 +126,11 @@ public function pretraga(){
         $o = $this->KorisnikModel->dohvatiOtkazane();
         $r = $this->KorisnikModel->dohvatiRezervisane();
         
-        $idRez = $this->otkaziRez();
+        $this->otkaziRez();
+        
         
         $data['middle'] = 'middle/istorija';
-        $data['middle_podaci'] = ['rez' => $rez,'k'=>$k, 'o'=>$o, 'r'=>$r, 'id'=>$idRez];
+        $data['middle_podaci'] = ['rez' => $rez,'k'=>$k, 'o'=>$o, 'r'=>$r];
         $this->load->view('basicTemplate', $data);
           
           
@@ -138,18 +139,12 @@ public function pretraga(){
 //      otkazivanje rezervacije
       
       public function otkaziRez(){
-     $idRez = $this->input->post('red');
-     return $idRez;
-     
-//     if(!empty(($this->input->post('otkazi')))){
-//         
-//          $idRez = $this->input->post('red_za_update');
-//          $status = 'O';
-//          
-//          $this->KorisnikModel->promeniRezervaciju($idRez,$status);
-         // return $idRez;
-       // }
-        //$this->istorija();
+    
+          $idRez = $this->input->post('red');
+          $status = 'O';
+       
+          $this->KorisnikModel->promeniRezervaciju($idRez, $status);
+
     }
       // logout
       
