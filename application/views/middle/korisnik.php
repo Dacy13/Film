@@ -1,3 +1,5 @@
+
+<!--prikaz pet najskorijih festivala-->
 <!--proba za rotate card-->
 
       <div>
@@ -122,7 +124,7 @@
      
 <!--prikaz pet najskorijih festivala-->
      
-      <table class="table">
+<!--      <table class="table">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Festival</th>
@@ -135,28 +137,28 @@
           <tbody>
               <?php
    
-             $imena = array();
-             foreach ($festivali as $fest) {  
-                    ?>
+//             $imena = array();
+//             foreach ($festivali as $fest) {  
+//                    ?>
             <tr>
                <td>
                    <?php 
-                        $ime = $fest['NameFest'];
-                        if(!in_array($ime, $imena)){
-                            echo "$ime";
-                            $imena[] = $ime;
-                         }
+//                        $ime = $fest['NameFest'];
+//                        if(!in_array($ime, $imena)){
+//                            echo "$ime";
+//                            $imena[] = $ime;
+//                         }
                     ?>
-              <td><?php echo $fest['StartDate']; ?> </td>
-              <td><?php echo $fest['EndDate']; ?> </td>
-              <td><?php echo $fest['Description']; ?> </td>
-              <td><?php echo $fest['CityName']; ?></td>
+              <td><?php // echo $fest['StartDate']; ?> </td>
+              <td><?php // echo $fest['EndDate']; ?> </td>
+              <td><?php // echo $fest['Description']; ?> </td>
+              <td><?php // echo $fest['CityName']; ?></td>
             </tr>
             <?php 
-              } ?>
+             // } ?>
                            
           </tbody>
-       </table>
+       </table>-->
 
 
    <!--forma za pretragu festivala i filmova-->

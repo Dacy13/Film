@@ -1,4 +1,5 @@
-
+<div class="d-flex justify-content-center ">
+    <div class="container-fluid justify-content-center">
 <form name="promeniPodatke" method="POST" action="<?php echo site_url('KorisnikKontroler/izmena');?>">
         <?php foreach($podaci as $p) { ?>   
         <div class="form-group row">
@@ -64,3 +65,5 @@
         <?php } 
         ?>
     </form>
+    </div>
+</div>
