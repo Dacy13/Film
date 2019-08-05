@@ -44,7 +44,7 @@
 			
 	<!--	top right-->
 			<ul class="nav">
-                            <li class="nav-item"><a class="nav-link text-dark" href="#">Moj nalog</a> </li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "ProdavacKontroler/nalog" ) ?>">Moj nalog</a> </li>
 				<li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "ProdavacKontroler/logout" ) ?>">Log out</a> </li>
 
 			</ul>

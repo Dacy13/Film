@@ -1,6 +1,6 @@
 <table class="table">
     <thead class="thead-light">
-    <form name="pretragaRezervacija" method="post" action="<?php echo site_url('ProdavacKontroler/ajax_search');?>">
+        <form name="pretragaRezervisanih">
         <tr>
             <td>Pretraga:</td>
           
@@ -14,11 +14,9 @@
             <td><input type="text" name="prezimeKor"></td>
         </tr>
         <tr>
-            <td><input type="submit" name="trazi" value="trazi" ></td>
+            <td><input type="submit" name="trazi" value="Trazi"></td>
         </tr>
       </form>  
-    
-        
     <tr>
       <th>Ime</th>
       <th>Prezime</th>
@@ -33,29 +31,24 @@
       <tr></tr>
 
        <?php foreach ($rezervacije as $r){
+           
            ?>
   <td><?php echo $r['Name'];?></td>
   <td><?php echo $r['Surname'];?></td>
   <td><?php echo $r['OriginalTitle'];?></td>
   <td><?php echo date('d.m.Y H:i:s', strtotime($r['DateOfRez']));?></td>
   <td><?php echo $r['Tickets'];?></td>
-  <td><?php echo form_submit("odobri","Odobri!"); ?> </td>
-  <td><?php echo form_submit("odbij","Odbij!"); ?> </td>
+  <td><?php echo form_submit("kupljeno","Kupljeno!"); ?> </td>
   <td><?php echo form_close();?></td>
   
   </tr>
        <?php  }?>
- 
-
          
   </tbody>
 </table>
-
 <?php
 echo $this->pagination->create_links();
 ?>
-
-  
 
 
 
