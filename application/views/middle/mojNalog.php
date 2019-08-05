@@ -1,4 +1,5 @@
-<div class="text-center">
+<body class='bg-dark'>
+<div class="text-center text-warning">
       <h3>
            Podaci o korisniku:
      </h3>
@@ -9,56 +10,56 @@
 <form name="promeniPodatke" method="POST" action="<?php echo site_url('KorisnikKontroler/izmena');?>">
         <?php foreach($podaci as $p) { ?>   
         <div class="form-group row">
-            <label for="inputUsername" class="col-sm-2 col-form-label">Username: </label>
+            <label for="inputUsername" class="col-sm-2 col-form-label text-warning">Username: </label>
                 <div class="col-sm-10">
                     <input type="email" class="col-sm-2 form-control" name="username" disabled value="<?php echo $p->Username ?? "" ?>">
                 </div>
         </div>
         <div class="form-group row">
-            <label for="inputName" class="col-sm-2 col-form-label">Ime: </label>
+            <label for="inputName" class="col-sm-2 col-form-label text-warning">Ime: </label>
                 <div class="col-sm-10">
                     <input type="text" class="col-sm-2 form-control" name="ime" value="<?php echo $p->Name ?? "" ?>" >
                 </div>
         </div>
         <div class="form-group row">
-            <label for="inputSurname" class="col-sm-2 col-form-label">Prezime: </label>
+            <label for="inputSurname" class="col-sm-2 col-form-label text-warning">Prezime: </label>
                 <div class="col-sm-10">
                     <input type="text" class="col-sm-2 form-control" name="prezime" value="<?php echo $p->Surname ?? ""; ?>">
                 </div>
         </div>
         <div class="form-group row">
-            <label for="inputDate" class="col-sm-2 col-form-label">Godina rodjenja: </label>
+            <label for="inputDate" class="col-sm-2 col-form-label text-warning">Godina rodjenja: </label>
                 <div class="col-sm-10">
                     <input type="text" class="col-sm-2 form-control" name="godina" disabled value="<?php echo $p->DateOfBirth ?? ""; ?>">
                 </div>
         </div>
         <div class="form-group row">
-            <label for="inputBroj" class="col-sm-2 col-form-label">Broj telefona: </label>
+            <label for="inputBroj" class="col-sm-2 col-form-label text-warning">Broj telefona: </label>
                 <div class="col-sm-10">
                     <input type="text" class="col-sm-2 form-control" name="broj" value="<?php echo $p->Mobile ?? ""; ?>">
                 </div>
         </div>
         <div class="form-group row">
-            <label for="inputEmail" class="col-sm-2 col-form-label">E-mail:</label>
+            <label for="inputEmail" class="col-sm-2 col-form-label text-warning">E-mail:</label>
                 <div class="col-sm-10">
                     <input type="email" class="col-sm-2 form-control" name="mejl" value="<?php echo $p->Email ?? ""; ?>">
                 </div>
         </div>
-        <label>Promenite lozinku</label>
+        <label class='text-warning'>Promenite lozinku</label>
         <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Trenutna lozinka: </label>
+            <label for="inputPassword" class="col-sm-2 col-form-label text-warning">Trenutna lozinka: </label>
                 <div class="col-sm-10">
                     <input type="password" class="col-sm-2 form-control" name="password" value="<?php echo $p->Password ?? ""; ?>" >
                 </div>
         </div>
         <div class="form-group row">
-            <label for="inputNova" class="col-sm-2 col-form-label">Nova lozinka: </label>
+            <label for="inputNova" class="col-sm-2 col-form-label text-warning">Nova lozinka: </label>
                 <div class="col-sm-10">
                     <input type="password" class="col-sm-2 form-control" name="novip">
                 </div>
         </div>
         <div class="form-group row">
-            <label for="inputPotvrda" class="col-sm-2 col-form-label">Potvrdite lozinku: </label>
+            <label for="inputPotvrda" class="col-sm-2 col-form-label text-warning">Potvrdite lozinku: </label>
                 <div class="col-sm-10">
                     <input type="password" class="col-sm-2 form-control" name="potvrda" >
                 </div>

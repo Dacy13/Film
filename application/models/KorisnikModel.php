@@ -54,7 +54,7 @@ class KorisnikModel extends CI_Model{
         $this->db->or_like('SerbianTitle', $srbNaziv);
         }
         return $this->db->get()->result();
-
+        
    }     
    
 
