@@ -51,6 +51,11 @@
                            
           </tbody>
        </table>-->
+<div class='text-center'>
+        <h2 class="text-warning">
+            Moje kupovine
+        </h2>
+      </div>
 <!--prikaz kupljenih karata--> 
 <body class='bg-dark'>
 <div class="mt-5">
@@ -87,6 +92,8 @@
 </div>
 <!--prikaz otkazanih karata-->
 <div class="shadow p-3 mb-5 bg-warning rounded col-sm-4 offset-2">
+     <b> Otkazane karte: </b>
+    <br><br>
     <table class="table table-dark text-warning">
   <thead>
     <tr>
@@ -116,6 +123,8 @@
 
 <!--prikaz rezervisanih karata-->
 <div class="shadow p-3 mb-5 bg-warning rounded col-sm-10 offset-1">
+     <b> Rezervisane karte: </b>
+    <br><br>
      <table class="table table-dark text-warning">
   <thead>
     <tr>
@@ -138,7 +147,7 @@
                         ?>
                    <td><?php echo $karta['Tickets']; ?> </td>
                </td>
-                   <?php echo "<td style='color: red'>".$karta['StatusRez']."</td>"; ?>
+                   <?php echo "<td>".$karta['StatusRez']."</td>"; ?>
                <form method="post" name="tajna" action="<?php site_url('KorisnikKontroler/otkaziRez');?>">
                <input type='hidden' id='idRez' name='red' value="<?php echo $karta['IdRez']?>">
                <td><input type='submit' name='otkazi' class="btn btn-outline-warning" Value='Otkazi' onclick='izbrisiRez()'></td>

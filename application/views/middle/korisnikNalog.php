@@ -1,7 +1,7 @@
 <body class='bg-dark'>
 <div class="text-center text-warning">
       <h3>
-           Podaci o korisniku:
+           Moj profil
      </h3>
 </div>
 <!--<div class="col-md-4 col-md-offset-4">my div here</div>-->
