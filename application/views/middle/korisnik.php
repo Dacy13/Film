@@ -59,7 +59,7 @@
                                 <div>
                                     <br>
                                     <p <?php  $id = $fest['IdFest']; ?>>Vise detalja o samom festivalu
-                                    mozete videti na <?php echo "<a href='FestKontroler'?id=$id> ovom linku </a>" ?></p>
+                                    mozete videti na <?php echo "<a href='".site_url('FestivalKontroler/index')."?id=".$id."'> ovom linku </a>" ?></p>
                                 </div>
 <!--                                <div class="stats-container">
                                     <div class="stats">
@@ -224,7 +224,9 @@
                         <div class="col-xs-12 col-sm-12 col-md-2 excerpet bg-warning">
                             <br>
                             <span class="plus"><?php  $id = $f->IdFest ?>Vise informacija 
-                            <?php echo "<a href='FestKontroler'?id=$id><i class='glyphicon glyphicon-plus'></i></a>" ?></span>
+                            <?php echo "<a href='".site_url('FestivalKontroler/index')."?id=".$id."'>"
+                                    . "<i class='glyphicon glyphicon-plus'></i></a> "?></span>
+                           
 			</div>
 			<!--<span class="clearfix borda"></span>-->
 		</article>
