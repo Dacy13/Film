@@ -80,7 +80,7 @@ public function pretraga(){
         $id = $this->session->korisnik->Username;
         $podaci = $this->KorisnikModel->korisnici($id);
    
-        $data['middle'] = 'middle/mojNalog';
+        $data['middle'] = 'middle/korisnikNalog';
         $data['middle_podaci'] = ['podaci' => $podaci];
         $this->load->view('basicTemplate', $data);
     }
