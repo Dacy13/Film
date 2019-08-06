@@ -58,6 +58,18 @@ class KorisnikModel extends CI_Model{
         
    }     
    
+   public function brojFest(){
+        $this->db->select('*');
+        $this->db->from('filmovi');
+        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
+        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+        
+        $br = $this->db->get()->result_array();
+        $b = count($br);
+        return $b;
+//$this->db->count_all_results('rezervacije');
+   }
 
 // ispis podataka o korisniku na stranici mojNalog
    

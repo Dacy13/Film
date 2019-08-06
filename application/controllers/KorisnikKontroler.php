@@ -24,12 +24,12 @@ class KorisnikKontroler extends CI_Controller {
         //a u indexu pozivamo tu metodu, i u $data['middleData'] prosledjujemo 
         
 //        $svi = $this->search();
-        $ime = $this->pretraga();
+        $festival = $this->pretraga();
         
         $festivali = $this->KorisnikModel->prikaziFestivale();
         
         $data['middle'] = 'middle/korisnik';
-        $data['middle_podaci'] = ['festivali' => $festivali, 'filmovi'=>$ime];
+        $data['middle_podaci'] = ['festivali' => $festivali, 'filmovi'=>$festival];
         $this->load->view('basicTemplate', $data);
     }
     
@@ -83,13 +83,14 @@ public function pretraga(){
             else {
                 $festival= null;
             }
-            
-            $config['base_url'] = site_url("KorisnikKontroler/pretraga");
-            $config['total_rows'] = $this->KorisnikModel->pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv, $prva, LIMIT_PO_STRANICI);;
+
+            $config['base_url'] = site_url("KorisnikKontroler/index");
+            $config['total_rows'] = $this->KorisnikModel->brojFest();
             $config['per_page'] = LIMIT_PO_STRANICI;
             $this->pagination->initialize($config); 
             
             return $festival; 
+           
 }
 
 // podaci za view mojNalog
@@ -97,9 +98,9 @@ public function pretraga(){
  public function nalog(){
         $id = $this->session->korisnik->Username;
         $podaci = $this->KorisnikModel->korisnici($id);
-   $bazaBroj = $this->KorisnikModel->dohvatiBroj($id);
+        
         $data['middle'] = 'middle/korisnikNalog';
-        $data['middle_podaci'] = ['podaci' => $podaci, 'broj'=>$bazaBroj];
+        $data['middle_podaci'] = ['podaci' => $podaci];
         $this->load->view('basicTemplate', $data);
     }
     

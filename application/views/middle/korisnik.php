@@ -235,4 +235,6 @@
     </section>
    </div>
   
-
+<?php
+echo $this->pagination->create_links();
+?>
