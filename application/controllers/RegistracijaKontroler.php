@@ -57,8 +57,8 @@ class RegistracijaKontroler extends CI_Controller{
         $this->form_validation->set_rules ( "passwordConfirmation", "Password Confirmation", "trim|required|matches[password]");
 
     //   ime i prezime
-        $this->form_validation->set_rules ( "ime", "Ime", "trim|required|alpha|min_length[5]|max_length[15]");
-        $this->form_validation->set_rules ( "prezime", "Prezime", "trim|required|alpha|min_length[5]|max_length[15]");
+        $this->form_validation->set_rules ( "ime", "Ime", "trim|required|alpha|min_length[5]|max_length[15]|callback_specijalni_znakovi");
+        $this->form_validation->set_rules ( "prezime", "Prezime", "trim|required|alpha|min_length[5]|max_length[15]|callback_specijalni_znakovi");
 
     //   datum i mobilni broj
         $this->form_validation->set_rules ( "rodjendan", "Rodjendan", "trim|required");
@@ -109,6 +109,20 @@ class RegistracijaKontroler extends CI_Controller{
         }
         return true;
     }
+    
+    public function specijalni_znakovi ($str) {
+         if (!preg_match_all("#\p{L}#", $str)) {
+            return false; 
+        }
+        
+        else if (preg_match_all("#.*\\d+.*#", $str)) {
+            return false;
+        }
+         else {       
+        
+        return true;
+         }
+     }
    
     public function password_check($str) {
 
