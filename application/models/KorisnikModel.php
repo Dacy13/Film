@@ -27,7 +27,7 @@ class KorisnikModel extends CI_Model{
     
     // pretraga festivala i filmova koja nije u upotrebi, odnosi se na pretraga() u kontroleru
     
-    public function pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv){
+    public function pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv,$prva,$limit){
     
    // SELECT OriginalTitle, SerbianTitle, Date, Time, NameFest, CityName FROM `filmovi` 
    // join projekcije join festivali join gradovi where filmovi.IdFilm=projekcije.IdFilm and 
@@ -53,6 +53,7 @@ class KorisnikModel extends CI_Model{
         if(!empty($srbNaziv)){
         $this->db->or_like('SerbianTitle', $srbNaziv);
         }
+        $this->db->limit($limit, $prva);
         return $this->db->get()->result();
         
    }     
@@ -82,7 +83,28 @@ public function korisnici($id) {
         $this->db->where('Username', $id);
         $this->db->update('korisnici', $pod);
 }
+ public function updateBez($id, $ime, $prezime, $broj, $mejl, $pass){
+        
+        $pod = array(
+                    'Name' => $ime,
+                    'Surname' => $prezime,
+                    'Mobile' => $broj,
+                    'Email' => $mejl,
+                    'Password' => $pass);
+        
+        $this->db->where('Username', $id);
+        $this->db->update('korisnici', $pod);
+}
 
+public function dohvatiBroj($id){
+    $this->db->select('Mobile');
+    $this->db->from('korisnici');
+    $this->db->where('Username', $id);
+   
+    $query = $this->db->get();
+    $result = $query->row();
+    return $result->Mobile; 
+}
 public function dohvatiKarte(){
     
     $this->db->select('*');

@@ -1,4 +1,4 @@
-<body class='bg-dark'>
+<!--<body class='bg-dark'>-->
 <!--prikaz pet najskorijih festivala-->
 <!--proba za rotate card-->
 

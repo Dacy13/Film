@@ -1,13 +1,16 @@
-<body class='bg-dark'>
+<!--<body class='bg-dark'>-->
 <div class="text-center text-warning">
       <h3>
            Moj profil
      </h3>
 </div>
 <!--<div class="col-md-4 col-md-offset-4">my div here</div>-->
+<?php echo validation_errors();
+var_dump($broj);
+var_dump($this->input->post('broj'));?>
 <div class="container">
     <div class="align-items-center justify-content-center">
-<form name="promeniPodatke" method="POST" action="<?php echo site_url('KorisnikKontroler/izmena');?>">
+<form name="promeniPodatke" method="POST" action="<?php echo site_url('KorisnikKontroler/izmenaGaga');?>">
         <?php foreach($podaci as $p) { ?>   
         <div class="form-group row">
             <label for="inputUsername" class="col-sm-2 col-form-label text-warning">Username: </label>

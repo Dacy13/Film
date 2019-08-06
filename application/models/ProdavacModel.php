@@ -63,7 +63,15 @@ class ProdavacModel extends CI_Model {
         $this->db->update('korisnici', $pod);
 }
     
-  
+  public function dohvatiBroj($id){
+    $this->db->select('Mobile');
+    $this->db->from('korisnici');
+    $this->db->where('Username', $id);
+   
+    $query = $this->db->get();
+    $result = $query->row();
+    return $result->Mobile; 
+}
     
     
 }

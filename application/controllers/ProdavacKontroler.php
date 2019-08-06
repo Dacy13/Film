@@ -110,6 +110,14 @@ class ProdavacKontroler extends CI_Controller {
                 $novip= $this->input->post('novip');
                 $potvrda= $this->input->post('potvrda');
                 
+                $bazaBroj = $this->ProdavacModel->dohvatiBroj($id);
+                
+                if( strcmp($broj, $bazaBroj)) {
+                    $is_unique =  '|is_unique[korisnici.Mobile]';
+                    } else {
+                    $is_unique =  '';
+                        }
+                
                 $this->form_validation->set_message('required', 'Polje {field} je obavezno');
                 $this->form_validation->set_message('min_length', 'Polje {field} mora imati najmanje {param} karaktera');
                 $this->form_validation->set_message('max_length', 'Polje {field} mora imati najvise {param} karaktera');
@@ -125,7 +133,7 @@ class ProdavacKontroler extends CI_Controller {
                 $this->form_validation->set_rules ( "ime", "ime", "trim|required|min_length[5]|max_length[15]|callback_specijalni_znakovi");
                 $this->form_validation->set_rules ( "prezime", "prezime", "trim|required|min_length[5]|max_length[15]|callback_specijalni_znakovi");
                 
-                $this->form_validation->set_rules ( "broj",   "Broj mobilnog telefona",   "trim|required|is_natural|regex_match['(06)(\d)(\d){3}(\d){3,4}']|is_unique[korisnici.Mobile] ");
+                $this->form_validation->set_rules ( "broj",   "Broj mobilnog telefona",   "trim|required|is_natural|regex_match['(06)(\d)(\d){3}(\d){3,4}']".$is_unique);
                 $this->form_validation->set_rules ( "mejl", "Email", "trim|required|valid_email");
                 
                 
@@ -143,7 +151,7 @@ class ProdavacKontroler extends CI_Controller {
                 $this->form_validation->set_rules ( "ime", "ime", "trim|required|min_length[5]|max_length[15]|callback_specijalni_znakovi");
                 $this->form_validation->set_rules ( "prezime", "prezime", "trim|required|min_length[5]|max_length[15]|callback_specijalni_znakovi");
                 
-                $this->form_validation->set_rules ( "broj",   "Broj mobilnog telefona",   "trim|required|is_natural|regex_match['(06)(\d)(\d){3}(\d){3,4}']|is_unique[korisnici.Mobile] ");
+                $this->form_validation->set_rules ( "broj",   "Broj mobilnog telefona",   "trim|required|is_natural|regex_match['(06)(\d)(\d){3}(\d){3,4}']".$is_unique);
                 $this->form_validation->set_rules ( "mejl", "Email", "trim|required|valid_email");
              
                if ($this->form_validation->run() == TRUE) {
