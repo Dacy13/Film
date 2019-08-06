@@ -180,10 +180,38 @@
    <div class="container">
 
     <hgroup class="mb20 text-warning">
+        <br>
 		<h1>Rezultati pretrage</h1>
-                <h2 class="lead"><strong class="text-danger">
-                    3
-                    </strong> rezultata je pronadjeno za <strong class="text-danger">Lorem</strong></h2>								
+                <h2 class="lead">
+                    <strong class="text-warning">
+                     <?php
+                     echo $broj;
+                         ?>
+                    </strong> rezultata je pronadjeno za 
+                    <strong class="text-warning">
+                        <?php
+                            if (!empty('imeFest')) {
+                                echo $this->input->post('imeFest')." ";
+                            }                                
+                        
+                            if(!empty('od')){
+                                echo $this->input->post('od')." ";
+                            }
+                      
+                            if(!empty('do')){
+                                echo $this->input->post('do')." ";
+                            }
+                
+                            if(!empty('engNaziv')){
+                                echo $this->input->post('engNaziv')." ";
+                            }
+                        
+                            if(!empty('srbNaziv')){
+                               echo $this->input->post('srbNaziv')." ";
+                            }
+                         ?>
+                    </strong>
+                </h2>								
 	</hgroup>
 <?php if(!empty($filmovi)){ ?>
     <section class="col-xs-12 col-sm-6 col-md-12">

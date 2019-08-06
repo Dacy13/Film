@@ -27,9 +27,12 @@ class KorisnikKontroler extends CI_Controller {
         $festival = $this->pretraga();
         
         $festivali = $this->KorisnikModel->prikaziFestivale();
+
+        $broj = $this->brojPretrage();
         
         $data['middle'] = 'middle/korisnik';
-        $data['middle_podaci'] = ['festivali' => $festivali, 'filmovi'=>$festival];
+        $data['middle_podaci'] = ['festivali' => $festivali, 'filmovi'=>$festival,
+                                    'broj'=>$broj];
         $this->load->view('basicTemplate', $data);
     }
     
@@ -44,9 +47,26 @@ class KorisnikKontroler extends CI_Controller {
 //    return $svi;
 //}
 
+
+    public function brojPretrage(){
+        $imeFest = $this->input->post('imeFest');
+        $pocetak = $this->input->post('od');
+        $zavrsetak = $this->input->post('do');
+        $engNaziv = $this->input->post('engNaziv');
+        $srbNaziv = $this->input->post('srbNaziv');
+        
+        if(!empty($imeFest) || !empty($pocetak) || !empty($zavrsetak) || !empty($engNaziv) || !empty($srbNaziv)){
+                $broj = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
+            }
+            else {
+                $broj= null;
+            }
+            return $broj;
+    }
+
 // funkcija za pretragu festivala i filmova sa vise polja
 public function pretraga(){
-   
+    
             $imeFest = $this->input->post('imeFest'); 
                 if(!empty($imeFest)){
                     $imeFest = $this->input->post('imeFest');
@@ -85,7 +105,7 @@ public function pretraga(){
             }
 
             $config['base_url'] = site_url("KorisnikKontroler/index");
-            $config['total_rows'] = $this->KorisnikModel->brojFest();
+            $config['total_rows'] = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
             $config['per_page'] = LIMIT_PO_STRANICI;
             $this->pagination->initialize($config); 
             

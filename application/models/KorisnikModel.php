@@ -39,7 +39,7 @@ class KorisnikModel extends CI_Model{
         $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
         if(!empty($imeFest)){
-        $this->db->like('NameFest', $imeFest);
+          $this->db->like('NameFest', $imeFest);
         }
         if(!empty($pocetak)){
         $this->db->where('StartDate >', $pocetak);
@@ -57,6 +57,100 @@ class KorisnikModel extends CI_Model{
         return $this->db->get()->result();
         
    }     
+   
+   public function brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv){
+        $this->db->select('*');
+        $this->db->from('filmovi');
+        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
+        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+        if(!empty($imeFest)){
+          count(array($this->db->like('NameFest', $imeFest)));
+        }
+        if(!empty($pocetak)){
+        count(array($this->db->where('StartDate >', $pocetak)));
+        }
+        if(!empty($zavrsetak)){
+        count(array($this->db->where('EndDate <', $zavrsetak)));
+        }
+        if(!empty($engNaziv)){
+        count(array($this->db->or_like('OriginalTitle', $engNaziv)));
+        }
+        if(!empty($srbNaziv)){
+        count(array($this->db->or_like('SerbianTitle', $srbNaziv)));
+        }
+        return $this->db->count_all_results();
+   }
+   public function brojanjeFesta($imeFest){
+       
+        $this->db->select('*');
+        $this->db->from('filmovi');
+        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
+        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+        
+        if(!empty($imeFest)){
+          $this->db->like('NameFest', $imeFest);
+        }
+          return $this->db->count_all_results();
+        
+   }
+   public function brojDatumP($pocetak){
+       
+        $this->db->select('*');
+        $this->db->from('filmovi');
+        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
+        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+        
+        if(!empty($pocetak)){
+        $this->db->where('StartDate >', $pocetak);
+        }
+          return $this->db->count_all_results();
+        
+   }
+   public function brojDatumK($zavrsetak){
+       
+        $this->db->select('*');
+        $this->db->from('filmovi');
+        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
+        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+        
+         if(!empty($zavrsetak)){
+        $this->db->where('EndDate <', $zavrsetak);
+        }
+          return $this->db->count_all_results();
+        
+   }
+   public function brojEngIme($engNaziv){
+       
+        $this->db->select('*');
+        $this->db->from('filmovi');
+        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
+        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+        
+       if(!empty($engNaziv)){
+        $this->db->or_like('OriginalTitle', $engNaziv);
+        }
+          return $this->db->count_all_results();
+        
+   }
+    public function brojSrbIme($srbNaziv){
+       
+        $this->db->select('*');
+        $this->db->from('filmovi');
+        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
+        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+        
+         if(!empty($srbNaziv)){
+        $this->db->or_like('SerbianTitle', $srbNaziv);
+        }
+          return $this->db->count_all_results();
+        
+   }
    
    public function brojFest(){
         $this->db->select('*');
