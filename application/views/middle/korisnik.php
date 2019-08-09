@@ -1,184 +1,268 @@
-
+<!--<body class='bg-dark'>-->
 <!--prikaz pet najskorijih festivala-->
-     
-      <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Festival</th>
-              <th scope="col">Pocinje</th>
-              <th scope="col">Zavrsava</th>
-              <th scope="col">Detalji</th>
-              <th scope="col">Mesto odrzavanja</th>
-            </tr>
-          </thead>
-          <tbody>
-              <?php
+<!--proba za rotate card-->
+
+      <div>
+        <h1 class="title text-warning">
+            Festivali u narednom periodu
+        </h1>
+      </div>
+<div class="d-flex justify-content-center">
+        <?php
    
              $imena = array();
+             $brojac = 0;
              foreach ($festivali as $fest) {  
-                    ?>
-            <tr>
-               <td>
-                   <?php 
-                        $ime = $fest['NameFest'];
-                        if(!in_array($ime, $imena)){
-                            echo "$ime";
-                            $imena[] = $ime;
-                         }
-                    ?>
-              <td><?php echo $fest['StartDate']; ?> </td>
-              <td><?php echo $fest['EndDate']; ?> </td>
-              <td><?php echo $fest['Description']; ?> </td>
-              <td><?php echo $fest['CityName']; ?></td>
-            </tr>
-            <?php 
-              } ?>
-                           
-          </tbody>
-       </table>
+                  $brojac++ ;  
+                  ?>
 
+     <!--<div class="col-sm-12 ">-->
+        <div class="col-sm-2">
+         <!--<div class="col-md-4 col-sm-6">-->
+             <div class="card-container">
+                <div class="card">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="<?php echo base_url()?>/slike/fest.png"/>
+                        </div>
+                        <div class="user">
+                            <img class="img-circle" src="<?php echo base_url()?>/slike/fest.png"/>
+                        </div>
+                        <div class="content">
+                            <div class="main">
+                                <h3 class="name"> 
+                                    <?php 
+                                          $ime = $fest['NameFest'];
+                                            if(!in_array($ime, $imena)){
+                                               echo "$ime";
+                                               $imena[] = $ime;}
+                                       ?></h3>
+                                <p class="profession"><?php //echo $fest['CityName']; ?></p>
+                                <p class="text-center"><?php echo $fest['CityName']; ?></p>
+                            </div>
+                            <div class="footer">
+                                <i class="fa fa-mail-forward"></i> Auto Rotation
+                            </div>
+                        </div>
+                    </div> <!-- end front panel -->
+                    <div class="back">
+<!--                        <div class="header">
+                            <h5 class="motto"></h5>
+                            </div>--><br><br>
+                        <div class="content">
+                            <div class="main">
+                                <p class="text-center">Festival se odrzava u periodu:</p>
+                                <br>
+                                <h5 class="text-center"><?php echo "od ".$fest['StartDate']."<br> do ".$fest['EndDate']; ?></h5>
+                                <br>
+                                <p class="text-center"><?php echo $fest['Description']; ?></p>
+                                <div>
+                                    <br>
+                                    <p <?php  $id = $fest['IdFest']; ?>>Vise detalja o samom festivalu
+                                    mozete videti na <?php echo "<a href='".site_url('FestivalKontroler/index')."?id=".$id."'> ovom linku </a>" ?></p>
+                                </div>
+<!--                                <div class="stats-container">
+                                    <div class="stats">
+                                        <h4>235</h4>
+                                        <p>
+                                            Followers
+                                        </p>
+                                    </div>
+                                    <div class="stats">
+                                        <h4>114</h4>
+                                        <p>
+                                            Following
+                                        </p>
+                                    </div>
+                                    <div class="stats">
+                                        <h4>35</h4>
+                                        <p>
+                                            Projects
+                                        </p>
+                                    </div>
+                                </div>-->
 
-   <!--forma za pretragu festivala i filmova-->
-
-    <div class="row justify-content-center">
-        <form name='pretraga' method='POST' action="<?php echo site_url('KorisnikKontroler/index');?>">
-        Naziv festivala:  
-        <input type="text" name="imeFest" value="<?php ?>">
-        Pocetak festivala: 
-        <input type="date" name="od" value="<?php ?>">
-        Kraj festivala: 
-        <input type="date" name="do" value="<?php  ?>">
-         Original naziv filma: 
-        <input type="text" name="engNaziv"  value="<?php  ?>">
-        Srpski naziv filma: 
-        <input type="text" name="srbNaziv" value="<?php  ?>">
-        <input type='submit' name='trazi' value='Search'>
-        </form>
-    </div>
-   <div><?php
-          if(!empty($filmovi)){?>
-       <table class="table">
-           <thead class="thead-dark">
-                    <tr>
-                        <td>Festival</td>
-                        <td>Pocinje</td>
-                        <td>Zavrsava</td>
-                        <td>Grad</td>
-                        <td>Detalji na linku</td>
-                         <?php if(!empty($this->input->post('srbNaziv')) 
-                                || !empty($this->input->post('engNaziv'))) { ?>
-                        <td>Srpski naziv</td>
-                        <td>Engleski naziv</td>
-                        <td>Datum projekcije</td>
-                        <td>Vreme projekcije</td>
-                        <td>Detalji na linku</td>
-                         
-                        <?php } ?>
-                    </tr>
-                 </thead>
-                 <tbody>
-                   
-                 <?php foreach($filmovi as $f){?>
-                    <tr>
-                        <td><?php echo $f->NameFest?></td>
-                        <td><?php echo $f->StartDate?></td>
-                        <td><?php echo $f->EndDate?></td>
-                        <td><?php echo $f->CityName?></td>
-                            <?php  $id = $f->IdFest ?>
-                        <td><?php echo "<a href='FestKontroler'?id=$id>INFO</a> ";?></td>
-                        
-                            <?php if(!empty($this->input->post('srbNaziv')) 
-                                  || !empty($this->input->post('engNaziv'))) { ?>
-                        
-                        <td><?php echo $f->SerbianTitle?></td>
-                        <td><?php echo $f->OriginalTitle?></td>
-                        <td><?php echo $f->Date?></td>
-                        <td><?php $sat = $f->Time;
-                                  $sati = date("H:i", strtotime($sat));
-                                  echo $sati ?></td>
-                            <?php  $id = $f->IdFest ?>
-                        <td><?php echo "<a href='FestKontroler'?id=$id>INFO</a> ";?></td>
-                            <?php } ?>
-                    </tr>
-                 <?php } ?>         
-                 </tbody>   
-       </table>
-   <?php } 
-   else {
-       
-        echo 'Nema rezultata za zadatu pretragu';
-   } 
-       ?>
-   </div>
-   <br>
-   <br>
-   
-   <!--search forma sa jednim poljem-->
-   
-<!--<div class="row justify-content-center">
-       <form action="<?php //echo $_SERVER['PHP_SELF'];?> " method="post"> 
-        <div class="input-group"> 
-        <input type="text" name="search"  placeholder="Pretraga">
-        <input type="submit" value="Search" name="save"/>
-        </div>
-    </form>
-</div>
-    <div>
-        <table class="table">
-                 <thead class="thead-dark">
-                    <tr>
-                        <td>Festival</td>
-                        <td>Pocinje</td>
-                        <td>Zavrsava</td>
-                        <td>Grad</td>
-                        <td>Srpski naziv</td>
-                        <td>Engleski naziv</td>
-                        <td>Datum projekcije</td>
-                        <td>Vreme projekcije</td>
-                        <td>Detalji na linku</td>
-                    </tr>
-                 </thead>
-                 <tbody>
-                 <?php //foreach($search as $search_show):?>
-                    <tr>
-                        <td><?php //echo $search_show->NameFest?></td>
-                        <td><?php //echo $search_show->StartDate?></td>
-                         <td><?php //echo$search_show->EndDate?></td>
-                        <td><?php// echo $search_show->CityName?></td>
-                        <td><?php //echo $search_show->SerbianTitle?></td>
-                        <td><?php //echo $search_show->OriginalTitle?></td>
-                        <td><?php //echo $search_show->Date?></td>
-                        <td><?php //$sat = $search_show->Time;
-                                 // $sati = date("H:i", strtotime($sat));
-                                 // echo $sati ?></td>
-                        <?php //$id = $search_show->IdFest?>
-                        <td><?php //echo "<a href='FestKontroler'?id=$id>INFO</a> "?></td>
+                            </div>
+                        </div>
+<br>
+                        <div class="footer">
                             
-                    </tr>
+                            <div class="social-links text-center">
+                                <a href="#" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
+                                <a href="#" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
+                                <a href="#" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
+                            </div>
+                        </div>
+                    </div> <!-- end back panel -->
+                </div> <!-- end card -->
+            </div> <!-- end card-container -->
+        </div> <!-- end col sm 3 -->
+<!--         <div class="col-sm-1"></div> -->
 
-                 <?php //endforeach ?>
-                 </tbody>
-        </table>
-    </div> 
-   -->
-  
+<?php 
+          if ($brojac == 5) {
+                echo '<br>'; 
+                $brojac = 0;}
+          } ?>
+</div>
 
-   <!--funkcija za ajax koji delimicno radi kako treba-->
-   
-<!--<script>
-function showHint(str) {
-    if (str.length == 0) { 
-        document.getElementById("result").innerHTML = "";
-        return;
-    } else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("result").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "KorisnikKontroler/ajax?q=" + str, true);
-        xmlhttp.send();
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $().ready(function(){
+        $('[rel="tooltip"]').tooltip();
+        $('a.scroll-down').click(function(e){
+            e.preventDefault();
+            scroll_target = $(this).data('href');
+             $('html, body').animate({
+                 scrollTop: $(scroll_target).offset().top - 60
+             }, 1000);
+        });
+    });
+    function rotateCard(btn){
+        var $card = $(btn).closest('.card-container');
+        console.log($card);
+        if($card.hasClass('hover')){
+            $card.removeClass('hover');
+        } else {
+            $card.addClass('hover');
+        }
     }
-}
-</script>-->
+</script>
+     
+<!--pretraga festivala i filmova-->
+     
+<div>
+        <h3 class="title text-warning">
+           Pretraga festivala i filmova
+        </h3>
+      </div>
+
+   <div class="row d-flex justify-content-center col-sm-12">
+       <div  class='card-transparent shadow' > 
+        <form name='pretraga' method='POST' action="<?php echo site_url('KorisnikKontroler/index');?>">
+            
+                <div class="form-group col-sm-4">
+                    <label for="imeFest" class='text-warning'>Naziv festivala:</label>
+                    <input type="text" class="form-control" name="imeFest" placeholder="Unesite naziv festivala..">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="od" class='text-warning'>Pocetak festivala:</label>
+                    <input type="date" class="form-control" name="od" >
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="do" class='text-warning'>Kraj festivala:</label>
+                    <input type="date" class="form-control" name="do" >
+                </div>
+            <div class='row d-flex justify-content-center col-sm-12'>
+                <div class="form-group col-sm-4">
+                    <label for="engNaziv" class='text-warning'>Original naziv filma:</label>
+                    <input type="text" class="form-control" name="engNaziv" placeholder="Unesite naziv filma..">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="srbNaziv" class='text-warning'>Srpski naziv filma:</label>
+                    <input type="text" class="form-control" name="srbNaziv" placeholder="Unesite naziv filma..">
+                </div>
+                    
+                <div class='row'>
+                    <div class='buttonBox'>
+                        <input type='submit' name='trazi' value='Pretraga' class=" btn btn-outline-warning">
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+   </div>
+
+   <!-- ispis rezultata pretrage-->
+   
+   <div class="container">
+
+    <hgroup class="mb20 text-warning">
+        <br>
+		<h1>Rezultati pretrage</h1>
+                <h2 class="lead">
+                    <strong class="text-warning">
+                     <?php
+                     echo $broj;
+                         ?>
+                    </strong> rezultata je pronadjeno za 
+                    <strong class="text-warning">
+                        <?php
+                            if (!empty('imeFest')) {
+                                echo $this->input->post('imeFest')." ";
+                            }                                
+                        
+                            if(!empty('od')){
+                                echo $this->input->post('od')." ";
+                            }
+                      
+                            if(!empty('do')){
+                                echo $this->input->post('do')." ";
+                            }
+                
+                            if(!empty('engNaziv')){
+                                echo $this->input->post('engNaziv')." ";
+                            }
+                        
+                            if(!empty('srbNaziv')){
+                               echo $this->input->post('srbNaziv')." ";
+                            }
+                         ?>
+                    </strong>
+                </h2>								
+	</hgroup>
+<?php if(!empty($filmovi)){ ?>
+    <section class="col-xs-12 col-sm-6 col-md-12">
+        <?php 
+        foreach($filmovi as $f){?>
+		<article class="search-result row ">
+			<div class="col-xs-12 col-sm-12 col-md-3 bg-warning">
+                            <br>
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="#" alt="Lorem ipsum" /></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2 bg-warning">
+                            <br>
+				<ul class="meta-search">
+					<li><i class="glyphicon glyphicon-calendar text"></i> <span><?php echo $f->StartDate?></span></li>
+					<li><i class="glyphicon glyphicon-calendar"></i> <span><?php echo $f->EndDate?></span></li>
+					<li><i class="glyphicon glyphicon-tags"></i> <span><?php echo $f->CityName?></span></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2 bg-warning">
+                            <br>
+				<h3><?php echo $f->NameFest ?></h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-3 excerpet bg-warning">
+                                <?php  if(!empty($this->input->post('srbNaziv')) 
+                                       || !empty($this->input->post('engNaziv'))) { ?>
+				<p>
+                                   
+                                <ul class="meta-search">
+                                    <li><i class="glyphicon glyphicon-film"></i> <span><?php  echo $f->SerbianTitle?></span></li>
+                                    <li><i class="glyphicon glyphicon-film"></i> <span> <?php  echo $f->OriginalTitle?></span></li>
+                                    <li><i class="glyphicon glyphicon-calendar"></i> <span><?php  echo $f->Date?></span></li>
+                                    <li><i class="glyphicon glyphicon-time"></i> <span><?php    $sat = $f->Time;
+                                                                                                $sati = date("H:i", strtotime($sat));
+                                                                                                echo $sati.' h' ?></span></li>
+                                </p>	
+                                       <?php } ?>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 excerpet bg-warning">
+                            <br>
+                            <span class="plus"><?php  $id = $f->IdFest ?>Vise informacija 
+                            <?php echo "<a href='".site_url('FestivalKontroler/index')."?id=".$id."'>"
+                                    . "<i class='glyphicon glyphicon-plus'></i></a> "?></span>
+                           
+			</div>
+			<!--<span class="clearfix borda"></span>-->
+		</article>
+        <?php } ?>
+        <?php } ?>
+    </section>
+   </div>
+  
+<?php
+echo $this->pagination->create_links();
+?>

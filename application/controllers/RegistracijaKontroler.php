@@ -56,9 +56,14 @@ class RegistracijaKontroler extends CI_Controller{
         $this->form_validation->set_rules ( "password", "Password", "trim|required|min_length[8]|max_length[12]|alpha_numeric|callback_password_check_numbers|callback_password_check_upper|callback_password_check_lower");
         $this->form_validation->set_rules ( "passwordConfirmation", "Password Confirmation", "trim|required|matches[password]");
 
+//        Gagina setovanja za sifru proveriti
+        
+//        $this->form_validation->set_rules ( "novip", "Password", "trim|min_length[8]|max_length[12]|alpha_numeric|callback_password_check_numbers|callback_password_check_upper|callback_password_check_lower|callback_password_two_same_char");
+//        $this->form_validation->set_rules ( "potvrda", "Password Confirmation", "trim|matches[novip]");
+        
     //   ime i prezime
-        $this->form_validation->set_rules ( "ime", "Ime", "trim|required|alpha|min_length[5]|max_length[15]");
-        $this->form_validation->set_rules ( "prezime", "Prezime", "trim|required|alpha|min_length[5]|max_length[15]");
+        $this->form_validation->set_rules ( "ime", "Ime", "trim|required|alpha|min_length[5]|max_length[15]|callback_specijalni_znakovi");
+        $this->form_validation->set_rules ( "prezime", "Prezime", "trim|required|alpha|min_length[5]|max_length[15]|callback_specijalni_znakovi");
 
     //   datum i mobilni broj
         $this->form_validation->set_rules ( "rodjendan", "Rodjendan", "trim|required");
@@ -109,6 +114,27 @@ class RegistracijaKontroler extends CI_Controller{
         }
         return true;
     }
+    //Gagino
+     public function password_two_same_char ($str) {
+         if (!preg_match_all("#(?!.*(.)\1)#", $str)) {
+            return false; 
+        }
+        return true;
+     }
+    
+    public function specijalni_znakovi ($str) {
+         if (!preg_match_all("#\p{L}#", $str)) {
+            return false; 
+        }
+        
+        else if (preg_match_all("#.*\\d+.*#", $str)) {
+            return false;
+        }
+         else {       
+        
+        return true;
+         }
+     }
    
     public function password_check($str) {
 
