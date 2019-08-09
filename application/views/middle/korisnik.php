@@ -1,4 +1,4 @@
-<!--<body class='bg-dark'>-->
+<body class='bg-dark'>
 <!--prikaz pet najskorijih festivala-->
 <!--proba za rotate card-->
 
@@ -176,11 +176,10 @@
    </div>
 
    <!-- ispis rezultata pretrage-->
-   
+
    <div class="container">
 
     <hgroup class="mb20 text-warning">
-        <br>
 		<h1>Rezultati pretrage</h1>
                 <h2 class="lead">
                     <strong class="text-warning">

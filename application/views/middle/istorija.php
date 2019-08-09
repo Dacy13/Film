@@ -1,7 +1,58 @@
 <?php
+  
+//          $tiket = $this->KorisnikModel->karte();
+//        foreach($tiket as $t){
+//            //echo $t['IdProjekcija'].'<br>';
+//           echo $a=(int)explode(',',$t['Tickets'])."<br>";
+//        }
+//          $ukupno = $this->KorisnikModel->ukupnoKarte();
+//        foreach($ukupno as $u){
+//            //echo $u['IdProjekcija'].'<br>';
+//           //echo $b= (int)implode($u)."<br>";
+//        }
+//        
+//        foreach ($tiket as $t){
+//            $a =(int)explode(',', $t['Tickets']);
+//            foreach ($ukupno as $u){
+//                $b = (int)explode(',', $u['Tickets']);
+//                     if($t['IdProjekcija'] === $u['IdProjekcija']){
+//                   $c = $a+$b;
+//                   echo $c;
+//                }
+////                $a=(int)implode($t['Tickets']);
+////                $b= (int)implode($u['Tickets']);
+////                echo $a+$b."<br>";
+//            }
+//        }
+//        $tiket = $this->KorisnikModel->karte();
+//        $ukupno = $this->KorisnikModel->ukupnoKarte();
+////        var_dump($tiket).'<br>';
+////        var_dump($ukupno).'<br>';
+//        $c = array();
+//        foreach (array_keys($tiket + $ukupno) as $key) {
+//            print_r ($c[$key] = $tiket[$key] + $ukupno[$key]);
+//          }
+//          
+//          
+          
+          
+          
+//        $c = array_map(function (...$arrays) {
+//    return array_sum($arrays);
+//}, $a, $b);
+//
+//print_r($c);
+//        $c = array_map(function () {
+//    return array_sum(func_get_args());
+//}, $a, $b);
+//
+//print_r($c);
+//        foreach (array_combine($tiket, $ukupno) as $t => $u) {
+//            $a=(int)implode($t)."<br>";
+//            $b= (int)implode($u)."<br>";
+//    echo sum($a + $b);}
 
-
-
+       
 ?>
 <!--
 <table class="table">
@@ -141,6 +192,7 @@
               <tr>
                <td>
                    <?php 
+
                         $dan = $karta['DateOfRez'];
                         $dani = date("Y-m-d", strtotime($dan));
                         echo $dani;
@@ -149,7 +201,8 @@
                </td>
                    <?php echo "<td>".$karta['StatusRez']."</td>"; ?>
                <form method="post" name="tajna" action="<?php site_url('KorisnikKontroler/otkaziRez');?>">
-               <input type='hidden' id='idRez' name='red' value="<?php echo $karta['IdRez']?>">
+               <input type='hidden' id='idRez' name='red' value="<?php echo $karta['IdRez'] ?>">
+               <input type='hidden' id='idP' name='pro' value="<?php echo $karta['IdProjekcija'] ?>">
                <td><input type='submit' name='otkazi' class="btn btn-outline-warning" Value='Otkazi' onclick='izbrisiRez()'></td>
           </form>
              <?php } ?>
@@ -158,93 +211,7 @@
 </div>
 </div>
 
-
-
-<!--tabele za ispis kupljenih, otkazanih i rezervisanih karata-->
-
-<!--<table class="table">
-    <thead class="thead-dark">
-            <tr>
-              <th scope="col">Datum rezervacije</th>
-              <th scope="col">Broj karata</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-              <?php
-//             foreach ($k as $karta) {  
-                    ?>
-              <tr>
-               <td>
-                   //<?php 
-//                        $dan = $karta['DateOfRez'];
-//                        $dani = date("Y-m-d", strtotime($dan));
-//                        echo $dani;
-//                        ?>
-                   <td><?php // echo $karta['Tickets']; ?> </td>
-               </td>
-                   <?php // echo "<td style='color: blue'>".$karta['StatusRez']."</td>"; ?>
-             <?php // } ?>
-          </tbody>
-</table>-->
-<!--<table class="table">
-    <thead class="thead-dark">
-            <tr>
-              <th scope="col">Datum rezervacije</th>
-              <th scope="col">Broj karata</th>
-              <th scope="col">Status</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-              <?php
-//             foreach ($r as $karta) {  
-                    ?>
-              <tr>
-               <td>
-                   <?php 
-//                        $dan = $karta['DateOfRez'];
-//                        $dani = date("Y-m-d", strtotime($dan));
-//                        echo $dani;
-//                        ?>
-                    <td><?php // echo $karta['Tickets']; ?> </td>
-               </td>
-                   <?php //  echo "<td style='color: red'>".$karta['StatusRez']."</td>"; ?>
-             <?php // } ?>
-          </tbody>
-</table>-->
-<!--<table class="table">
-    <thead class="thead-dark">
-            <tr>
-              <th scope="col">Datum rezervacije</th>
-              <th scope="col">Broj karata</th>
-              <th scope="col">Status</th>
-              <th scope="col">Otkazi rezervaciju</th>
-            </tr>
-          </thead>
-          <tbody>
-              <?php
-//             foreach ($r as $karta) {  
-                    ?>
-              <tr>
-               <td>
-                   <?php 
-//                        $dan = $karta['DateOfRez'];
-//                        $dani = date("Y-m-d", strtotime($dan));
-//                        echo $dani;
-//                        ?>
-                   <td><?php // echo $karta['Tickets']; ?> </td>
-               </td>
-                   <?php // echo "<td>".$karta['StatusRez']."</td>";  ?>
-          <form method="post" name="tajna" action="<?php //site_url('KorisnikKontroler/otkaziRez');?>">
-               <input type='hidden' id='idRez' name='red' value="<?php //echo $karta['IdRez']?>">
-               <td><input type='submit' name='otkazi' class="btn-warning"Value='Otkazi' onclick='izbrisiRez()'></td>
-          </form>
-             
-             <?php // }?>
-          </tbody>
-</table>-->
-                   
+                
  <script>
   function izbrisiRez(idRez){
             
@@ -252,6 +219,7 @@
             xmlhttp.onreadystatechange=function(){
                 if(this.readyState==4&&this.status==200){
                     document.getElementById("idRez").innerHTML=this.responseText;
+                   // document.getElementById("idP").innerHTML=this.responseText;
                 }
             }
             xmlhttp.open("POST", "<?php echo site_url('KorisnikKontroler/otkaziRez')?>?idRez=" + idRez, true);

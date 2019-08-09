@@ -152,18 +152,18 @@ class KorisnikModel extends CI_Model{
         
    }
    
-   public function brojFest(){
-        $this->db->select('*');
-        $this->db->from('filmovi');
-        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
-        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
-        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
-        
-        $br = $this->db->get()->result_array();
-        $b = count($br);
-        return $b;
-//$this->db->count_all_results('rezervacije');
-   }
+//   public function brojFest(){
+//        $this->db->select('*');
+//        $this->db->from('filmovi');
+//        $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
+//        $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
+//        $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
+//        
+//        $br = $this->db->get()->result_array();
+//        $b = count($br);
+//        return $b;
+////$this->db->count_all_results('rezervacije');
+//   }
 
 // ispis podataka o korisniku na stranici mojNalog
    
@@ -263,7 +263,19 @@ public function dohvatiRezervisane(){
 //    return $this->db->get()->result();
 //}
 // treba napraviti i da kada se otkaze rezervacija oslobode se karte
-
+public function karte(){
+//    SQL upit SELECT * FROM `projekcije` join rezervacije where projekcije.IdProjekcija = rezervacije.IdProjekcija and StatusRez = "R"
+        $this->db->select('Tickets');// IdProjekcija
+        $this->db->from('rezervacije');
+        $this->db->where('StatusRez = "R"');
+        return $this->db->get()->result_array();
+}
+public function ukupnoKarte(){
+    $this->db->select('projekcije.Tickets '); //projekcije.IdProjekcija
+    $this->db->from('projekcije');
+    $this->db->join('rezervacije', 'projekcije.IdProjekcija = rezervacije.IdProjekcija and StatusRez = "R"');
+     return $this->db->get()->result_array();
+}
 public function promeniRezervaciju($idRez, $status){
     
     $pod = array('StatusRez' => $status);
@@ -271,7 +283,11 @@ public function promeniRezervaciju($idRez, $status){
     $this->db->update('rezervacije', $pod);
 }
 
-
+public function vratiKarte($idP, $karte){
+//    $pod = array('Tickets' => $karte);
+//    $this->db->where('IdProjekcija', $idP);
+//    $this->db->update('projekcije', $pod);
+}
 
 
    // pretraga festivala i filmova sa jednim poljem

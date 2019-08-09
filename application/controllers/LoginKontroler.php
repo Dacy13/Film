@@ -30,8 +30,10 @@ class LoginKontroler extends CI_Controller{
                
     }
 
-    public function login(){
+public function login(){
 
+   if(isset($_POST["Login"])){
+        
       $username=$this->input->post('username');
       $password=$this->input->post('password');
       
@@ -56,11 +58,11 @@ class LoginKontroler extends CI_Controller{
 
                 }       
                 else {
+                    $this->session->set_userdata('korisnik',$this->LoginModel->dohvatiUsera($username));
                     redirect ('KorisnikKontroler');
                 }
-        //        $this->session->set_userdata('korisnici',$this->KorisnikModel->dohvatiSveUsere( $username));
-        //        redirect ('User');
-
+              // $this->session->set_userdata('korisnici',$this->KorisnikModel->dohvatiSveUsere( $username));
+        
             }
             else {    
 
@@ -69,8 +71,10 @@ class LoginKontroler extends CI_Controller{
                 $data["header_podaci"]=['porukalogin'=>'Neispravni podaci'];
                 $this->load->view('basicTemplate', $data);            
             }
-    }
-
+   }
+       
+}
+     
 }
   
 

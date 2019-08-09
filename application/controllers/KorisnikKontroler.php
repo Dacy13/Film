@@ -29,7 +29,7 @@ class KorisnikKontroler extends CI_Controller {
         $festivali = $this->KorisnikModel->prikaziFestivale();
 
         $broj = $this->brojPretrage();
-        
+       
         $data['middle'] = 'middle/korisnik';
         $data['middle_podaci'] = ['festivali' => $festivali, 'filmovi'=>$festival,
                                     'broj'=>$broj];
@@ -282,7 +282,7 @@ public function pretraga(){
         $o = $this->KorisnikModel->dohvatiOtkazane();
         $r = $this->KorisnikModel->dohvatiRezervisane();
         
-        $this->otkaziRez();
+$this->otkaziRez();
         
         
         $data['middle'] = 'middle/istorija';
@@ -291,15 +291,21 @@ public function pretraga(){
           
           
       }
-      
+
 //      otkazivanje rezervacije
       
       public function otkaziRez(){
-    
+ 
           $idRez = $this->input->post('red');
           $status = 'O';
-       
           $this->KorisnikModel->promeniRezervaciju($idRez, $status);
+          
+//          $tiket = $this->KorisnikModel->karte();
+//          $ukupno = $this->KorisnikModel->ukupnoKarte();
+//          $idP = $this->input->post('pro');
+//          $karte = $ukupno + $tiket;
+          
+         // $this->KorisnikModel->vratiKarte($idP, $karte);
 
     }
       // logout
