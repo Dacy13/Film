@@ -19,11 +19,6 @@ class KorisnikKontroler extends CI_Controller {
     
     public function index() {
         
-        //ako imamo vise metoda koje treba da prikazu nesto na istoj stranici
-        //onda u metodi pisemo return promenljiva
-        //a u indexu pozivamo tu metodu, i u $data['middleData'] prosledjujemo 
-        
-//        $svi = $this->search();
         $festival = $this->pretraga();
         
         $festivali = $this->KorisnikModel->prikaziFestivale();
@@ -33,21 +28,12 @@ class KorisnikKontroler extends CI_Controller {
         $data['middle'] = 'middle/korisnik';
         $data['middle_podaci'] = ['festivali' => $festivali, 'filmovi'=>$festival,
                                     'broj'=>$broj];
+        $data['pagination'] = $this->pagination->create_links();
         $this->load->view('basicTemplate', $data);
     }
-    
-  
-    // funkcija za pretragu festivala i filmova sa jednim poljem
-    
-//   public function search(){
-//    
-//    $search = $this->input->post('search');
-//    $svi = $this->KorisnikModel->search($search);
-//    
-//    return $svi;
-//}
 
-
+// prikazuje kod pretrage broj dobijenih rezultata
+    
     public function brojPretrage(){
         $imeFest = $this->input->post('imeFest');
         $pocetak = $this->input->post('od');
@@ -65,6 +51,7 @@ class KorisnikKontroler extends CI_Controller {
     }
 
 // funkcija za pretragu festivala i filmova sa vise polja
+    
 public function pretraga(){
     
             $imeFest = $this->input->post('imeFest'); 
@@ -87,16 +74,12 @@ public function pretraga(){
                 if(!empty($srbNaziv)){
                     $srbNaziv = $this->input->post('srbNaziv');
                 }
-                
-            $prva = 0;
+                  
+         //   $prva = 0;
         
-            if($this->uri->segment(3)){
-               $prva = $this->uri->segment(3);
-            } 
-            $this->load->library('pagination');
-        
-            $config=$this->config->item('pagination');
-                
+         //   if($this->uri->segment(3)){
+          //     $prva = $this->uri->segment(3);
+         //   } 
             if(!empty($imeFest) || !empty($pocetak) || !empty($zavrsetak) || !empty($engNaziv) || !empty($srbNaziv)){
                 $festival = $this->KorisnikModel->pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv, $prva, LIMIT_PO_STRANICI);
             }
@@ -104,13 +87,16 @@ public function pretraga(){
                 $festival= null;
             }
 
-            $config['base_url'] = site_url("KorisnikKontroler/index");
-            $config['total_rows'] = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
-            $config['per_page'] = LIMIT_PO_STRANICI;
-            $this->pagination->initialize($config); 
+      //      $this->load->library('pagination');
+        
+       //     $config = $this->config->item('pagination');
+
+//            $config['base_url'] = site_url('KorisnikKontroler/index');
+//            $config['total_rows'] = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
+//            $config['per_page'] = LIMIT_PO_STRANICI;
+//            $this->pagination->initialize($config); 
             
-            return $festival; 
-           
+            return $festival;          
 }
 
 // podaci za view mojNalog
@@ -123,38 +109,8 @@ public function pretraga(){
         $data['middle_podaci'] = ['podaci' => $podaci];
         $this->load->view('basicTemplate', $data);
     }
-    
- // update podataka o korisniku 
-    
-//  public function izmena(){
-//      
-//        if(!empty(($this->input->post('izmeni')))){
-//
-//                $id = $this->session->korisnik->Username;
-//                $sifra = $this->session->korisnik->Password;
-//
-//                $ime = $this->input->post('ime');
-//                $prezime = $this->input->post('prezime');
-//                $broj = $this->input->post('broj');
-//                $mejl = $this->input->post('mejl');
-//
-//                $pass = $this->input->post('password');
-//                $novip= $this->input->post('novip');
-//                $potvrda= $this->input->post('potvrda');
-//
-//                  if($sifra == $pass){
-//                      if($novip == $potvrda){
-//
-//                         $novip= $this->input->post('novip');
-//                      }
-//                  }
-//
-//              $this->KorisnikModel->update($id, $ime, $prezime, $broj, $mejl, $novip);
-//              }
-//
-//               $this->nalog();
-//    }
-    public function izmenaGaga(){
+
+    public function izmena(){
       
         if(!empty(($this->input->post('izmeni')))){
             
@@ -218,8 +174,7 @@ public function pretraga(){
                          $this->KorisnikModel->updateBez($id, $ime, $prezime, $broj, $mejl, $pass);
                     }
                }
-               
-              // $this->nalog();      
+        
         }     
         $this->nalog();   
     }    
@@ -275,18 +230,15 @@ public function pretraga(){
  //  prikazivanje podataka na stranici istorija
       
       public function istorija() {
-        
-        $rez = $this->KorisnikModel->dohvatiKarte();
-        
+
         $k = $this->KorisnikModel->dohvatiKupljene();
         $o = $this->KorisnikModel->dohvatiOtkazane();
         $r = $this->KorisnikModel->dohvatiRezervisane();
         
-$this->otkaziRez();
-        
+        $this->otkaziRez();
         
         $data['middle'] = 'middle/istorija';
-        $data['middle_podaci'] = ['rez' => $rez,'k'=>$k, 'o'=>$o, 'r'=>$r];
+        $data['middle_podaci'] = ['k'=>$k, 'o'=>$o, 'r'=>$r];
         $this->load->view('basicTemplate', $data);
           
           

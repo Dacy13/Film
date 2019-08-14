@@ -22,7 +22,7 @@ class GostKontroler extends CI_Controller {
 
     
     public function dohvatiSveFestivale(){
-    
+
         if(!empty($this->input->post("Pretrazi"))){ 
       
             $imeFestivala=$this->input->post('imeFestivala');

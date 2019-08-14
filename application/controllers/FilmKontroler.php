@@ -27,11 +27,11 @@ class FilmKontroler extends CI_Controller{
 
      public function rejting(){
 
-        $Rating=$this->input->post('rating');
-        $IdFilm= $this->input->get('id');
-        $Username= $this->session->userdata('korisnik')->Username;
+        $Rating = $this->input->post('rating');
+        $IdFilm = $this->input->get('id');
+        $Username = $this->session->userdata('korisnik')->Username;
         $this->FilmModel->rejting($Rating, $IdFilm, $Username);
-        $rating=$this->FilmModel->DohvatiRating($IdFilm);
+        $rating = $this->FilmModel->DohvatiRating($IdFilm);
        
         echo (round($rating,1));
 
@@ -39,16 +39,16 @@ class FilmKontroler extends CI_Controller{
     
     public function rezervacija () {
        
-        $StatusRez= 'N' ; //bilo CEK
+        $StatusRez = 'N';
         $length = 10;    
-        $Code= substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
-        $Tickets= $this->input->post('karte');
-        $IdProjekcija= $this->input->post('IdRezervacije');
-                //$this->input->post('IdRezervacije');
-        $Username=$this->session->userdata('korisnik')->Username;
+        $Code = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
+        $Tickets = $this->input->post('karte');
+        $IdProjekcija = $this->input->post('IdRezervacije');
+                
+        $Username = $this->session->userdata('korisnik')->Username;
         
         $this->FilmModel->rezervacija($StatusRez, $Code, $Tickets, $IdProjekcija, $Username);
-        $this->index();
+        redirect(site_url('FilmKontroler/index'));
       
     }
 
