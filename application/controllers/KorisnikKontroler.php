@@ -75,11 +75,11 @@ public function pretraga(){
                     $srbNaziv = $this->input->post('srbNaziv');
                 }
                   
-         //   $prva = 0;
+            $prva = 0;
         
-         //   if($this->uri->segment(3)){
-          //     $prva = $this->uri->segment(3);
-         //   } 
+            if($this->uri->segment(3)){
+               $prva = $this->uri->segment(3);
+            } 
             if(!empty($imeFest) || !empty($pocetak) || !empty($zavrsetak) || !empty($engNaziv) || !empty($srbNaziv)){
                 $festival = $this->KorisnikModel->pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv, $prva, LIMIT_PO_STRANICI);
             }
@@ -87,14 +87,14 @@ public function pretraga(){
                 $festival= null;
             }
 
-      //      $this->load->library('pagination');
+            $this->load->library('pagination');
         
-       //     $config = $this->config->item('pagination');
+            $config = $this->config->item('pagination');
 
-//            $config['base_url'] = site_url('KorisnikKontroler/index');
-//            $config['total_rows'] = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
-//            $config['per_page'] = LIMIT_PO_STRANICI;
-//            $this->pagination->initialize($config); 
+            $config['base_url'] = site_url('KorisnikKontroler/index');
+            $config['total_rows'] = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
+            $config['per_page'] = LIMIT_PO_STRANICI;
+            $this->pagination->initialize($config); 
             
             return $festival;          
 }

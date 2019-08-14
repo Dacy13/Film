@@ -1,6 +1,6 @@
 <body class='bg-dark'>
 <!--prikaz pet najskorijih festivala-->
-<!--proba za rotate card-->
+<!--rotate card-->
 
       <div>
         <h1 class="title text-warning">
