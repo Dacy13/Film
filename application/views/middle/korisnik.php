@@ -1,4 +1,4 @@
-<body class='bg-dark'>
+<!--<body class='bg-dark'>-->
 <!--prikaz pet najskorijih festivala-->
 <!--rotate card-->
 
@@ -215,7 +215,7 @@
 <?php if(!empty($filmovi)){ ?>
     <section class="col-xs-12 col-sm-6 col-md-12">
         <?php 
-        $imena= array();
+      
         foreach($filmovi as $f){?>
 		<article class="search-result row ">
 			<div class="col-xs-12 col-sm-12 col-md-3 bg-warning">
@@ -225,33 +225,14 @@
 			<div class="col-xs-12 col-sm-12 col-md-2 bg-warning">
                             <br>
 				<ul class="meta-search">
-					<li><i class="glyphicon glyphicon-calendar text"></i> <span><?php $ime = $f->StartDate;
-                                               if (!in_array($ime, $imena)){
-                                            echo $ime;
-                                             $imena[] = $ime;
-                                        } ?></span></li>
-					<li><i class="glyphicon glyphicon-calendar"></i> <span><?php $ime = $f->EndDate;
-                                             if (!in_array($ime, $imena)){
-                                            echo $ime;
-                                            $imena[] = $ime;
-                                        }
-                                                ?></span></li>
-					<li><i class="glyphicon glyphicon-tags"></i> <span><?php $ime = $f->CityName;
-                                        if (!in_array($ime, $imena)){
-                                            echo $ime;
-                                             $imena[] = $ime;
-                                        }
-                                                ?></span></li>
+					<li><i class="glyphicon glyphicon-calendar text"></i> <span><?php echo $f->StartDate; ?></span></li>
+					<li><i class="glyphicon glyphicon-calendar"></i> <span><?php echo $f->EndDate; ?></span></li>
+					<li><i class="glyphicon glyphicon-tags"></i> <span><?php echo $f->CityName; ?></span></li>
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-2 bg-warning">
                             <br>
-				<h3><?php  $ime = $f->NameFest;
-                                        if (!in_array($ime, $imena)){
-                                            echo $ime;
-                                            $imena[] = $ime;
-                                        }
-                                        ?></h3>
+				<h3><?php echo $f->NameFest; ?></h3>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3 excerpet bg-warning">
                                 <?php  if(!empty($this->input->post('srbNaziv')) 
@@ -259,25 +240,18 @@
 				<p>
                                    
                                 <ul class="meta-search">
-                                    <li><i class="glyphicon glyphicon-film"></i> <span><?php  $ime = $f->SerbianTitle;
-                                            if (!in_array($ime, $imena)){
-                                            echo $ime;
-                                            $imena[] = $ime; }?></span></li>
-                                    <li><i class="glyphicon glyphicon-film"></i> <span> <?php  $ime= $f->OriginalTitle; 
-                                            if (!in_array($ime, $imena)){
-                                            echo $ime;
-                                            $imena[] = $ime;
-                                        }?></span></li>
-                                    <li><i class="glyphicon glyphicon-calendar"></i> <span><?php  $ime = $f->Date;
-                                            if (!in_array($ime, $imena)){
-                                            echo $ime;
-                                            $imena[] = $ime; }?></span></li>
+                                    <li><i class="glyphicon glyphicon-film"></i> <span><?php  echo $f->SerbianTitle;
+                                            
+                                             ?></span></li>
+                                    <li><i class="glyphicon glyphicon-film"></i> <span> <?php echo $f->OriginalTitle; 
+                                            
+                                        ?></span></li>
+                                    <li><i class="glyphicon glyphicon-calendar"></i> <span><?php echo $f->Date;
+                                            ?></span></li>
                                     <li><i class="glyphicon glyphicon-time"></i> <span><?php    $sat = $f->Time;
-                                                                                                $ime = date("H:i", strtotime($sat));
-                                                                                                if (!in_array($ime, $imena)){
-                                            echo $ime.' h';
-                                                                                                $imena[] = $ime; }
-//                                                                                                echo $sati.' h' ?></span></li>
+                                                                                                $sati = date("H:i", strtotime($sat));
+                                                                                                
+                                                                                                echo $sati.' h' ?></span></li>
                                 </p>	
                                        <?php } ?>
                         </div>

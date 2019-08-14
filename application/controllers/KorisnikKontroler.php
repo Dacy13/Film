@@ -28,7 +28,7 @@ class KorisnikKontroler extends CI_Controller {
         $data['middle'] = 'middle/korisnik';
         $data['middle_podaci'] = ['festivali' => $festivali, 'filmovi'=>$festival,
                                     'broj'=>$broj];
-        $data['pagination'] = $this->pagination->create_links();
+       // $data['pagination'] = $this->pagination->create_links();
         $this->load->view('basicTemplate', $data);
     }
 
@@ -41,12 +41,16 @@ class KorisnikKontroler extends CI_Controller {
         $engNaziv = $this->input->post('engNaziv');
         $srbNaziv = $this->input->post('srbNaziv');
         
-        if(!empty($imeFest) || !empty($pocetak) || !empty($zavrsetak) || !empty($engNaziv) || !empty($srbNaziv)){
-                $broj = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
+        if(!empty($imeFest) || !empty($pocetak) || !empty($zavrsetak)){
+                $broj = $this->KorisnikModel->brojF($imeFest,$pocetak,$zavrsetak); 
+            }
+            elseif(!empty($engNaziv) || !empty($srbNaziv)){
+                $broj = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv); 
             }
             else {
-                $broj= null;
+                $broj = null;
             }
+
             return $broj;
     }
 
@@ -57,7 +61,7 @@ public function pretraga(){
             $imeFest = $this->input->post('imeFest'); 
                 if(!empty($imeFest)){
                     $imeFest = $this->input->post('imeFest');
-                 }
+                 } 
             $pocetak = $this->input->post('od');
                 if(!empty($pocetak)){
                     $pocetak = date('Y-m-d', strtotime($pocetak));
@@ -75,26 +79,30 @@ public function pretraga(){
                     $srbNaziv = $this->input->post('srbNaziv');
                 }
                   
-            $prva = 0;
-        
-            if($this->uri->segment(3)){
-               $prva = $this->uri->segment(3);
-            } 
-            if(!empty($imeFest) || !empty($pocetak) || !empty($zavrsetak) || !empty($engNaziv) || !empty($srbNaziv)){
-                $festival = $this->KorisnikModel->pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv, $prva, LIMIT_PO_STRANICI);
+//            $prva = 0;
+//        
+//            if($this->uri->segment(3)){
+//               $prva = $this->uri->segment(3);
+//            } 
+          
+            if(!empty($imeFest) || !empty($pocetak) || !empty($zavrsetak)){
+                $festival = $this->KorisnikModel->dohvatiSveFestivale($imeFest,$pocetak,$zavrsetak); 
+            }
+            elseif(!empty($engNaziv) || !empty($srbNaziv)){
+                $festival = $this->KorisnikModel->pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv); 
             }
             else {
                 $festival= null;
             }
-
-            $this->load->library('pagination');
-        
-            $config = $this->config->item('pagination');
-
-            $config['base_url'] = site_url('KorisnikKontroler/index');
-            $config['total_rows'] = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
-            $config['per_page'] = LIMIT_PO_STRANICI;
-            $this->pagination->initialize($config); 
+           
+//            $this->load->library('pagination');
+//        
+//            $config = $this->config->item('pagination');
+//
+//            $config['base_url'] = site_url('KorisnikKontroler/index');
+//            $config['total_rows'] = $this->KorisnikModel->brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv);
+//            $config['per_page'] = LIMIT_PO_STRANICI;
+//            $this->pagination->initialize($config); 
             
             return $festival;          
 }
@@ -250,13 +258,6 @@ public function pretraga(){
           $idRez = $this->input->post('red');
           $status = 'O';
           $this->KorisnikModel->promeniRezervaciju($idRez, $status);
-          
-//          $tiket = $this->KorisnikModel->karte();
-//          $ukupno = $this->KorisnikModel->ukupnoKarte();
-//          $idP = $this->input->post('pro');
-//          $karte = $ukupno + $tiket;
-          
-         // $this->KorisnikModel->vratiKarte($idP, $karte);
 
     }
       // logout
