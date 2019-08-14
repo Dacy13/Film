@@ -241,7 +241,6 @@ public function pretraga(){
         $data['middle_podaci'] = ['k'=>$k, 'o'=>$o, 'r'=>$r];
         $this->load->view('basicTemplate', $data);
           
-          
       }
 
 //      otkazivanje rezervacije
