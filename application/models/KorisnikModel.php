@@ -25,9 +25,11 @@ class KorisnikModel extends CI_Model{
            
     }  
     
-    // pretraga festivala i filmova koja nije u upotrebi, odnosi se na pretraga() u kontroleru
+    //za multisearch pretragu
     
-    public function pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv){ //prva, limit
+    // pretraga festivala i filmova 
+    
+    public function pretragaFestivala($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv){
     
    // SELECT OriginalTitle, SerbianTitle, Date, Time, NameFest, CityName FROM `filmovi` 
    // join projekcije join festivali join gradovi where filmovi.IdFilm=projekcije.IdFilm and 
@@ -38,99 +40,109 @@ class KorisnikModel extends CI_Model{
         $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
         $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
-        if(!empty($imeFest)){
-          $this->db->like('NameFest', $imeFest);
-        }
-        if(!empty($pocetak)){
-        $this->db->where('StartDate >', $pocetak);
-        }
-        if(!empty($zavrsetak)){
-        $this->db->where('EndDate <', $zavrsetak);
-        }
-        if(!empty($engNaziv)){
-        $this->db->or_like('OriginalTitle', $engNaziv);
-        }
-        if(!empty($srbNaziv)){
-        $this->db->or_like('SerbianTitle', $srbNaziv);
-        }
-       // $this->db->limit($limit, $prva);
-        return $this->db->get()->result();
-        
+            if(!empty($imeFest)){
+                $this->db->like('NameFest', $imeFest);
+            }
+            if(!empty($pocetak)){
+                $this->db->where('StartDate >', $pocetak);
+            }
+            if(!empty($zavrsetak)){
+                $this->db->where('EndDate <', $zavrsetak);
+            }
+            if(!empty($engNaziv)){
+                $this->db->or_like('OriginalTitle', $engNaziv);
+            }
+            if(!empty($srbNaziv)){
+                $this->db->or_like('SerbianTitle', $srbNaziv);
+            }
+            //$this->db->limit($prva, $limit);
+
+            return $this->db->get()->result();
+       
    }     
    
-   public function dohvatiSveFestivale($imeFest, $pocetak, $zavrsetak) {
+   // pretraga samo festivala
+   
+    public function dohvatiSveFestivale($imeFest, $pocetak, $zavrsetak) {
      
         $this->db->select('*');
         $this->db->from('festivali');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
         $this->db->like('NameFest',$imeFest);
     
-        if(!empty($pocetak))
-          
-            $this->db->where('StartDate >',$pocetak);
-     
-        if(!empty($zavrsetak))
-          
-            $this->db->where('EndDate <',$zavrsetak);
-    
-        return $this->db->get()->result();
+            if(!empty($pocetak))
+
+                $this->db->where('StartDate >',$pocetak);
+
+            if(!empty($zavrsetak))
+
+                $this->db->where('EndDate <',$zavrsetak);
+
+            return $this->db->get()->result();
     }
     
+    // prebrojavanje rezultata festivala i filmova
+    
    public function brojRez($imeFest,$pocetak,$zavrsetak,$engNaziv,$srbNaziv){
+       
         $this->db->select('*');
         $this->db->from('filmovi');
         $this->db->join('projekcije', 'filmovi.IdFilm = projekcije.IdFilm');
         $this->db->join('festivali', 'projekcije.IdFest = festivali.IdFest');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
-        if(!empty($imeFest)){
-          count(array($this->db->like('NameFest', $imeFest)));
-        }
-        if(!empty($pocetak)){
-        count(array($this->db->where('StartDate >', $pocetak)));
-        }
-        if(!empty($zavrsetak)){
-        count(array($this->db->where('EndDate <', $zavrsetak)));
-        }
-        if(!empty($engNaziv)){
-        count(array($this->db->or_like('OriginalTitle', $engNaziv)));
-        }
-        if(!empty($srbNaziv)){
-        count(array($this->db->or_like('SerbianTitle', $srbNaziv)));
-        }
-        return $this->db->count_all_results();
-   }
+            if(!empty($imeFest)){
+                count(array($this->db->like('NameFest', $imeFest)));
+            }
+            if(!empty($pocetak)){
+                count(array($this->db->where('StartDate >', $pocetak)));
+            }
+            if(!empty($zavrsetak)){
+                count(array($this->db->where('EndDate <', $zavrsetak)));
+            }
+            if(!empty($engNaziv)){
+                count(array($this->db->or_like('OriginalTitle', $engNaziv)));
+            }
+            if(!empty($srbNaziv)){
+                count(array($this->db->or_like('SerbianTitle', $srbNaziv)));
+            }
+            return $this->db->count_all_results();
+    }
    
-   public function brojF($imeFest,$pocetak,$zavrsetak) {
+    // prebrojavanje rezultata samo festivala
+   
+    public function brojF($imeFest,$pocetak,$zavrsetak) {
+        
         $this->db->select('*');
         $this->db->from('festivali');
         $this->db->join('gradovi', 'festivali.IdGrad = gradovi.IdGrad');
-       if(!empty($imeFest)){
-          count(array($this->db->like('NameFest', $imeFest)));
-        }
-        if(!empty($pocetak)){
-        count(array($this->db->where('StartDate >', $pocetak)));
-        }
-        if(!empty($zavrsetak)){
-        count(array($this->db->where('EndDate <', $zavrsetak)));
-        }
-       
-        return $this->db->count_all_results();
-   }
+            if(!empty($imeFest)){
+                count(array($this->db->like('NameFest', $imeFest)));
+            }
+            if(!empty($pocetak)){
+                count(array($this->db->where('StartDate >', $pocetak)));
+            }
+            if(!empty($zavrsetak)){
+                count(array($this->db->where('EndDate <', $zavrsetak)));
+            }
+
+            return $this->db->count_all_results();
+    }
 
    
-// ispis podataka o korisniku na stranici mojNalog
+// ispis podataka o korisniku na stranici Nalog
    
-public function korisnici($id) {
+    public function korisnici($id) {
         
         $this->db->select('*');
         $this->db->from('korisnici');
         $this->db->where('Username', $id);
+        
         return $this->db->get()->result();
     }
     
- // update podataka o korisniku na stranici mojNalog
+ // update podataka o korisniku na stranici Nalog
     
- public function update($id, $ime, $prezime, $broj, $mejl, $novip){
+    public function update($id, $ime, $prezime, $broj, $mejl, $novip){
         
         $pod = array(
                     'Name' => $ime,
@@ -141,8 +153,11 @@ public function korisnici($id) {
         
         $this->db->where('Username', $id);
         $this->db->update('korisnici', $pod);
-}
- public function updateBez($id, $ime, $prezime, $broj, $mejl, $pass){
+    }
+
+// update podataka o korisniku ako nije promenjena sifra
+
+    public function updateBez($id, $ime, $prezime, $broj, $mejl, $pass){
         
         $pod = array(
                     'Name' => $ime,
@@ -153,50 +168,58 @@ public function korisnici($id) {
         
         $this->db->where('Username', $id);
         $this->db->update('korisnici', $pod);
-}
+    }
 
-public function dohvatiBroj($id){
-    $this->db->select('Mobile');
-    $this->db->from('korisnici');
-    $this->db->where('Username', $id);
-   
-    $query = $this->db->get();
-    $result = $query->row();
-    return $result->Mobile; 
-}
+// za update podataka o korisniku - da ne prikazuje gresku da mobilni vec postoji u bazi
+    
+    public function dohvatiBroj($id){
+        $this->db->select('Mobile');
+        $this->db->from('korisnici');
+        $this->db->where('Username', $id);
 
-public function dohvatiKupljene(){
-    
-    $this->db->select('*');
-    $this->db->from('rezervacije');
-    $this->db->where('StatusRez = "k"');
-    
-    return $this->db->get()->result_array();
-}
-public function dohvatiOtkazane(){
-    
-    $this->db->select('*');
-    $this->db->from('rezervacije');
-    $this->db->where('StatusRez = "o"');
-    
-    return $this->db->get()->result_array();
-}
+        $query = $this->db->get();
+        $result = $query->row();
+        
+        return $result->Mobile; 
+    }
 
-public function dohvatiRezervisane(){
-    
-    $this->db->select('*');
-    $this->db->from('rezervacije');
-    $this->db->where('StatusRez = "r"');
-    
-    return $this->db->get()->result_array();
-}
+// za prikaz kupljenih, otkazanih i rezervisanih karti na stranici Istorija
 
+    public function dohvatiKupljene(){
 
-public function promeniRezervaciju($idRez, $status){
+        $this->db->select('*');
+        $this->db->from('rezervacije');
+        $this->db->where('StatusRez = "k"');
+
+        return $this->db->get()->result_array();
+    }
     
-    $pod = array('StatusRez' => $status);
-    $this->db->where('IdRez', $idRez);
-    $this->db->update('rezervacije', $pod);
-}
+    public function dohvatiOtkazane(){
+
+        $this->db->select('*');
+        $this->db->from('rezervacije');
+        $this->db->where('StatusRez = "o"');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function dohvatiRezervisane(){
+
+        $this->db->select('*');
+        $this->db->from('rezervacije');
+        $this->db->where('StatusRez = "r"');
+
+        return $this->db->get()->result_array();
+    }
+
+// otkazivanje rezervacije
+
+    public function promeniRezervaciju($idRez, $status){
+
+        $pod = array('StatusRez' => $status);
+        
+        $this->db->where('IdRez', $idRez);
+        $this->db->update('rezervacije', $pod);
+    }
 
 }

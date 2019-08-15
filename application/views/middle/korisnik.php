@@ -1,4 +1,4 @@
-<!--<body class='bg-dark'>-->
+<body class='bg-dark'>
 <!--prikaz pet najskorijih festivala-->
 <!--rotate card-->
 
@@ -181,6 +181,7 @@
 
     <hgroup class="mb20 text-warning">
 		<h1>Rezultati pretrage</h1>
+                <?php if(!empty($filmovi)){ ?>
                 <h2 class="lead">
                     <strong class="text-warning">
                      <?php
@@ -212,7 +213,7 @@
                     </strong>
                 </h2>								
 	</hgroup>
-<?php if(!empty($filmovi)){ ?>
+<?php // if(!empty($filmovi)){ ?>
     <section class="col-xs-12 col-sm-6 col-md-12">
         <?php 
       
@@ -269,10 +270,6 @@
     </section>
    </div>
   
-<?php
-if (isset($pagination))
-{
-    echo $pagination;
-}
+//<?php
 //echo $this->pagination->create_links();
-?>
+//?>

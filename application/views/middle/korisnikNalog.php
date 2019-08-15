@@ -8,7 +8,7 @@
 
 <div class="container">
     <div class="align-items-center justify-content-center">
-<form name="promeniPodatke" method="POST" action="<?php echo site_url('KorisnikKontroler/izmenaGaga');?>">
+<form name="promeniPodatke" method="POST" action="<?php echo site_url('KorisnikKontroler/izmena');?>">
         <?php foreach($podaci as $p) { ?>   
         <div class="form-group row">
             <label for="inputUsername" class="col-sm-2 col-form-label text-warning">Username: </label>

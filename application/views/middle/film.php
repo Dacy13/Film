@@ -1,4 +1,4 @@
-<?php var_dump($this->session->korisnik->Username) ?>
+<?php // var_dump($this->session->korisnik->Username) ?>
 <div id="stage">
     <div class='container'>
         
