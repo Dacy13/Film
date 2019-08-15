@@ -12,7 +12,7 @@ class FilmKontroler extends CI_Controller{
     public function index() { 
         $IdProjekcija=10; 
         $IdFest=3;
-        $IdFilm=1;
+        $IdFilm= $this->input->get('id');
         $Username= $this->session->userdata('korisnik')->Username;
         $filmovi=$this->FilmModel->dohvatiFilm($IdFilm);
         $komentari=$this->FilmModel->SviKomentari($IdFilm); 
@@ -47,7 +47,7 @@ class FilmKontroler extends CI_Controller{
      public function rejting(){
 
         $Rating=$this->input->post('rating');
-        $IdFilm=1;
+        $IdFilm= $this->input->get('id');
         $Username= $this->session->userdata('korisnici')->Username;
         $this->FilmModel->rejting($Rating, $IdFilm, $Username);
         $rating=$this->FilmModel->DohvatiRating($IdFilm);
@@ -57,7 +57,7 @@ class FilmKontroler extends CI_Controller{
 
      }
   public function ukupanBrojKarata() {
-        $IdFilm=1;
+        $IdFilm= $this->input->get('id');
         $Username= $this->session->userdata('korisnici')->Username;
         $IdProjekcija= $this->input->post('IdProjekcija');
         $IdFest= $this->input->post('IdFest');
@@ -92,7 +92,7 @@ class FilmKontroler extends CI_Controller{
         $Tickets= $this->input->post('karte');
         
         $IdProjekcija= $this->input->post('Idrezervacije');
-        $Username=$this->session->userdata('korisnici')->Username; ;
+        $Username=$this->session->userdata('korisnici')->Username; 
         
         $this->FilmModel->rezervacija($StatusRez, $Code, $Tickets, $IdProjekcija, $Username);
         redirect(site_url('FilmKontroler/index'));
@@ -105,7 +105,7 @@ class FilmKontroler extends CI_Controller{
          
         
         $TekstKomentara= $this->input->post('TekstKomentara');
-        $IdFilm=1;
+        $IdFilm= $this->input->get('id');
         $Username= $this->session->userdata('korisnici')->Username;
         $this->FilmModel->dodajKomentarAjax($TekstKomentara, $IdFilm, $Username);
         
