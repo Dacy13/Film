@@ -23,10 +23,10 @@
                 <div class="card">
                     <div class="front">
                         <div class="cover">
-                            <img src="<?php echo base_url()?>/slike/fest.png"/>
+                            <img src="<?php echo base_url()?>/images/fest.png"/>
                         </div>
                         <div class="user">
-                            <img class="img-circle" src="<?php echo base_url()?>/slike/fest.png"/>
+                            <img class="img-circle" src="<?php echo base_url()?>/images/bbfest.png"/>
                         </div>
                         <div class="content">
                             <div class="main">
@@ -221,7 +221,7 @@
 		<article class="search-result row ">
 			<div class="col-xs-12 col-sm-12 col-md-3 bg-warning">
                             <br>
-				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="#" alt="Lorem ipsum" /></a>
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="<?php echo base_url()?>/images/bbfest.png"/></a>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-2 bg-warning">
                             <br>
