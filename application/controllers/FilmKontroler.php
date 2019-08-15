@@ -10,8 +10,10 @@ class FilmKontroler extends CI_Controller{
     }
     
     public function index() { 
-          
-        $IdFilm= $this->input->get('id');
+        $IdProjekcija=10; 
+        $IdFest=3;
+        $IdFilm=1;
+        $Username= $this->session->userdata('korisnik')->Username;
         $filmovi=$this->FilmModel->dohvatiFilm($IdFilm);
         $komentari=$this->FilmModel->SviKomentari($IdFilm); 
         $projekcije=$this->FilmModel->projekcije($IdFilm);
@@ -19,37 +21,81 @@ class FilmKontroler extends CI_Controller{
         $karte=$this->FilmModel->dohvatiKarte($IdFilm);
         $Username= $this->session->userdata('korisnik')->Username;
         $rezervacija=$this->FilmModel->kupac($Username);
-          
+        
+        $brojKarataPoProjekciji=$this->FilmModel->brojKarataPoProjekciji($IdProjekcija);
+        $VecRezervisaneKarte=$this->FilmModel->ukupanBrojKarata($IdProjekcija);
+        
+        $OstatakKarataPoProjekciji=$brojKarataPoProjekciji-$VecRezervisaneKarte;
+        
+        $BrojKarataPoFestivalu=$this->FilmModel->MaxKarataPoFestivalu($IdProjekcija);
+        $BrojKarataPoFestivaluZaKorisnika=$this->FilmModel->BrojKarataKorisnikaPoFestivalu($Username,$IdFest);
+       
+        $OstatakPoFestivalu=$BrojKarataPoFestivalu-$BrojKarataPoFestivaluZaKorisnika;
+        If ($OstatakKarataPoProjekciji > $OstatakPoFestivalu){
+            $rez=$OstatakPoFestivalu;
+        }else{
+             $rez=$OstatakKarataPoProjekciji;
+        }
+                
         $data['middle']='middle/film';
-        $data["middle_podaci"]=['filmovi'=>$filmovi, 'komentari'=>$komentari, 'projekcije'=>$projekcije, 'karte'=>$karte, 'rezervacija'=>$rezervacija, 'rating'=>$rating];
+        $data["middle_podaci"]=['filmovi'=>$filmovi, 'komentari'=>$komentari, 'projekcije'=>$projekcije, 'karte'=>$karte, 'rezervacija'=>$rezervacija, 'rating'=>$rating, 'rez'=>$rez, 
+              'brojKarataPoProjekciji'=>$brojKarataPoProjekciji, 'VecRezervisaneKarte'=>$VecRezervisaneKarte, 'OstatakKarataPoProjekciji'=>$OstatakKarataPoProjekciji, 'OstatakPoFestivalu'=>$OstatakPoFestivalu, 
+            'BrojKarataPoFestivalu'=>$BrojKarataPoFestivalu, 'BrojKarataPoFestivaluZaKorisnika'=>$BrojKarataPoFestivaluZaKorisnika];
         $this->load->view('basicTemplate', $data);
    }
 
      public function rejting(){
 
-        $Rating = $this->input->post('rating');
-        $IdFilm = $this->input->get('id');
-        $Username = $this->session->userdata('korisnik')->Username;
+        $Rating=$this->input->post('rating');
+        $IdFilm=1;
+        $Username= $this->session->userdata('korisnici')->Username;
         $this->FilmModel->rejting($Rating, $IdFilm, $Username);
-        $rating = $this->FilmModel->DohvatiRating($IdFilm);
+        $rating=$this->FilmModel->DohvatiRating($IdFilm);
        
         echo (round($rating,1));
 
+
      }
-    
+  public function ukupanBrojKarata() {
+        $IdFilm=1;
+        $Username= $this->session->userdata('korisnici')->Username;
+        $IdProjekcija= $this->input->post('IdProjekcija');
+        $IdFest= $this->input->post('IdFest');
+        $brojKarataPoProjekciji=$this->FilmModel->brojKarataPoProjekciji($IdProjekcija);
+        $VecRezervisaneKarte=$this->FilmModel->ukupanBrojKarata($IdProjekcija);
+        
+        $OstatakKarataPoProjekciji=$brojKarataPoProjekciji-$VecRezervisaneKarte;
+        
+        $BrojKarataPoFestivalu=$this->FilmModel->MaxKarataPoFestivalu($Username);
+        $BrojKarataPoFestivaluZaKorisnika=$this->FilmModel->BrojKarataKorisnikaPoFestivalu($Username,$IdFest);
+       
+        $OstatakPoFestivalu=$BrojKarataPoFestivalu-$BrojKarataPoFestivaluZaKorisnika;
+        If ($OstatakKarataPoProjekciji > $OstatakPoFestivalu){
+            $rez=$OstatakPoFestivalu;
+        }else{
+             $rez=$OstatakKarataPoProjekciji;
+        }
+       
+       echo $rez;
+       echo $IdProjekcija;
+}
+
+  
     public function rezervacija () {
        
-        $StatusRez = 'N';
+        $StatusRez= 'N' ;
         $length = 10;    
-        $Code = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
-        $Tickets = $this->input->post('karte');
-        $IdProjekcija = $this->input->post('IdRezervacije');
-                
-        $Username = $this->session->userdata('korisnik')->Username;
+        $Code= substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
+       
+
+        
+        $Tickets= $this->input->post('karte');
+        
+        $IdProjekcija= $this->input->post('Idrezervacije');
+        $Username=$this->session->userdata('korisnici')->Username; ;
         
         $this->FilmModel->rezervacija($StatusRez, $Code, $Tickets, $IdProjekcija, $Username);
         redirect(site_url('FilmKontroler/index'));
-      
     }
 
     //AJAXXXXXX 
@@ -59,8 +105,8 @@ class FilmKontroler extends CI_Controller{
          
         
         $TekstKomentara= $this->input->post('TekstKomentara');
-        $IdFilm= $this->input->get('id');
-        $Username= $this->session->userdata('korisnik')->Username;
+        $IdFilm=1;
+        $Username= $this->session->userdata('korisnici')->Username;
         $this->FilmModel->dodajKomentarAjax($TekstKomentara, $IdFilm, $Username);
         
         
@@ -77,14 +123,5 @@ class FilmKontroler extends CI_Controller{
         }
         
     }
-   
-   
-    
-    
-    
-    
-    
-    
-    
-    
+
    }

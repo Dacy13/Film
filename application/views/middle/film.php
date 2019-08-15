@@ -1,7 +1,7 @@
-<?php // var_dump($this->session->korisnik->Username) ?>
-<div id="stage">
-    <div class='container'>
-        
+
+<div id="stage" style="background-color: lightgray;">
+    <div class='container' style="background-color: white;">
+     
 <?php foreach($filmovi as $f):?>
             <div class="row">
                 <div class="col"><img src="<?php  echo base_url()."images/".$f->Poster; ?>"  height="512" ></div>
@@ -11,7 +11,10 @@
 
             <div class="row">
                 <div class="col" style="font-size:120%; font-weight: bold; font-family: Tahoma, Geneva, sans-serif"><?php echo $f->SerbianTitle?></div>
-        
+                <div>
+                    
+                 
+                </div>
             </div>
         
             <div class="row">
@@ -25,13 +28,25 @@
              
             <div class="col" style="  font-size:100%; font-family: Tahoma, Geneva, sans-serif ">OCENA: <span id='ovde'><?php  echo (round($rating,1)); ?></span>/10</div>
  
+              <?php echo 'brojKarataPoProjekciji '.$brojKarataPoProjekciji;?><br>
+              <?php echo 'VecRezervisaneKarte '.$VecRezervisaneKarte;?><br>
+              <?php echo 'OstatakKarataPoProjekciji '.$OstatakKarataPoProjekciji;?><br>
+              <?php echo 'BrojKarataPoFestivalu '.$BrojKarataPoFestivalu;?><br>
+              <?php echo 'BrojKarataPoFestivaluZaKorisnika '.$BrojKarataPoFestivaluZaKorisnika;?><br>
+              <?php echo 'OstatakPoFestivalu '.$OstatakPoFestivalu;?><br>
+            
+             <?php echo  'Koji je manji'.$rez;?><br>
+           
+    
+        
+        
+       
             
         <?php  if(!empty($rezervacija)){ ?>
                
                 <div class='col'>
                    
-                         <fieldset class="rating">
-
+                        <fieldset class="rating" <?php  if(!empty($disabled)) echo disabled;?>>
                             <legend>Oceni film </legend>
                                 <input onclick="UbaciRating(10)" type="radio" id="star10" name="rating" value="10" /><label for="star10" title="Najbolji!">10</label>
                                 <input onclick="UbaciRating(9)" type="radio" id="star9" name="rating" value="9" /><label for="star9" title="Odličan">9</label>
@@ -58,7 +73,7 @@
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-       
+      // document.getElementById("noviKomentar").value ="";
         document.getElementById("ovde").innerHTML = this.responseText;
       }
     };
@@ -69,9 +84,16 @@
 }
 </script>
                    
-           
+    
+                   
+
+  
+                
+                  
             </div>
             
+        
+        
             <div class="row mt-5">
                 <div class="col-6" >
                     <?php echo $f->Description?>
@@ -119,7 +141,9 @@
                     </div>   
                 </div>
            </div>
- 
+            
+            
+            
             <div class="row">
                  <br>
                   
@@ -147,22 +171,78 @@
  <?php foreach($projekcije as $p):?>
             
         
+        
+        
             <div class="row">
                 <div class='col-2'>
                     <span style="font-weight: bold; font-size:125%; "> <?php echo $p->NameFest?> </span>  
                 </div> 
                 <div class='col-2'> <?php echo $p->CityName?></div> 
                 <div class='col-2'> <span style="font-weight: bold;"><?php echo $p->Date?></span>  </div> 
+                
+                
                 <div class='col-2'><?php echo $p->Cena?> RSD </div> 
-                <div class='col-4'  data-toggle="modal" data-target="#RezervacijaModal"> <button type="submit" name="rezervacija" class='btn btn-warning' style="color: black; font-weight: bold;" >REZERVIŠI KARTE</button></div>
+                <div class='col-4'  data-toggle="modal" data-target="#RezervacijaModal"> <button  name="rezervacija" class='btn btn-warning' style="color: black; font-weight: bold;" onclick='izabranfestival(<?php echo $p->IdProjekcija; ?>, <?php echo $p->IdFest; ?>)'>REZERVIŠI KARTE</button></div>
+                
             </div> 
             <div class="row">
                  <br>
                   
             </div>
- <?php endforeach ?>    
-            
+ <?php endforeach ?>   
+        <script>
+
+function izabranfestival(id, fest){
+
+    document.getElementById('Idrezervacije').value=id;
+     document.getElementById('IdFest').value=fest;
+          
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          
+               document.getElementById('karte').max=this.responseText;
+               document.getElementById('ovde').innerHTML=this.responseText;
+      }
+    };
+
+    xhttp.open("POST", "<?php echo site_url('FilmKontroler/ukupanBrojKarata'); ?>", true); //pozivas kontrolera
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("IdProjekcija="+id+"&IdFest="+fest); //uradi ovo ovde   // prvo TekstKomentara je ono sto u kontroleru u toj funkciju poyivam kroy input post a ovo drugo = + je ono sto sam gore definissala
+}
+</script>
+
     
+<div class="modal fade" id="RezervacijaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+            <div class="modal-header">
+		<h5 class="modal-title" id="exampleModalCenterTitle">REZERVACIJA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <form name='rezervacija' method='POST' action='<?php echo site_url('FilmKontroler/rezervacija')?>'>
+                        <div id="ovde"></div>
+                           <input type='hidden' name='Idrezervacije' id='Idrezervacije' value=''>
+                        Broj karata:
+                     
+                           <input type='number' id='karte' name='karte' min="1" max="">
+                                <br><br><br>
+                            <button type="submit" name="Login" class="btn btn-warning" style="color: black; font-weight: bold;" >REZERVIŠI KARTE</button>  
+                     </form> 
+
+                </div>               
+            </div>
+        </div>
+    </div>
+</div>
+   
+        
+        
+        
             <div class="row">
                  <br>
             </div>
@@ -174,6 +254,7 @@
             
  <?php  if(!empty($rezervacija)){ ?>
 
+   
 
             <div class='row'>
                 <div class="col" style="font-size:125%;">
@@ -196,17 +277,17 @@
                 <br>
             </div>
 
-            <div class="row" id='komentari'>
-       
+          
+        
                 <?php foreach ($komentari as $kom) {
-                echo "<div class='row' id='komentari'><div class='col-12' style='font-weight: bold;'>". $kom->Username. "</div></div><div class='row'><div class='col-12'>". $kom->TekstKomentara." </div></div><div class='row'><br></div>";
+                echo "<div class='row p-3' id='komentari'><div class='col-12' style='font-weight: bold;'>". $kom->Username. "</div></div><div class='row p-3'><div class='col-12'>". $kom->TekstKomentara." </div></div><div class='row'><br></div>";
             
                 }
                 ?>
-            </div>
+            
 
 
-<!--  AJAX  tutorial by Ljuba MODEL ISTI
+<!--  AJAX  tyutorial by Ljuba MODEL ISTI
   Kontroler -->
 <script>
 
@@ -230,60 +311,9 @@ function dodajKomentarAjax(){
 }
 </script>
 
-
-
-
-
-
-
     </div>
 </div>  
 
 <?php } ?>
 
 <?php endforeach ?>
-
-
-<div class="modal fade" id="RezervacijaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-	<div class="modal-content">
-            <div class="modal-header">
-		<h5 class="modal-title" id="exampleModalCenterTitle">REZERVACIJA</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-            <div class="modal-body">
-            <div class="form-group">
-		<form name='rezervacija' method='POST' action='<?php echo site_url('FilmKontroler/rezervacija')?>'>
-                     <small class="form-group text-muted alert-danger"><?php if(!empty($porukalogin)) echo $porukalogin; // moze i echo $poruka??";"; ?> </small><br>
-                        <span style="font-weight: bold; font-size:125%;" >FESTIVAL </span> 
-                        <span style="font-weight: bold; font-size:125%; color: #f9aa00;"> <?php echo $p->NameFest?> </span>  
-		<br><br>
-			<label for="exampleInputPassword1">Projekcija</label>
-                        <select name='IdRezervacije'>
-                             <?php foreach($projekcije as $p):?>
-                               
-                                <option value=" <?php echo $p->IdProjekcija?>">  <?php echo $p->Date?></option>
-                                   
-                             <?php endforeach ?>
-                         
-                        </select>
-                               
-		<br><br>
-                       
-                    Broj karata:
-                       <input type='number' name='karte'>
-                            <br><br><br>
-			<button type="submit" name="Login" class="btn btn-warning" style="color: black; font-weight: bold;" >REZERVIŠI KARTE</button>  
-                 </form> 
-               
-            </div>               
-            </div>
-        </div>
-    </div>
-</div>
-   
-
-
-
