@@ -145,29 +145,29 @@
             
                 <div class="form-group col-sm-4">
                     <label for="imeFest" class='text-warning'>Naziv festivala:</label>
-                    <input type="text" class="form-control" name="imeFest" placeholder="Unesite naziv festivala..">
+                    <input type="text" class="form-control" id="imeFest" name="imeFest" placeholder="Unesite naziv festivala.." value="<?php echo set_value('imeFest');?>">
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="od" class='text-warning'>Pocetak festivala:</label>
-                    <input type="date" class="form-control" name="od" >
+                    <input type="date" class="form-control" id="od" name="od" value="<?php echo set_value('od');?>">
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="do" class='text-warning'>Kraj festivala:</label>
-                    <input type="date" class="form-control" name="do" >
+                    <input type="date" class="form-control" id="doo" name="do" value="<?php echo set_value('do');?>">
                 </div>
             <div class='row d-flex justify-content-center col-sm-12'>
                 <div class="form-group col-sm-4">
                     <label for="engNaziv" class='text-warning'>Original naziv filma:</label>
-                    <input type="text" class="form-control" name="engNaziv" placeholder="Unesite naziv filma..">
+                    <input type="text" class="form-control" id="engNaziv" name="engNaziv" placeholder="Unesite naziv filma.." value="<?php echo set_value('engNaziv');?>">
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="srbNaziv" class='text-warning'>Srpski naziv filma:</label>
-                    <input type="text" class="form-control" name="srbNaziv" placeholder="Unesite naziv filma..">
+                    <input type="text" class="form-control" id="srbNaziv" name="srbNaziv" placeholder="Unesite naziv filma.." value="<?php echo set_value('srbNaziv');?>">
                 </div>
                     
                 <div class='row'>
                     <div class='buttonBox'>
-                        <input type='submit' name='trazi' value='Pretraga' class=" btn btn-outline-warning">
+                        <input type='submit' name='trazi' value='Pretraga' class=" btn btn-outline-warning" onclick="pretragaFestivala()">
                     </div>
                 </div>
             </div>
@@ -269,7 +269,35 @@
         <?php } ?>
     </section>
    </div>
-  
+  <div class="col  w-30 d-flex list-group list-group-flush justify-content-center text-center" id='rezultat' >
 //<?php
 //echo $this->pagination->create_links();
 //?>
+
+<script>
+    
+function pretragaFestivala(){
+   
+    imeFest = document.getElementById("imeFest").value;  
+    od = document.getElementById("od").value;
+    doo = document.getElementById("do").value;
+    engNaziv = document.getElementById("engNaziv").value;
+    srbNaziv = document.getElementById("srbNaziv").value;
+    
+    if(imeFest=="" && od=="" && doo==""  && engNaziv==""  && srbNaziv=="")
+        return;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("imeFest","od","doo", "engNaziv", "srbNaziv").value ="";  
+          document.getElementById("rezultat").innerHTML= this.responseText;
+      }
+    };
+
+    xhttp.open("POST", "<?php echo site_url('KorisnikKontroler/pretraga'); ?>?imeFest=" + imeFest + "&od=" + od + "&do=" + doo + "engNaziv" + engNaziv + "srbNaziv" + srbNaziv, true); 
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(); 
+}
+
+</script>
