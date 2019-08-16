@@ -46,7 +46,7 @@
 <div class="container-fluid p-0">
     
 <!--donji navbar	style="background-color: #014441;-->  
-        <nav class="navbar navbar-dark sticky-top p-3" id="traka"> 
+        <nav class="nav navbar-dark sticky-top p-1" id="traka"> 
 		<div class="container d-flex justify-content-center">
                     <h3 class="text-light">Projekat</h3>
 		</div>

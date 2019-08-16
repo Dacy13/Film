@@ -25,12 +25,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <link href="<?php echo base_url()?>/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?php echo base_url('/css/bootstrap.css'); ?> " />
 
-    <link href="<?php echo base_url()?>/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?php echo base_url('/css/pe-icon-7-stroke.css'); ?> "  />
 
 <!--     <link href='css/ct-navbar.css' rel='stylesheet' /> -->
-    <link href="<?php echo base_url()?>/css/rotating-card.css" rel="stylesheet" />
+    <link rel="stylesheet"  href="<?php echo base_url('/css/rotating-card.css'); ?>" />
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
@@ -44,13 +44,13 @@
 
 <div class="container-fluid p-0">
     
-<!--donji navbar	style="background-color: #014441;-->  
-        <nav class="navbar navbar-dark sticky-top p-3" id="traka"> 
+<!--gornji navbar	style="background-color: #014441;-->  
+        <nav class="nav navbar-dark sticky-top p-1" id="traka"> 
 		<div class="container d-flex justify-content-center">
                     <h3 class="text-light">Projekat</h3>
 		</div>
 	</nav>
-<!--   top 	login regg nav-->	
+<!--   top nav-->	
 	<nav class="navbar-top d-flex sticky-top text-light m-0 " style="background-color: #f9aa00;">
                     
 		<div class="container d-flex">
@@ -66,8 +66,9 @@
 			</ul>
 	<!--	top right-->
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/logout" ) ?>">Log out</a> </li>
-
+				<li class="nav-item">
+                                    <a class="nav-link text-dark" href="<?php echo site_url( "KorisnikKontroler/logout" ) ?>">Log out</a> 
+                                </li>
 			</ul>
 
 		</div>

@@ -22,19 +22,18 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class='m-0 p-0'>
 
 <div class="container-fluid p-0">
-<?php // echo validation_errors ( ) ;?>
-
-    <!--	donji navbar	--><!--style="background-color: #014441;  -->
-        <nav class="navbar navbar-light p-3" id="traka"> 
-            <div class="container d-flex justify-content-center">
-                <h2 class="text-light">Projekat P.U.F.F.</h2>
-            </div>
+    
+<!--gornji navbar	style="background-color: #014441;-->  
+        <nav class="nav navbar-light p-1" id="traka"> 
+		<div class="container d-flex justify-content-center">
+                    <h3 class="text-light">Projekat</h3>
+		</div>
 	</nav>
     
-<!--   top 	login regg nav-->	
+<!--   donji navbar login/reg -->	
 	<nav class="navbar-top d-flex sticky-top text-light m-0 " style="background-color: #f9aa00;">
 		<div class="container d-flex">
 	<!--	top left-->
@@ -71,7 +70,7 @@
 	<div class="modal fade" id="LoginModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content bg-dark text-light">
-		  <div class="modal-header bg-dark text-light">
+		  <div class="modal-header bg-dark text-light border-warning">
 			<h5 class="modal-title" id="exampleModalCenterTitle">Login</h5>
 			<button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>

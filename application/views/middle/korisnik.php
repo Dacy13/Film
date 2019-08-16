@@ -110,6 +110,7 @@
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+    
     $().ready(function(){
         $('[rel="tooltip"]').tooltip();
         $('a.scroll-down').click(function(e){
