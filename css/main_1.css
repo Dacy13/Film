@@ -1,0 +1,24 @@
+body{
+	
+/*	background-image: url("images/brna.png");*/
+	background: #A9A9A9;
+}
+
+#home{
+	background-color: #f8f8f8;
+	height: 100%;
+}
+
+#jumbo{
+	margin: 0;
+	background-color: #89a3b2;
+}
+
+#slider{
+	 
+}
+.carousel-item{
+	height: auto;
+	width: auto;
+}
+

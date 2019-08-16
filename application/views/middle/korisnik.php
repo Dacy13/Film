@@ -1,6 +1,6 @@
-<!--<body class='bg-dark'>-->
+<body class='bg-dark'>
 <!--prikaz pet najskorijih festivala-->
-<!--proba za rotate card-->
+<!--rotate card-->
 
       <div>
         <h1 class="title text-warning">
@@ -23,10 +23,10 @@
                 <div class="card">
                     <div class="front">
                         <div class="cover">
-                            <img src="<?php echo base_url()?>/slike/fest.png"/>
+                            <img src="<?php echo base_url()?>/images/fest.png"/>
                         </div>
                         <div class="user">
-                            <img class="img-circle" src="<?php echo base_url()?>/slike/fest.png"/>
+                            <img class="img-circle" src="<?php echo base_url()?>/images/bbfest.png"/>
                         </div>
                         <div class="content">
                             <div class="main">
@@ -145,29 +145,29 @@
             
                 <div class="form-group col-sm-4">
                     <label for="imeFest" class='text-warning'>Naziv festivala:</label>
-                    <input type="text" class="form-control" name="imeFest" placeholder="Unesite naziv festivala..">
+                    <input type="text" class="form-control" id="imeFest" name="imeFest" placeholder="Unesite naziv festivala.." value="<?php echo set_value('imeFest');?>">
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="od" class='text-warning'>Pocetak festivala:</label>
-                    <input type="date" class="form-control" name="od" >
+                    <input type="date" class="form-control" id="od" name="od" value="<?php echo set_value('od');?>">
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="do" class='text-warning'>Kraj festivala:</label>
-                    <input type="date" class="form-control" name="do" >
+                    <input type="date" class="form-control" id="doo" name="do" value="<?php echo set_value('do');?>">
                 </div>
             <div class='row d-flex justify-content-center col-sm-12'>
                 <div class="form-group col-sm-4">
                     <label for="engNaziv" class='text-warning'>Original naziv filma:</label>
-                    <input type="text" class="form-control" name="engNaziv" placeholder="Unesite naziv filma..">
+                    <input type="text" class="form-control" id="engNaziv" name="engNaziv" placeholder="Unesite naziv filma.." value="<?php echo set_value('engNaziv');?>">
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="srbNaziv" class='text-warning'>Srpski naziv filma:</label>
-                    <input type="text" class="form-control" name="srbNaziv" placeholder="Unesite naziv filma..">
+                    <input type="text" class="form-control" id="srbNaziv" name="srbNaziv" placeholder="Unesite naziv filma.." value="<?php echo set_value('srbNaziv');?>">
                 </div>
                     
                 <div class='row'>
                     <div class='buttonBox'>
-                        <input type='submit' name='trazi' value='Pretraga' class=" btn btn-outline-warning">
+                        <input type='submit' name='trazi' value='Pretraga' class=" btn btn-outline-warning" onclick="pretragaFestivala()">
                     </div>
                 </div>
             </div>
@@ -176,12 +176,12 @@
    </div>
 
    <!-- ispis rezultata pretrage-->
-   
+
    <div class="container">
 
     <hgroup class="mb20 text-warning">
-        <br>
 		<h1>Rezultati pretrage</h1>
+                <?php if(!empty($filmovi)){ ?>
                 <h2 class="lead">
                     <strong class="text-warning">
                      <?php
@@ -213,26 +213,27 @@
                     </strong>
                 </h2>								
 	</hgroup>
-<?php if(!empty($filmovi)){ ?>
+<?php // if(!empty($filmovi)){ ?>
     <section class="col-xs-12 col-sm-6 col-md-12">
         <?php 
+      
         foreach($filmovi as $f){?>
 		<article class="search-result row ">
 			<div class="col-xs-12 col-sm-12 col-md-3 bg-warning">
                             <br>
-				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="#" alt="Lorem ipsum" /></a>
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="<?php echo base_url()?>/images/bbfest.png"/></a>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-2 bg-warning">
                             <br>
 				<ul class="meta-search">
-					<li><i class="glyphicon glyphicon-calendar text"></i> <span><?php echo $f->StartDate?></span></li>
-					<li><i class="glyphicon glyphicon-calendar"></i> <span><?php echo $f->EndDate?></span></li>
-					<li><i class="glyphicon glyphicon-tags"></i> <span><?php echo $f->CityName?></span></li>
+					<li><i class="glyphicon glyphicon-calendar text"></i> <span><?php echo $f->StartDate; ?></span></li>
+					<li><i class="glyphicon glyphicon-calendar"></i> <span><?php echo $f->EndDate; ?></span></li>
+					<li><i class="glyphicon glyphicon-tags"></i> <span><?php echo $f->CityName; ?></span></li>
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-2 bg-warning">
                             <br>
-				<h3><?php echo $f->NameFest ?></h3>
+				<h3><?php echo $f->NameFest; ?></h3>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3 excerpet bg-warning">
                                 <?php  if(!empty($this->input->post('srbNaziv')) 
@@ -240,11 +241,17 @@
 				<p>
                                    
                                 <ul class="meta-search">
-                                    <li><i class="glyphicon glyphicon-film"></i> <span><?php  echo $f->SerbianTitle?></span></li>
-                                    <li><i class="glyphicon glyphicon-film"></i> <span> <?php  echo $f->OriginalTitle?></span></li>
-                                    <li><i class="glyphicon glyphicon-calendar"></i> <span><?php  echo $f->Date?></span></li>
+                                    <li><i class="glyphicon glyphicon-film"></i> <span><?php  echo $f->SerbianTitle;
+                                            
+                                             ?></span></li>
+                                    <li><i class="glyphicon glyphicon-film"></i> <span> <?php echo $f->OriginalTitle; 
+                                            
+                                        ?></span></li>
+                                    <li><i class="glyphicon glyphicon-calendar"></i> <span><?php echo $f->Date;
+                                            ?></span></li>
                                     <li><i class="glyphicon glyphicon-time"></i> <span><?php    $sat = $f->Time;
                                                                                                 $sati = date("H:i", strtotime($sat));
+                                                                                                
                                                                                                 echo $sati.' h' ?></span></li>
                                 </p>	
                                        <?php } ?>
@@ -262,7 +269,35 @@
         <?php } ?>
     </section>
    </div>
-  
-<?php
-echo $this->pagination->create_links();
-?>
+  <div class="col  w-30 d-flex list-group list-group-flush justify-content-center text-center" id='rezultat' >
+//<?php
+//echo $this->pagination->create_links();
+//?>
+
+<script>
+    
+function pretragaFestivala(){
+   
+    imeFest = document.getElementById("imeFest").value;  
+    od = document.getElementById("od").value;
+    doo = document.getElementById("do").value;
+    engNaziv = document.getElementById("engNaziv").value;
+    srbNaziv = document.getElementById("srbNaziv").value;
+    
+    if(imeFest=="" && od=="" && doo==""  && engNaziv==""  && srbNaziv=="")
+        return;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("imeFest","od","doo", "engNaziv", "srbNaziv").value ="";  
+          document.getElementById("rezultat").innerHTML= this.responseText;
+      }
+    };
+
+    xhttp.open("POST", "<?php echo site_url('KorisnikKontroler/pretraga'); ?>?imeFest=" + imeFest + "&od=" + od + "&do=" + doo + "engNaziv" + engNaziv + "srbNaziv" + srbNaziv, true); 
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(); 
+}
+
+</script>

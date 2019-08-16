@@ -10,10 +10,12 @@ class RegistracijaKontroler extends CI_Controller{
         if($this->session->has_userdata('korisnik')){
             $tip=$this->session->userdata('korisnik')->Type;
 
-            if ($tip=='prodavac') {
+            if ($tip == 'prodavac') {
                 redirect ('ProdavacKontroler');
-
-            }       
+            }
+            elseif ($tip == 'admin') {
+                redirect ('AdminKontroler');
+            }    
             else {
                 redirect ('KorisnikKontroler');
             }
