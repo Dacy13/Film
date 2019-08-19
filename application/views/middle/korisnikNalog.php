@@ -13,7 +13,7 @@
         <div class="form-group row">
             <label for="inputUsername" class="col-sm-2 col-form-label text-warning">Username: </label>
                 <div class="col-sm-10">
-                    <input type="email" class="col-sm-2 form-control" name="username" disabled value="<?php echo $p->Username ?? "" ?>">
+                    <input type="email" class="col-sm-2 form-control" id="id" name="username" disabled value="<?php echo $p->Username ?? "" ?>">
                     
                 </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="form-group row">
             <label for="inputBroj" class="col-sm-2 col-form-label text-warning">Broj telefona: </label>
                 <div class="col-sm-10">
-                    <input type="text" class="col-sm-2 form-control" name="broj" value="<?php echo $p->Mobile ?? ""; ?>">
+                    <input type="text" id= "broj" class="col-sm-2 form-control" name="broj" value="<?php echo $p->Mobile ?? ""; ?>">
                     <div class="text-warning"><?php echo form_error ( "broj" ); ?></div>
                 </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="form-row">
             <label for="#" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input type="submit" name="izmeni" class="btn btn-outline-warning" value="Izmeni podatke">
+                <input type="submit" name="izmeni" class="btn btn-outline-warning" value="Izmeni podatke" onclick="update()">
             </div>
         </div>
         <?php } 
@@ -84,3 +84,16 @@
     </form>
     </div>
 </div>
+ <script>
+  function update(){
+            
+            xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function(){
+                if(this.readyState==4&&this.status==200){
+                    document.getElementById("broj").innerHTML=this.responseText;
+                }
+            }
+            xmlhttp.open("POST", "<?php echo site_url('KorisnikKontroler/izmena')?>?broj=" + broj, true);
+            xmlhttp.send();   
+            }
+</script>

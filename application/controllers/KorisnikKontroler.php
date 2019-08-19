@@ -135,11 +135,13 @@ class KorisnikKontroler extends CI_Controller {
        
     public function izmena(){
       
-        if(!empty(($this->input->post('izmeni')))){
+        //if(!empty(($this->input->post('izmeni')))){
             
                 $id = $this->session->korisnik->Username;
                 $sifra = $this->session->korisnik->Password;
                 
+               // $id = $this->input->post('username');
+            
                 $ime = $this->input->post('ime');
                 $prezime = $this->input->post('prezime');
                 $broj = $this->input->post('broj');
@@ -198,7 +200,7 @@ class KorisnikKontroler extends CI_Controller {
                                  $this->KorisnikModel->updateBez($id, $ime, $prezime, $broj, $mejl, $pass);
                             }
                     }
-        }     
+       // }     
         $this->nalog();   
     }
 

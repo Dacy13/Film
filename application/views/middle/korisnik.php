@@ -89,7 +89,7 @@
                             
                             <div class="social-links text-center">
                                 <a href="#" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
-                                <a href="#" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
+                                <a href="#" class="instagram"><i class="fa fa-instagram fa-fw"></i></a>
                                 <a href="#" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
                             </div>
                         </div>
