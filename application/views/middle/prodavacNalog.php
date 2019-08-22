@@ -6,7 +6,7 @@
         <div class="form-group row">
             <label for="inputUsername" class="col-sm-2 col-form-label">Username:</label>
                 <div class="col-sm-10">
-                    <input type="email" class="col-sm-2 col-form-label" name="username" disabled value="<?php echo $p->Username ?? "" ?>">
+                    <input type="text" class="col-sm-2 col-form-label" name="username" disabled value="<?php echo $p->Username ?? "" ?>">
                 </div>
         </div>
         <div class="form-group row">

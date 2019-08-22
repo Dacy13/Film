@@ -6,8 +6,6 @@ class ProdavacKontroler extends CI_Controller {
     public function __construct() { 
         parent::__construct();
         $this->load->model('KorisnikModel');
-        $this->load->model('ProdavacModel');
-        
         $this->load->library ('pagination');
         
         if(!$this->session->has_userdata('korisnik')){
@@ -17,17 +15,17 @@ class ProdavacKontroler extends CI_Controller {
         if ($tip=='user') {
              redirect ('User');
         }
-       
+        $this->load->model('ProdavacModel');
        
     }
     
     public function index(){
         $rezervacije= $this->SveRezervacije();
-       
+       $search= $this->search();
 }
     public function logout(){
         $this->session->sess_destroy();
-        redirect('LoginKontroler');
+        redirect('Login');
     }
     
     public function SveRezervacije () {
@@ -49,7 +47,7 @@ class ProdavacKontroler extends CI_Controller {
         $config['per_page'] = LIMIT_PO_STRANICI;
         $this->pagination->initialize($config);
         
-        $data['middle']= 'middle/prodavac';
+        $data['middle']='middle/prodavac';
         $data['middle_podaci']=['rezervacije'=>$rezervacije]; 
         
         $this->load->view('basicTemplate', $data);
@@ -109,15 +107,8 @@ class ProdavacKontroler extends CI_Controller {
                 $pass = $this->input->post('password');
                 $novip= $this->input->post('novip');
                 $potvrda= $this->input->post('potvrda');
-                
-                $bazaBroj = $this->ProdavacModel->dohvatiBroj($id);
-                
-                if( strcmp($broj, $bazaBroj)) {
-                    $is_unique =  '|is_unique[korisnici.Mobile]';
-                    } else {
-                    $is_unique =  '';
-                        }
-                
+                 
+                 
                 $this->form_validation->set_message('required', 'Polje {field} je obavezno');
                 $this->form_validation->set_message('min_length', 'Polje {field} mora imati najmanje {param} karaktera');
                 $this->form_validation->set_message('max_length', 'Polje {field} mora imati najvise {param} karaktera');
@@ -133,7 +124,7 @@ class ProdavacKontroler extends CI_Controller {
                 $this->form_validation->set_rules ( "ime", "ime", "trim|required|min_length[5]|max_length[15]|callback_specijalni_znakovi");
                 $this->form_validation->set_rules ( "prezime", "prezime", "trim|required|min_length[5]|max_length[15]|callback_specijalni_znakovi");
                 
-                $this->form_validation->set_rules ( "broj",   "Broj mobilnog telefona",   "trim|required|is_natural|regex_match['(06)(\d)(\d){3}(\d){3,4}']".$is_unique);
+                $this->form_validation->set_rules ( "broj",   "Broj mobilnog telefona",   "trim|required|is_natural|regex_match['(06)(\d)(\d){3}(\d){3,4}']|callback_check_mobile ");
                 $this->form_validation->set_rules ( "mejl", "Email", "trim|required|valid_email");
                 
                 
@@ -151,7 +142,7 @@ class ProdavacKontroler extends CI_Controller {
                 $this->form_validation->set_rules ( "ime", "ime", "trim|required|min_length[5]|max_length[15]|callback_specijalni_znakovi");
                 $this->form_validation->set_rules ( "prezime", "prezime", "trim|required|min_length[5]|max_length[15]|callback_specijalni_znakovi");
                 
-                $this->form_validation->set_rules ( "broj",   "Broj mobilnog telefona",   "trim|required|is_natural|regex_match['(06)(\d)(\d){3}(\d){3,4}']".$is_unique);
+                $this->form_validation->set_rules ( "broj",   "Broj mobilnog telefona",   "trim|required|is_natural|regex_match['(06)(\d)(\d){3}(\d){3,4}']|callback_check_mobile");
                 $this->form_validation->set_rules ( "mejl", "Email", "trim|required|valid_email");
              
                if ($this->form_validation->run() == TRUE) {
@@ -216,6 +207,95 @@ class ProdavacKontroler extends CI_Controller {
         return true;
          }
      }
+     
+     public function check_mobile () {      
+        $broj = $this->input->post('broj');
+        $username = $this->session->korisnik->Username;        
+        $result = $this->ProdavacModel->check_mobile($username, $broj);
+        
+        if($result!==0) {
+          return true;
+        }
+        else {
+            $this->form_validation->set_message('check_mobile', 'Broj mobilnog telefona već postoji u bazi!');
+            return false;
+        }
+       
+     }
+     
+     public function search () {
+         if(!empty($_POST['trazi'])) {
+         $imeKor= $this->input->post('imeKor');
+         $prezimeKor=$this->input->post('prezimeKor');
+         $search=$this->ProdavacModel->pretraga($imeKor, $prezimeKor);
+          $data['middle']='middle/prodavac';
+        $data['middle_podaci']=['search'=>$search]; 
+        
+        $this->load->view('basicTemplate', $data);        
+         
+
+               }
+     }
+     
+        public function predlog () {
+                $rezultat="";
+                $name=$this->input->get('ime');
+                $imena=$this->ProdavacModel->imena($name);
+               
+                if(empty($name)){
+                $rezultat="";
+                }
+                
+                else {
+                    
+                    foreach($imena as $row){
+                    $ime=$row->Name;
+                    $rezultat.="<div class='predlog' "
+                        . "onclick='izbor(\"$ime\")'>$ime</div>";
+  
+    }   
+               echo $rezultat;     
+               
+        }
+
+        }
+        
+       public function predlogPrezime () {
+                $rezultatPrezime="";
+                $surname=$this->input->get('prezime');
+                $prezimena=$this->ProdavacModel->prezimena($surname);
+               
+                if(empty($surname)){
+                $rezultatPrezime="";
+                }
+                
+                else {
+                    
+                    foreach($prezimena as $p){
+                    $prezime=$p->Surname;
+                    $rezultatPrezime.="<div class='predlog' "
+                        . "onclick='izborPrezime(\"$prezime\")'>$prezime</div>";
+  
+    }   
+               echo $rezultatPrezime;     
+               
+        }
+
+        }
+        
+        public function search2 () {
+            if(!empty($_POST['trazi'])) {
+         $imeKor= $this->input->post('imeKor');
+         $prezimeKor=$this->input->post('prezimeKor');
+         $search=$this->ProdavacModel->pretraga2($imeKor, $prezimeKor);
+          $data['middle']='middle/rezervisanekarte';
+        $data['middle_podaci']=['search'=>$search]; 
+        
+        $this->load->view('basicTemplate', $data);      
+               }
+            
+            
+        }
          
      }
    
