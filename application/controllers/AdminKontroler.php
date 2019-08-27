@@ -180,75 +180,90 @@ class AdminKontroler extends CI_Controller {
 //   projekcije      //////////////////////////
    public function projekcije() {
 
-      $IdFest = $this->input->get('id', TRUE); // OVO JE VAZNO; sa ovim je bilo OZBILjNOG (by Dejan Jolovic)
-//       $festival=$this->AdminModel->sviFestivali($IdFest);
+      $IdFest     = $this->input->get('id', TRUE); // OVO JE VAZNO; sa ovim je bilo OZBILjNOG (by Dejan Jolovic)
       $projekcije = $this->AdminModel->sveProjekcije($IdFest);
-      $lokacije = $this->AdminModel->sveLokacije();
-//       $data=['lokacije'=>$lokacije];
-      $filmovi = $this->AdminModel->sviFilmovi();
-      $festivali = $this->AdminModel->sviFestivali();
-
+      $lokacije   = $this->AdminModel->sveLokacije();
+      $filmovi    = $this->AdminModel->sviFilmovi();
+      $festivali  = $this->AdminModel->dohvatiFestival($IdFest);
+      
       $data = ['projekcije' => $projekcije, 'lokacije' => $lokacije, 'filmovi' => $filmovi, 'festivali' => $festivali];
-//        $this->load->view('middle/admin/projekcije', $data);  
-
       $data['middle'] = 'middle/admin/projekcije';
+      
       $this->load->view("basicTemplate", $data);
    }
 
    public function dodajProjekcije() {
 
-      $IdFest = $this->input->get('id', TRUE);
+      $IdFest     = $this->input->get('id', TRUE);
       $projekcije = $this->AdminModel->sveProjekcije($IdFest);
-      $lokacije = $this->AdminModel->sveLokacije();
-      $festivali = $this->AdminModel->sviFestivali();
+      $lokacije   = $this->AdminModel->sveLokacije();
+      $festivali  = $this->AdminModel->sviFestivali();
 
       $data = ['festivali' => $festivali];
       $data = ['lokacije' => $lokacije];
       $data = ['projekcije' => $projekcije];
-//      $this->load->view('middle/admin/projekcije');
       $data['middle'] = 'middle/admin/projekcije';
+      
       $this->load->view("basicTemplate", $data);
 
       if ($this->input->post('dodajP')) {
-
-         $datum = $this->input->post("datum");
-         $vreme = $this->input->post("vreme");
+          
+//         $festId = $this->input->post("hiddenId" );
+         $IdFest = $this->input->post('hiddenId');
+         $datum  = $this->input->post("datum");
+         $vreme  = $this->input->post("vreme");
          $karata = $this->input->post("karata");
-         $fest = $this->input->post("lokacija");
-         $film = $this->input->post("film");
-         $saleP = $this->input->post("saleP");
+         $film   = $this->input->post("film");
+         $saleP  = $this->input->post("saleP");
+         $cena   = $this->input->post("cena");
 
-//         var_dump($fest);
-//         var_dump($film);
-//         var_dump($saleP);
-//         var_dump($film);
-         $this->AdminModel->dodajProjekciju($datum, $vreme, $karata, $fest, $film, $saleP);
-//         redirect('AdminKontroler/dodajProjekcije');
+         $this->AdminModel->dodajProjekciju($IdFest, $datum, $vreme, $karata, $film, $saleP, $cena);
+         redirect('AdminKontroler/index');
       }
    }
 
+//   public function izmeniProjekciju(){
+//       
+//      $IdFest     = $this->input->get('id', TRUE);
+//      $projekcije = $this->AdminModel->sveProjekcije($IdFest);
+//      $lokacije   = $this->AdminModel->sveLokacije();
+//      $festivali  = $this->AdminModel->sviFestivali();
+//
+//      $data = ['festivali' => $festivali];
+//      $data = ['lokacije' => $lokacije];
+//      $data = ['projekcije' => $projekcije];
+//      $data['middle'] = 'middle/admin/projekcije';
+//      
+//      $this->load->view("basicTemplate", $data);
+//
+//      if ($this->input->post('izmeniP')) {
+//          
+////         $festId = $this->input->post("hiddenId" );
+//         $IdFest = $this->input->post('hiddenId');
+//         $datum  = $this->input->post("datum");
+//         $vreme  = $this->input->post("vreme");
+//         $karata = $this->input->post("karata");
+//         $film   = $this->input->post("film");
+//         $saleP  = $this->input->post("saleP");
+//         $cena   = $this->input->post("cena");
+//
+//         $this->AdminModel->izmeniProjekciju($IdFest, $datum, $vreme, $karata, $film, $saleP, $cena);
+//         redirect('AdminKontroler/index');
+//      }
+//       
+//       
+//   }
+   
    public function projekcijuOtkazi() {
-      $idPro = $this->input->post('id');     
-      
+       
+      $idPro = $this->input->post('id');  
+           
       $data = ['projekcije' => $projekcije];
       $data['middle'] = 'middle/admin/projekcije';
       $this->load->view("basicTemplate", $data);
-    
       
-       print_r($idPro);
-      $this->AdminModel->otkaziProjekciju($idPro);
-      
-     
-   }
-
-//      korisnik funkcije ////////////s
-
-   public function logout() {
-
-      $this->session->sess_destroy();
-      redirect('LoginKontroler');
-   }
-
+      $this->AdminModel->otkaziProjekciju($idPro);    
+   }  
 }
 
 ?>
