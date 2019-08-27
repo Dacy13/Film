@@ -122,56 +122,67 @@ class AdminModel extends CI_Model {
    }
 
 //  projekcije funkcije //////////////////////////////////////////
-   public function sveProjekcije($IdFest) {
+    public function sveProjekcije($IdFest) {
 
-//        $this->db->select('*');
-//        $this->db->from('festivali');
-//        $this->db->join('projekcije', 'festivali.IdFest = projekcije.IdFest');
-//        $this->db->join('filmovi', 'filmovi.IdFilm = projekcije.IdFilm');
+        $this->db->select("*");
+        $this->db->from("projekcije");
+        $this->db->join("filmovi", "filmovi.IdFilm=projekcije.IdFilm");
+        $this->db->join("festivali", "festivali.IdFest=projekcije.IdFest");
+        $this->db->join("gradovi", "gradovi.IdGrad=festivali.IdGrad");
+        $this->db->join("sale", "sale.IdSale=projekcije.IdSale");
+        $this->db->join("lokacije", "lokacije.IdLocation=sale.IdLocation");
+        $this->db->join("ulaznice", "ulaznice.IdProjekcija = projekcije.IdProjekcija");
+        $this->db->where("festivali.IdFest", $IdFest);
+        $this->db->order_by('projekcije.Date', 'ASC');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function dodajProjekciju($IdFest, $datum, $vreme, $karata, $film, $saleP, $cena) {
+
+        $data = [
+            "Date"    => $datum,
+            "Time"    => $vreme,
+            "Tickets" => $karata,
+            "IdFest"  => $IdFest,
+            "IdFilm"  => $film,
+            "IdSale"  => $saleP
+        ];
+        $this->db->insert("projekcije", $data);
+
+        $data1 = [
+            "Cena" => $cena,
+            "IdProjekcija" => $this->db->insert_id()
+        ];
+        $this->db->insert("ulaznice", $data1);
+
+    }
+    
+//    public function izmeniProjekciju($IdFest, $datum, $vreme, $karata, $film, $saleP, $cena) {
 //
-//        return $this->db->get()->result_array();
-      $this->db->select("*");
-      $this->db->from("projekcije");
-      $this->db->join("filmovi", "filmovi.IdFilm = projekcije.IdFilm");
-      $this->db->join("festivali", "festivali.IdFest = projekcije.IdFest");
-      $this->db->join("gradovi", "gradovi.IdGrad = festivali.IdGrad");
-      $this->db->join("sale", "sale.IdSale = projekcije.IdSale");
-      $this->db->join("lokacije", "lokacije.IdLocation = sale.IdLocation");
-      $this->db->join("ulaznice", "ulaznice.IdUlaznice = projekcije.IdProjekcija");
-      $this->db->where("festivali.IdFest", $IdFest);
+//        $data = [
+//            "Date"    => $datum,
+//            "Time"    => $vreme,
+//            "Tickets" => $karata,
+//            "IdFest"  => $IdFest,
+//            "IdFilm"  => $film,
+//            "IdSale"  => $saleP
+//        ];
+//        $this->db->update("projekcije", $data);
+//
+//        $data1 = [
+//            "Cena" => $cena,
+//            "IdProjekcija" => $this->db->insert_id()
+//        ];
+//        $this->db->update("ulaznice", $data1);
+//
+//    }
+    
 
-      return $this->db->get()->result_array();
-//        return $query->result();       
-   }
+    public function otkaziProjekciju($idPro) {
 
-   public function dodajProjekciju($datum, $vreme, $karata, $fest, $film, $saleP) {
-
-      $data = [
-      "Date" => $datum,
-      "Time" => $vreme,
-      "Tickets" => $karata,
-      "IdFest" => $fest,
-      "IdFilm" => $film,
-      "IdSale" => $saleP
-      ];
-      var_dump($data);
-
-      $this->db->where("IdFest", $IdFest);
-      return $this->db->insert("projekcije", $data);
-   }
-
-   public function otkaziProjekciju($idPro) {
-
-//      $pod = array('StatusRez' => $status);
-//      $this->db->where('IdProjekcija', $idPro);
-//      $this->db->delete('projekcije');
-//      $podaci = array('IdProjekcija', $idPro);
-//      var_dump($podaci);
-//      return $this->db->delete('projekcije', $podaci);
-      
-      $this->db->delete('projekcije', array('IdProjekcija' => $idPro));
-      
-   }
+        $this->db->delete('projekcije', array('IdProjekcija' => $idPro));
+    }
 
 }
 
