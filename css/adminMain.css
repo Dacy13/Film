@@ -36,28 +36,49 @@ body,html{
 }
 
 #traka{
-    background-image: url("../images/traka2.jpg");
+    background-image: url("../images/vt2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #content{
-    background-image: url("../images/vt2.jpg");
-    min-height: 550px;
+    /*background-image: url("../images/vt2.png");*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 750px;
     height: 100%;
     /*height: auto;*/
     background-color: #dedede;
+    width: 100%;
 }
 
 #rezultat{
+    
+    min-height: 750px;
     height: 100%;
 }
 
 #ajax{
-    min-height: 450px;
-    height: 100%;
+    min-height: 750px;
+/*    height: auto;*/
+    width: 100%;
 }
 
 #result{
-    min-height: 450px;
+    min-height: 750px;
+    height: 100%;
+    width: 100%;  
+}
+
+#admin{
+    min-height: 750px;
+    height: 100%;
+    width: 100%;
+}
+#apanel{
+    min-height: 750px;
     height: 100%;
     
+    
+/*    width: 450px;*/
 }
