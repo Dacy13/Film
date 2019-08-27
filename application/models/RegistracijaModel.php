@@ -2,8 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class RegistracijaModel extends CI_Model{
+    
+   public function __construct() {
+        parent::__construct();
+        
+        $this->load->database ( );
+   }
 
-   public function register ( $korIme, $password, $ime, $prezime, $rodjendan, $mobilni, $email ) {
+   public function registruj ( $korIme, $password, $ime, $prezime, $rodjendan, $mobilni, $email ) {
         
         $data=[         
             "Username"    => $korIme,
