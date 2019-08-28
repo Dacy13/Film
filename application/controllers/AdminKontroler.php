@@ -264,6 +264,13 @@ class AdminKontroler extends CI_Controller {
       
       $this->AdminModel->otkaziProjekciju($idPro);    
    }  
+	
+//    logout 
+	public function logout(){
+        
+        $this->session->sess_destroy();
+        redirect('LoginKontroler');
+    }
 }
 
 ?>
