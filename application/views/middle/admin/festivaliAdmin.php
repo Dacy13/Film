@@ -11,10 +11,10 @@
                   <th scope="col">Festival</th>
                   <th scope="col">Od</th>
                   <th scope="col">Do</th>
-                  <th scope="col">Opis</th>
-                  <th scope="col">Projekcije</th>
+                  <th scope="col">Opis</th>                 
                   <th scope="col">MaxTickets</th>
                   <th scope="col">Grad</th>
+                  <th scope="col">Projekcije</th>
                   <th scope="col">Izmeni</th>
                </tr>
             </thead>
