@@ -140,6 +140,7 @@ class RegistracijaKontroler extends CI_Controller {
 
    public function password_two_same_char($str) {
       if (preg_match_all("#(.)\1#", $str)) {
+			// if (!preg_match_all("#([a-z])\1#", $str)) { /* Drazen */
          return false;
       }
       return true;
